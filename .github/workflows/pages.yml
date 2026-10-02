@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+# GitHub Pages for this repo serves the gh-pages branch (root).
+# Every push to main is mirrored to gh-pages, which triggers the Pages build.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mirror main to gh-pages
+        run: git push --force origin HEAD:refs/heads/gh-pages
