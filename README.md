@@ -8,3 +8,4 @@ Plain static site, no build step. Deployed to GitHub Pages by `.github/workflows
 - `assets/Terrell_Francis_Resume.pdf`: resume (PDF)
 - `assets/fonts/`: self-hosted Inter + Instrument Serif (Latin subset, woff2, SIL OFL)
 - `assets/og-image.png` (1200x630), `assets/favicon.svg`, `assets/apple-touch-icon.png`
+- `assets/tkhub-logo.png`: TK Hub LLC logo (footer), cropped from https://tkhub.app/logos/tkhub.png

@@ -3,8 +3,21 @@
   const toggle = document.querySelector('.nav-toggle');
   const links = document.getElementById('nav-links');
 
-  // Sticky header shadow
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const toTopBtn = document.querySelector('.back-to-top');
+  const topAnchor = document.getElementById('top');
+
+  // Sticky header shadow + floating back-to-top visibility
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+    if (toTopBtn) toTopBtn.classList.toggle('show', window.scrollY > 600 && !footerInView);
+  };
+  // The footer has its own "Back to top" link, so the floating button steps aside there.
+  let footerInView = false;
+  const footer = document.querySelector('.site-footer');
+  if (footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { footerInView = entry.isIntersecting; onScroll(); }).observe(footer);
+  }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -17,6 +30,18 @@
   links.addEventListener('click', (e) => { if (e.target.closest('a')) closeMenu(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
+  // Back to top: scroll to the very top (the header is sticky, so it can't be the scroll target)
+  // and move keyboard focus back to the start of the page.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href="#top"]');
+    if (!a) return;
+    e.preventDefault();
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    if (topAnchor) topAnchor.focus({ preventScroll: true });
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  });
+
   // Reveal on scroll (staggered within groups)
   const items = document.querySelectorAll('.reveal');
   const groups = new Map();
@@ -26,7 +51,7 @@
     el.style.setProperty('--d', `${Math.min(i, 6) * 70}ms`);
     groups.set(parent, i + 1);
   });
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if ('IntersectionObserver' in window && !reduceMotion.matches) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
