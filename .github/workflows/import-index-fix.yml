@@ -1,0 +1,40 @@
+name: Import index.html fix (one-time)
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/index-fix.txt', '.github/workflows/import-index-fix.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download, verify (sha256) and commit index.html
+        run: |
+          set -euo pipefail
+          test -f .github/index-fix.txt || { echo "nothing to import"; exit 0; }
+          url=$(sed -n 1p .github/index-fix.txt)
+          sha=$(sed -n 2p .github/index-fix.txt)
+          ok=0
+          for u in $(curl -fsSL -A "Mozilla/5.0" "$url" | grep -oE 'href="https://tmpfiles[.]org/dl/[^"]*"' | sed -E 's/^href="//; s/"$//' | sort -u) "$url"; do
+            echo "trying: $u"
+            curl -fsSL -A "Mozilla/5.0" -e "$url" "$u" -o /tmp/import.tgz || continue
+            ls -l /tmp/import.tgz
+            if echo "$sha  /tmp/import.tgz" | sha256sum -c -; then ok=1; break; fi
+          done
+          [ "$ok" = 1 ] || { echo "no matching download"; exit 1; }
+          tar -tzf /tmp/import.tgz
+          tar --no-same-owner -xzf /tmp/import.tgz -C .
+          echo "6938458d6be1dbbcc4d7f90983b2e180a097e917e692f8d50d8168bd01303530  index.html" | sha256sum -c -
+          ls -l index.html
+          git rm -q .github/index-fix.txt
+          git add index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Restore index.html (fix corrupted ampersands/NUL bytes from 0ec2b03)"
+          git push
