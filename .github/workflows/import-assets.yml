@@ -3,7 +3,7 @@ name: Import site files (one-time)
 on:
   push:
     branches: [main]
-    paths: ['.github/assets-import.txt']
+    paths: ['.github/assets-import.txt', '.github/workflows/import-assets.yml']
   workflow_dispatch:
 
 permissions:
@@ -20,8 +20,9 @@ jobs:
           test -f .github/assets-import.txt || { echo "nothing to import"; exit 0; }
           url=$(sed -n 1p .github/assets-import.txt)
           sha=$(sed -n 2p .github/assets-import.txt)
-          curl -fsSL "$url" -o /tmp/assets.tar
-          echo "$sha  /tmp/assets.tar" | sha256sum -c -
+          curl -fsSL -A "Mozilla/5.0" "$url" -o /tmp/assets.tar
+          ls -l /tmp/assets.tar; file /tmp/assets.tar; sha256sum /tmp/assets.tar
+          if ! echo "$sha  /tmp/assets.tar" | sha256sum -c -; then head -c 600 /tmp/assets.tar | strings | head -20; exit 1; fi
           tar -xvf /tmp/assets.tar
           git rm -q .github/assets-import.txt
           git add -A
