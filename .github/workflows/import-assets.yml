@@ -1,0 +1,31 @@
+name: Import site files (one-time)
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/assets-import.txt']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download, verify and commit assets
+        run: |
+          set -euo pipefail
+          test -f .github/assets-import.txt || { echo "nothing to import"; exit 0; }
+          url=$(sed -n 1p .github/assets-import.txt)
+          sha=$(sed -n 2p .github/assets-import.txt)
+          curl -fsSL "$url" -o /tmp/assets.tar
+          echo "$sha  /tmp/assets.tar" | sha256sum -c -
+          tar -xvf /tmp/assets.tar
+          git rm -q .github/assets-import.txt
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add site files (HTML, CSS, JS, resume PDF, fonts, images)"
+          git push
