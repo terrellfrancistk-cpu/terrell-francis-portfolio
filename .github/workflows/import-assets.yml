@@ -20,9 +20,14 @@ jobs:
           test -f .github/assets-import.txt || { echo "nothing to import"; exit 0; }
           url=$(sed -n 1p .github/assets-import.txt)
           sha=$(sed -n 2p .github/assets-import.txt)
-          curl -fsSL -A "Mozilla/5.0" "$url" -o /tmp/assets.tar
-          ls -l /tmp/assets.tar; file /tmp/assets.tar; sha256sum /tmp/assets.tar
-          if ! echo "$sha  /tmp/assets.tar" | sha256sum -c -; then head -c 600 /tmp/assets.tar | strings | head -20; exit 1; fi
+          ok=0
+          for u in "$url" $(curl -fsSL -A "Mozilla/5.0" "$url" | grep -oE '(href|src|action)="[^"]*site-files\.tar[^"]*"' | sed -E 's/^[a-z]+="//; s/"$//' | sed -E 's#^/#https://tmpfiles.org/#' | sort -u); do
+            echo "trying: $u"
+            curl -fsSL -A "Mozilla/5.0" -e "$url" "$u" -o /tmp/assets.tar || continue
+            ls -l /tmp/assets.tar; file /tmp/assets.tar
+            if echo "$sha  /tmp/assets.tar" | sha256sum -c -; then ok=1; break; fi
+          done
+          [ "$ok" = 1 ] || { echo "no matching download"; curl -fsSL -A "Mozilla/5.0" "$url" | grep -oE '(href|src|action)="[^"]*"' | head -40; exit 1; }
           tar -xvf /tmp/assets.tar
           git rm -q .github/assets-import.txt
           git add -A
