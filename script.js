@@ -81,4 +81,88 @@
   };
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
   spy();
+
+  // ---------- Motion & polish layer (2026-10 redesign) ----------
+  const rm = reduceMotion.matches;
+
+  // Staggered word reveal for the hero headline
+  const h1 = document.querySelector('.hero h1');
+  if (h1 && !rm) {
+    let i = 0;
+    const wrap = (node) => { const w = document.createElement('span'); w.className = 'w'; node.style.setProperty('--i', i++); w.appendChild(node); return w; };
+    [...h1.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+          const s = document.createElement('span'); s.textContent = part; frag.appendChild(wrap(s));
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) {
+        const ph = document.createTextNode(''); h1.replaceChild(ph, n); h1.replaceChild(wrap(n), ph);
+      }
+    });
+    h1.setAttribute('aria-label', h1.textContent.replace(/\s+/g, ' ').trim());
+    h1.classList.add('split');
+    requestAnimationFrame(() => requestAnimationFrame(() => h1.classList.add('in')));
+  }
+
+  // Reading progress bar + timeline fill
+  let bar = document.querySelector('.scroll-progress');
+  if (!bar) { bar = document.createElement('div'); bar.className = 'scroll-progress'; bar.setAttribute('aria-hidden', 'true'); document.body.prepend(bar); }
+  const tl = document.querySelector('.timeline');
+  let fill = null;
+  if (tl) { fill = document.createElement('span'); fill.className = 'tl-progress'; fill.setAttribute('aria-hidden', 'true'); tl.prepend(fill); }
+  let raf = false;
+  const progress = () => {
+    raf = false;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+    if (fill) {
+      const r = tl.getBoundingClientRect();
+      const p = Math.min(Math.max((window.innerHeight * 0.6 - r.top) / r.height, 0), 1);
+      fill.style.height = `${p * Math.max(r.height - 16, 0)}px`;
+    }
+  };
+  window.addEventListener('scroll', () => { if (!raf) { raf = true; requestAnimationFrame(progress); } }, { passive: true });
+  window.addEventListener('resize', progress, { passive: true });
+  progress();
+
+  // Count-up on impact metrics (always ends on the exact original text)
+  const countUp = (el) => {
+    const final = el.textContent;
+    const m = final.match(/^(\D*?)(\d+(?:\.\d+)?)(.*)$/);
+    if (!m) return;
+    const end = parseFloat(m[2]), dec = (m[2].split('.')[1] || '').length, t0 = performance.now(), dur = 1400;
+    el.setAttribute('aria-label', final);
+    const step = (t) => {
+      const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = p < 1 ? m[1] + (end * e).toFixed(dec) + m[3] : final;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  if (!rm && 'IntersectionObserver' in window) {
+    const cio = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { countUp(en.target); cio.unobserve(en.target); } }), { threshold: 0.4 });
+    document.querySelectorAll('.metric-num').forEach((n) => cio.observe(n));
+  }
+
+  // Hero card: walk the implementation phases one by one
+  const phases = document.querySelector('.phase-list');
+  if (phases && !rm) {
+    phases.classList.add('phase-anim');
+    requestAnimationFrame(() => requestAnimationFrame(() => phases.classList.add('go')));
+  }
+
+  // Cursor-follow glow on cards (fine pointers only)
+  if (!rm && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.case, .principle, .product, .edu-card').forEach((c) => {
+      c.addEventListener('pointermove', (e) => {
+        const r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        c.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+  }
 })();
