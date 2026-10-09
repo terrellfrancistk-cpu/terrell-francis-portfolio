@@ -1,6 +1,6 @@
 # Terrell Francis: portfolio site (static)
 
-Live: https://terrellfrancistk-cpu.github.io/terrell-francis-portfolio/
+Live: https://terrellfrancis.app/
 
 Plain static site, no build step. Deployed to GitHub Pages by `.github/workflows/pages.yml`.
 
