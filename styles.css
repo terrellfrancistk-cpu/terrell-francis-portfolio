@@ -237,6 +237,29 @@ strong { color: var(--ink); font-weight: 650; }
 .par-a { background: var(--accent-soft); color: var(--accent-ink); }
 .par-r { background: #E7F6EF; color: #136B47; }
 
+/* One case on stage. Without JS every case stays in the page. */
+.chapter-nav { display: none; }
+.js .chapters { display: grid; grid-template-columns: minmax(250px, 330px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.js .chapter-nav { display: flex; flex-direction: column; gap: 6px; position: sticky; top: 90px; }
+.js .chapter-panels .case:not(.is-on) { display: none; }
+.js .chapter-panels .case.reveal { opacity: 1; transform: none; }
+.chapter-tab {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center;
+  width: 100%; text-align: left; font: inherit; color: var(--text);
+  background: transparent; border: 1px solid transparent; border-radius: 14px; padding: 12px;
+  cursor: pointer;
+}
+.chapter-tab[aria-selected="true"] { background: #fff; border-color: var(--line); box-shadow: var(--shadow-sm); }
+.chapter-tab-num { font-family: var(--serif); font-style: italic; font-size: 1.4rem; line-height: 1; color: var(--accent); }
+.chapter-tab-title { display: block; font-size: 14.5px; font-weight: 680; letter-spacing: -0.02em; line-height: 1.3; color: var(--ink); }
+.chapter-tab-meta { display: block; margin-top: 2px; font-size: 12px; font-weight: 550; color: var(--muted); }
+.chapter-tab-stat { font-family: var(--serif); font-style: italic; font-size: 1.35rem; line-height: 1; color: var(--ink); }
+.js .chapter-panels .case-stat span { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(3rem, 5vw, 4.5rem); letter-spacing: -0.04em; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .chapter-panels .case.is-on { animation: chapterIn .42s cubic-bezier(.2, .7, .2, 1); }
+}
+@keyframes chapterIn { from { opacity: 0; transform: translateY(12px); } }
+
 /* Products (TK Hub LLC) */
 .owned { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0 0 36px; padding: 22px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); }
 .owned li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: start; }
@@ -379,6 +402,13 @@ strong { color: var(--ink); font-weight: 650; }
   .nav-links li:last-child { margin: 8px 0 0; }
   .nav-links .btn { width: 100%; justify-content: center; }
   .hero { min-height: 0; padding: 40px 0 48px; }
+  .js .chapters { grid-template-columns: 1fr; }
+  .js .chapter-nav {
+    position: static; flex-direction: row; overflow-x: auto; gap: 8px; padding-bottom: 4px; scroll-snap-type: x mandatory;
+    -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent);
+            mask-image: linear-gradient(90deg, #000 78%, transparent);
+  }
+  .chapter-tab { flex: 0 0 240px; scroll-snap-align: start; }
   .phase-list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 22px; }
   .phase-list::before, .phase-list::after { display: none; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 28px; }

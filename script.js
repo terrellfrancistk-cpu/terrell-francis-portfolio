@@ -155,6 +155,41 @@
     requestAnimationFrame(() => requestAnimationFrame(() => phases.classList.add('go')));
   }
 
+  // Case studies: one chapter on stage. Arrow keys move the index.
+  const chapterTabs = [...document.querySelectorAll('.chapter-tab')];
+  const showChapter = (tab, focus, writeHash) => {
+    chapterTabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (!panel) return;
+      panel.classList.toggle('is-on', on);
+      if (on) panel.classList.add('in');
+    });
+    if (focus) tab.focus();
+    const id = tab.getAttribute('aria-controls');
+    if (writeHash && id) history.replaceState(null, '', '#' + id);
+  };
+  if (chapterTabs.length) {
+    const fromHash = chapterTabs.find((t) => '#' + t.getAttribute('aria-controls') === location.hash);
+    showChapter(fromHash || chapterTabs[0], false, false);
+    chapterTabs.forEach((tab) => tab.addEventListener('click', () => showChapter(tab, false, true)));
+    document.querySelector('.chapter-nav').addEventListener('keydown', (e) => {
+      const i = chapterTabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      const key = e.key;
+      let next = null;
+      if (key === 'ArrowDown' || key === 'ArrowRight') next = chapterTabs[(i + 1) % chapterTabs.length];
+      else if (key === 'ArrowUp' || key === 'ArrowLeft') next = chapterTabs[(i - 1 + chapterTabs.length) % chapterTabs.length];
+      else if (key === 'Home') next = chapterTabs[0];
+      else if (key === 'End') next = chapterTabs[chapterTabs.length - 1];
+      if (!next) return;
+      e.preventDefault();
+      showChapter(next, true, true);
+    });
+  }
+
   // Cursor-follow glow on cards (fine pointers only)
   if (!rm && window.matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('.case, .principle, .product, .edu-card').forEach((c) => {
