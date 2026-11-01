@@ -261,11 +261,58 @@ strong { color: var(--ink); font-weight: 650; }
 @keyframes chapterIn { from { opacity: 0; transform: translateY(12px); } }
 
 /* Products (TK Hub LLC) */
-.owned { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0 0 36px; padding: 22px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); }
-.owned li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: start; }
-.owned-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: #fff; border: 1px solid var(--line); color: var(--accent); }
-.owned strong { display: block; font-size: 15px; line-height: 1.3; }
-.owned li span:not(.owned-icon) { display: block; font-size: 14px; color: var(--muted); line-height: 1.45; margin-top: 2px; }
+.owned { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 32px; margin: 0 0 36px; padding: 0 0 8px; }
+.owned strong { display: block; font-size: 14.5px; line-height: 1.3; }
+.owned li span { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-top: 3px; }
+
+/* Product studio: one app on stage, the rest in a rail. Works without JS via radios. */
+.studio { display: grid; gap: 18px; }
+.studio-stage {
+  position: relative; min-height: 280px; border-radius: 24px; border: 1px solid var(--line);
+  background:
+    radial-gradient(520px 240px at 0% 0%, color-mix(in srgb, var(--stage, var(--accent)) 16%, transparent), transparent 70%),
+    #fff;
+  padding: 36px 36px 32px; box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.studio-panel { display: none; grid-template-columns: 128px minmax(0, 1fr); gap: 28px; align-items: center; }
+.studio-panel img { width: 128px; height: 128px; border-radius: 28px; object-fit: cover; box-shadow: 0 16px 40px -20px color-mix(in srgb, var(--c) 70%, transparent); }
+.studio-panel .product-tag { margin: 0 0 8px; text-align: left; }
+.studio-panel h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); letter-spacing: -0.03em; margin-bottom: 10px; }
+.studio-panel p { margin: 0 0 16px; max-width: 58ch; font-size: 1.02rem; }
+.studio:has(#app-apex:checked) { --stage: #0F766E; }
+.studio:has(#app-role:checked) { --stage: #1F3A5F; }
+.studio:has(#app-booked:checked) { --stage: #B45309; }
+.studio:has(#app-curb:checked) { --stage: #15803D; }
+.studio:has(#app-zilt:checked) { --stage: #7C3AED; }
+.studio:has(#app-people:checked) { --stage: #BE185D; }
+.studio:has(#app-radr:checked) { --stage: #B91C1C; }
+.studio:has(#app-wrace:checked) { --stage: #C2410C; }
+.studio:has(#app-afterglow:checked) { --stage: #6D28D9; }
+.studio:has(#app-noir:checked) { --stage: #334155; }
+.studio:has(#app-apex:checked) .panel-apex,
+.studio:has(#app-role:checked) .panel-role,
+.studio:has(#app-booked:checked) .panel-booked,
+.studio:has(#app-curb:checked) .panel-curb,
+.studio:has(#app-zilt:checked) .panel-zilt,
+.studio:has(#app-people:checked) .panel-people,
+.studio:has(#app-radr:checked) .panel-radr,
+.studio:has(#app-wrace:checked) .panel-wrace,
+.studio:has(#app-afterglow:checked) .panel-afterglow,
+.studio:has(#app-noir:checked) .panel-noir { display: grid; }
+.studio-index { display: flex; gap: 6px; overflow-x: auto; padding: 4px 2px 8px; scroll-snap-type: x proximity; }
+.studio-pick {
+  position: relative; flex: 0 0 84px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 8px 4px 6px; border-radius: 16px; cursor: pointer; scroll-snap-align: start; color: var(--muted);
+}
+.studio-pick input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.studio-pick img { width: 56px; height: 56px; border-radius: 16px; object-fit: cover; box-shadow: 0 0 0 1px rgba(15, 23, 42, .08); }
+.studio-pick span { font-size: 12px; font-weight: 650; letter-spacing: -0.01em; text-align: center; line-height: 1.2; }
+.studio-pick:has(input:checked) { color: var(--ink); }
+.studio-pick:has(input:checked) img { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c); }
+.studio-pick input:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .studio-panel { animation: chapterIn .4s cubic-bezier(.2, .7, .2, 1); }
+}
 .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .product { --c: var(--accent); position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 22px 20px; transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
 .product::before { content: ""; position: absolute; left: 22px; right: 22px; top: -1px; height: 3px; border-radius: 0 0 3px 3px; background: var(--c); opacity: .85; }
@@ -447,9 +494,10 @@ strong { color: var(--ink); font-weight: 650; }
   .cta-row .btn { flex: 1 1 auto; justify-content: center; }
   .contact { padding: 72px 0; }
   .footer-inner { flex-direction: column; text-align: center; gap: 6px; }
-  .product-grid { grid-template-columns: 1fr; gap: 14px; }
-  .product-feature { grid-column: auto; }
-  .owned { grid-template-columns: 1fr; padding: 18px; gap: 14px; }
+  .owned { grid-template-columns: 1fr 1fr; padding: 0; gap: 14px 16px; }
+  .studio-stage { padding: 22px; min-height: 0; }
+  .studio-panel { grid-template-columns: 1fr; justify-items: start; gap: 16px; }
+  .studio-panel img { width: 84px; height: 84px; border-radius: 20px; }
   .footer-nav { grid-template-columns: 1fr; gap: 24px; }
   .site-footer .footer-top { padding-top: 36px; padding-bottom: 28px; }
   .back-to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
