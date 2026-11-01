@@ -1,0 +1,38 @@
+name: Publish GitHub Pages
+
+# Branch pushes are not starting pages-build-deployment, so publish this
+# tree with the Pages artifact actions. This does not force-push.
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Minify CSS and JS for production
+        run: |
+          npx --yes terser@5 script.js --compress --mangle --output script.min.js
+          npx --yes clean-css-cli@5 --output styles.min.css styles.css
+          mv script.min.js script.js
+          mv styles.min.css styles.css
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
