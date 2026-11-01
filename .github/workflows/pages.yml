@@ -22,5 +22,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Mirror main to gh-pages
-        run: git push --force origin HEAD:refs/heads/gh-pages
+      - name: Minify CSS and JS for production
+        run: |
+          npx --yes terser@5 script.js --compress --mangle --output script.min.js
+          npx --yes clean-css-cli@5 --output styles.min.css styles.css
+          mv script.min.js script.js
+          mv styles.min.css styles.css
+      - name: Publish the minified tree to gh-pages
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add script.js styles.css
+          git diff --cached --quiet || git commit -m "Minify CSS and JS for GitHub Pages"
+          git push --force origin HEAD:refs/heads/gh-pages
