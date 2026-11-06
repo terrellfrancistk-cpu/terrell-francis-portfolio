@@ -21,10 +21,17 @@
   const topAnchor = document.getElementById('top');
 
   // Sticky header shadow + floating back-to-top visibility
+  const dock = document.querySelector('.dock');
+  let contactInView = false;
   const onScroll = () => {
     header.classList.toggle('scrolled', window.scrollY > 8);
     if (toTopBtn) toTopBtn.classList.toggle('show', window.scrollY > 600 && !footerInView);
+    if (dock) dock.classList.toggle('show', window.scrollY > 520 && !contactInView && !footerInView);
   };
+  const contact = document.getElementById('contact');
+  if (contact && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { contactInView = entry.isIntersecting; onScroll(); }).observe(contact);
+  }
   // The footer has its own "Back to top" link, so the floating button steps aside there.
   let footerInView = false;
   const footer = document.querySelector('.site-footer');
