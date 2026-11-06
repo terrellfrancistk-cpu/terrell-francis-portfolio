@@ -749,3 +749,27 @@ strong { color: var(--ink); font-weight: 650; }
   .dock.show ~ .back-to-top { bottom: 84px; }
   body { padding-bottom: 0; }
 }
+
+/* ---------- Hero: both columns share the page container (wide-screen alignment fix) ---------- */
+@media (min-width: 961px) {
+  .hero {
+    grid-template-columns: minmax(24px, 1fr) minmax(0, calc(var(--container) * .56)) minmax(0, calc(var(--container) * .44)) minmax(24px, 1fr);
+    min-height: min(calc(100svh - 70px), 820px);
+    padding: 56px 0 72px;
+  }
+  .hero > .hero-copy { grid-column: 2; max-width: none; margin: 0; padding: 0 40px 0 24px; }
+  .hero > .hero-now { grid-column: 3; padding: 0 24px 0 0; }
+}
+
+/* ---------- Products: compact app grid (full live demos live on tkhub.app) ---------- */
+.app-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.app-tile { display: grid; grid-template-columns: 48px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: #fff; text-decoration: none; color: var(--text); transition: transform .2s, box-shadow .2s, border-color .2s; }
+.app-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: color-mix(in srgb, var(--c) 40%, var(--line)); color: var(--text); }
+.app-tile img { grid-row: 1 / 3; width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+.app-name { font-weight: 700; font-size: 15px; color: var(--ink); line-height: 1.2; }
+.app-tag { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+@media (max-width: 1100px) { .app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .app-tile { padding: 12px; column-gap: 10px; } }
+@media (max-width: 960px) {
+  .hero > .hero-copy, .hero > .hero-now { padding-left: 20px; padding-right: 20px; }
+}
