@@ -203,6 +203,21 @@
     });
   }
 
+  // Product studio: the phone frame follows the selected app (live site in an iframe)
+  const frame = document.getElementById('studio-frame');
+  const openLink = document.getElementById('studio-open');
+  if (frame) {
+    const screen = frame.parentElement;
+    frame.addEventListener('load', () => screen.classList.remove('loading'));
+    document.querySelectorAll('input[name="studio"][data-demo]').forEach((r) => r.addEventListener('change', () => {
+      if (!r.checked || frame.getAttribute('src') === r.dataset.demo) return;
+      screen.classList.add('loading');
+      frame.title = `Live demo: ${r.dataset.name}`;
+      frame.src = r.dataset.demo;
+      if (openLink) { openLink.href = r.dataset.demo; openLink.firstChild.textContent = `Open ${r.dataset.name} in a new tab`; }
+    }));
+  }
+
   // Cursor-follow glow on cards (fine pointers only)
   if (!rm && window.matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('.case, .principle, .product, .edu-card').forEach((c) => {

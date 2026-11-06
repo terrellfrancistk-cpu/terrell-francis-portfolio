@@ -263,7 +263,19 @@ strong { color: var(--ink); font-weight: 650; }
 .owned li span { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-top: 3px; }
 
 /* Product studio: one app on stage, the rest in a rail. Works without JS via radios. */
-.studio { display: grid; gap: 18px; }
+.studio { display: grid; grid-template-columns: minmax(0, 1fr) 320px; grid-template-areas: "stage phone" "index phone"; grid-template-rows: max-content 1fr; gap: 18px 40px; align-items: start; }
+.studio-stage { grid-area: stage; }
+.studio-index { grid-area: index; }
+.phone-wrap { grid-area: phone; position: sticky; top: 90px; display: grid; justify-items: center; gap: 12px; }
+.phone { position: relative; width: 300px; aspect-ratio: 9 / 19.2; border-radius: 48px; background: #0B0F16; padding: 11px; box-shadow: 0 40px 80px -30px rgba(14, 34, 56, .55), 0 0 0 1px rgba(255, 255, 255, .06) inset, 0 0 0 2px #1C2330; transform: rotate(0deg); }
+.phone-island { position: absolute; top: 22px; left: 50%; width: 96px; height: 28px; margin-left: -48px; border-radius: 999px; background: #000; z-index: 2; }
+.phone-screen { position: relative; height: 100%; border-radius: 38px; overflow: hidden; background: #fff; isolation: isolate; }
+.phone-frame { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+.phone-screen.loading::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #F3F5F8 0%, #fff 50%, #F3F5F8 100%); background-size: 200% 100%; animation: shimmer 1.1s linear infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.phone-caption { margin: 0; font-size: 13px; color: var(--muted); text-align: center; }
+.phone-caption a { font-weight: 650; color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid #C8DAF0; }
+.phone-caption a:hover { color: var(--accent); border-bottom-color: currentColor; }
 .studio-stage {
   position: relative; min-height: 280px; border-radius: 24px; border: 1px solid var(--line);
   background:
@@ -516,6 +528,9 @@ strong { color: var(--ink); font-weight: 650; }
   .footer-inner { flex-direction: column; text-align: center; gap: 6px; }
   .owned { grid-template-columns: 1fr 1fr; padding: 0; gap: 14px 16px; }
   .studio-stage { padding: 22px; min-height: 0; }
+  .studio { grid-template-columns: 1fr; grid-template-areas: "stage" "index" "phone"; gap: 16px; }
+  .phone-wrap { position: static; margin-top: 8px; }
+  .phone { width: min(300px, 82vw); }
   .studio-panel { grid-template-columns: 1fr; justify-items: start; gap: 16px; }
   .studio-panel img { width: 84px; height: 84px; border-radius: 20px; }
   .footer-nav { grid-template-columns: 1fr; gap: 24px; }
