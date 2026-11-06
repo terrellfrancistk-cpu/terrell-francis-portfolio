@@ -346,6 +346,10 @@ strong { color: var(--ink); font-weight: 650; }
 .tl-body li { position: relative; padding-left: 20px; font-size: 15.5px; }
 .tl-body li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); opacity: .55; transform: rotate(45deg); }
 
+/* Current role on the timeline */
+.tl-now::before { border-color: var(--gold); background: var(--gold); box-shadow: 0 0 0 5px #fff, 0 0 0 7px rgba(233, 169, 59, .25); }
+.tl-now .tl-when span:first-child { color: var(--accent-ink); }
+
 /* Skills */
 .skills { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
