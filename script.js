@@ -11,7 +11,15 @@
   const onScroll = () => {
     header.classList.toggle('scrolled', window.scrollY > 8);
     if (toTopBtn) toTopBtn.classList.toggle('show', window.scrollY > 600 && !footerInView);
+    if (dock) dock.classList.toggle('show', window.scrollY > 600 && !contactInView && !footerInView);
   };
+  // Mobile contact dock: appears after the hero, steps aside where the contact block is already on screen.
+  const dock = document.querySelector('.contact-dock');
+  let contactInView = false;
+  const contactSec = document.getElementById('contact');
+  if (dock && contactSec && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { contactInView = entry.isIntersecting; onScroll(); }).observe(contactSec);
+  }
   // The footer has its own "Back to top" link, so the floating button steps aside there.
   let footerInView = false;
   const footer = document.querySelector('.site-footer');
