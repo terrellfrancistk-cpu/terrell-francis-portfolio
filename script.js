@@ -1,4 +1,17 @@
 (() => {
+  // Splash: remove from the DOM once it has faded, or on tap/key; never block the page past ~2.5s.
+  const splash = document.getElementById('splash');
+  if (splash) {
+    const html = document.documentElement;
+    const done = () => { if (!splash.isConnected) return; splash.remove(); html.classList.remove('splash-on'); html.classList.add('splash-done'); };
+    if (html.classList.contains('splash-on')) {
+      splash.addEventListener('animationend', (e) => { if (e.animationName === 'splashOut') done(); });
+      splash.addEventListener('click', done);
+      document.addEventListener('keydown', done, { once: true });
+      setTimeout(done, 2600);
+    } else done();
+  }
+
   const header = document.querySelector('.site-header');
   const toggle = document.querySelector('.nav-toggle');
   const links = document.getElementById('nav-links');

@@ -50,9 +50,36 @@
     "knowsAbout": ["SaaS implementation", "Customer onboarding", "Customer success", "Technical account management", "Systems administration", "Agile / Scrum"]
   }
   </script>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        var seen = sessionStorage.getItem('tf-splash');
+        var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!seen && !rm) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
+      } catch (e) {}
+    })(document.documentElement);
+  </script>
 </head>
 <body>
+  <!-- Splash: TF mark → TK Hub → page. Runs once per session; skipped for reduced motion or without JS. -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-a">
+      <svg class="splash-mark" viewBox="-8 -2 156 112" aria-hidden="true">
+        <g transform="translate(16,6) skewX(-14)">
+          <path fill="currentColor" d="M2 22C-4 30 0 12 12 14L96 14 108 6 96 24 14 24C8 24 4 26 2 22Z"/>
+          <path fill="currentColor" d="M14 18L32 18L24 72L10 86Z"/>
+          <path fill="#1E6BFF" d="M38 20L56 20L48 74L34 88Z"/>
+          <path fill="#1E6BFF" d="M38 16L94 16L104 8 94 26 38 26Z"/>
+          <path fill="#1E6BFF" d="M38 42L76 42L84 36 76 50 38 50Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="splash-b">
+      <img src="assets/tkhub-logo.png" width="96" height="96" alt="" decoding="async">
+      <span>TK Hub</span>
+    </div>
+  </div>
   <span id="top" class="top-anchor" tabindex="-1"></span>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>

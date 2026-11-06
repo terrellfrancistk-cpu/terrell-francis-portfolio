@@ -673,3 +673,23 @@ strong { color: var(--ink); font-weight: 650; }
     stroke-dashoffset: 0 !important;
   }
 }
+
+/* ---------- Splash: product mark → TK Hub (~1s) → content ---------- */
+.splash { display: none; }
+.splash-on .splash { display: block; position: fixed; inset: 0; z-index: 200; background: #fff; animation: splashOut .45s ease 1.95s forwards; }
+.splash-on body { overflow: hidden; }
+.splash-done body { overflow: auto; }
+.splash-a, .splash-b { position: absolute; inset: 0; display: grid; place-items: center; }
+.splash-a { color: var(--ink); animation: splashA .85s var(--ease) both; }
+.splash-mark { width: clamp(96px, 16vw, 160px); height: auto; }
+.splash-b { background: #000; color: #fff; opacity: 0; animation: splashB .35s ease .75s forwards; grid-auto-rows: max-content; align-content: center; gap: 14px; }
+.splash-b img { width: 96px; height: 96px; border-radius: 22px; }
+.splash-b span { font-size: 14px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .72); }
+@keyframes splashA { 0% { opacity: 0; transform: scale(.9); } 35% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes splashB { to { opacity: 1; } }
+@keyframes splashOut { to { opacity: 0; visibility: hidden; } }
+.splash-on.js .hero .reveal { transition-delay: calc(var(--d, 0s) + 1.9s); }
+.splash-on.js .split .w > * { transition-delay: calc(var(--i, 0) * 45ms + 2s); }
+.splash-on.js .brand-sign .sig { animation-delay: 2s; }
+.splash-on.js .phase-list.go::after { transition-delay: 2s; }
+.splash-on.js .phase-anim.go li { transition-delay: 2.2s !important; }
