@@ -56,7 +56,7 @@
       try {
         var seen = sessionStorage.getItem('tf-splash');
         var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!seen && !rm) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
+        if (!seen && !rm && !navigator.webdriver) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
       } catch (e) {}
     })(document.documentElement);
   </script>
@@ -121,11 +121,11 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="container hero-copy">
-      <p class="hero-kicker reveal">Technology &amp; Operations Leader</p>
-      <h1 id="hero-title" class="reveal">Terrell <em>Francis</em></h1>
-      <p class="hero-promise reveal">I take customers from signed contract to <em>live</em>, and build the playbooks that make it repeatable.</p>
-      <p class="lead reveal">Six years taking software from signed contract to live across healthcare SaaS, fintech, and multi-site IT, including <strong>85+ concurrent implementations</strong> and a playbook that <strong>cut cycle time ~85%</strong>.</p>
-      <div class="cta-row reveal">
+      <p class="hero-kicker">Technology &amp; Operations Leader</p>
+      <h1 id="hero-title" class="">Terrell <em>Francis</em></h1>
+      <p class="hero-promise">I take customers from signed contract to <em>live</em>, and build the playbooks that make it repeatable.</p>
+      <p class="lead">Six years taking software from signed contract to live across healthcare SaaS, fintech, and multi-site IT, including <strong>85+ concurrent implementations</strong> and a playbook that <strong>cut cycle time ~85%</strong>.</p>
+      <div class="cta-row">
         <a class="btn btn-primary" href="mailto:iterrellfrancis@gmail.com?subject=Opportunity%20for%20Terrell%20Francis">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.4 2 7.6 5.6L19.6 7H4.4ZM20 8.4l-7.4 5.4a1 1 0 0 1-1.2 0L4 8.4V17h16V8.4Z"/></svg>
           Email me
@@ -135,13 +135,13 @@
           Download resume <span class="muted-inline">(PDF)</span>
         </a>
       </div>
-      <ul class="hero-meta reveal" aria-label="Quick facts">
+      <ul class="hero-meta" aria-label="Quick facts">
         <li><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2a7 7 0 0 1 7 7c0 5.2-7 13-7 13S5 14.2 5 9a7 7 0 0 1 7-7Zm0 4.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"/></svg>Dallas–Fort Worth, TX · Open to remote &amp; travel</li>
         <li><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="m9.5 16.6-4.6-4.6 1.4-1.4 3.2 3.2 7.9-7.9 1.4 1.4-9.3 9.3Z"/></svg>Certified ScrumMaster (CSM)</li>
         <li><a href="https://www.linkedin.com/in/terrellfrancis" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
       </ul>
     </div>
-    <aside class="container hero-now reveal" aria-label="What I'm doing now">
+    <aside class="container hero-now" aria-label="What I'm doing now">
       <p class="now-kicker"><span class="status-dot" aria-hidden="true"></span>Now</p>
       <a class="now-card now-talencia" href="#experience">
         <span class="now-org">Talencia <span class="now-sub">Healthcare staffing</span></span>
@@ -323,7 +323,7 @@
             </button>
           </div>
           <div class="chapter-panels">
-        <article class="case reveal is-on" id="case-playbook" role="tabpanel" aria-labelledby="tab-playbook">
+        <section class="case reveal is-on" id="case-playbook" role="tabpanel" aria-labelledby="tab-playbook">
           <header class="case-head">
             <span class="case-num" aria-hidden="true">01</span>
             <div>
@@ -337,9 +337,9 @@
             <div class="par-col"><h4><span class="par-tag par-a">Approach</span></h4><p>Rebuilt delivery into a standard, repeatable playbook backed by templates, checklists, and trackers. Trained my two-person implementation team on it, and kept the most complex client projects and escalations myself.</p></div>
             <div class="par-col"><h4><span class="par-tag par-r">Result</span></h4><p>Implementation cycle time dropped by <strong>~85%</strong>, and launches followed one consistent, documented path instead of a custom effort every time.</p></div>
           </div>
-        </article>
+        </section>
 
-        <article class="case reveal" id="case-portfolio" role="tabpanel" aria-labelledby="tab-portfolio">
+        <section class="case reveal" id="case-portfolio" role="tabpanel" aria-labelledby="tab-portfolio">
           <header class="case-head">
             <span class="case-num" aria-hidden="true">02</span>
             <div>
@@ -353,9 +353,9 @@
             <div class="par-col"><h4><span class="par-tag par-a">Approach</span></h4><p>Owned each account as the primary point of contact through discovery, configuration, training, and go-live. Configured software and connected devices around each client's real business process, and kept client leadership plus internal Product, Engineering, Support, and Sales aligned on goals, risks, dates, and decisions.</p></div>
             <div class="par-col"><h4><span class="par-tag par-r">Result</span></h4><p><strong>85+ concurrent implementations</strong> carried, each typically <strong>~1 month</strong> from kickoff to go-live, with accounts launching on workflows their staff already understood.</p></div>
           </div>
-        </article>
+        </section>
 
-        <article class="case reveal" id="case-golive" role="tabpanel" aria-labelledby="tab-golive">
+        <section class="case reveal" id="case-golive" role="tabpanel" aria-labelledby="tab-golive">
           <header class="case-head">
             <span class="case-num" aria-hidden="true">03</span>
             <div>
@@ -369,9 +369,9 @@
             <div class="par-col"><h4><span class="par-tag par-a">Approach</span></h4><p>Ran the deployment with serial tracking and remote installation, coordinated vendors, site leaders, and internal teams, and trained clinical and administrative staff through the change.</p></div>
             <div class="par-col"><h4><span class="par-tag par-r">Result</span></h4><p>An <strong>~800-device go-live</strong> with every device accounted for and configured consistently. The configurations and procedures I documented made later implementations faster and cleaner.</p></div>
           </div>
-        </article>
+        </section>
 
-        <article class="case reveal" id="case-handoff" role="tabpanel" aria-labelledby="tab-handoff">
+        <section class="case reveal" id="case-handoff" role="tabpanel" aria-labelledby="tab-handoff">
           <header class="case-head">
             <span class="case-num" aria-hidden="true">04</span>
             <div>
@@ -385,7 +385,7 @@
             <div class="par-col"><h4><span class="par-tag par-a">Approach</span></h4><p>Owned setup, end-user training, and the help-center handoff for every account I implemented, so the path from implementation to ongoing support was planned rather than improvised.</p></div>
             <div class="par-col"><h4><span class="par-tag par-r">Result</span></h4><p>Clients ran the product independently after go-live, and Support inherited documented, clean accounts.</p></div>
           </div>
-        </article>
+        </section>
           </div>
         </div>
       </div>
