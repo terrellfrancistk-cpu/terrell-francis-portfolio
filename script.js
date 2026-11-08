@@ -105,9 +105,10 @@
   // ---------- Motion & polish layer (2026-10 redesign) ----------
   const rm = reduceMotion.matches;
 
-  // Staggered word reveal for the hero headline
+  // Staggered word reveal for the hero headline: only while the splash plays (the words land as it lifts). Without the
+  // splash the name is simply there at first paint, which is also what makes it the page's measurable largest paint.
   const h1 = document.querySelector('.hero h1');
-  if (h1 && !rm) {
+  if (h1 && !rm && document.documentElement.classList.contains('splash-on')) {
     let i = 0;
     const wrap = (node) => { const w = document.createElement('span'); w.className = 'w'; node.style.setProperty('--i', i++); w.appendChild(node); return w; };
     [...h1.childNodes].forEach((n) => {
