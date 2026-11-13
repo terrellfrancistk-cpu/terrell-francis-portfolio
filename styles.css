@@ -991,3 +991,7 @@ html, body { overflow-x: clip; }
 @media (pointer: coarse), (max-width: 720px) { .products-note .btn { min-height: 44px; } }
 /* Keyboard focus inside the live demo (focus moves into the app's page once it loads): ring the phone frame itself. */
 .phone:focus-within, .phone.frame-focused { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Restored studio: breathing room below today's app tiles (2026-11-13). */
+.products .app-grid ~ .studio { margin-top: 48px; }
+@media (max-width: 720px) { .products .app-grid ~ .studio { margin-top: 32px; } }

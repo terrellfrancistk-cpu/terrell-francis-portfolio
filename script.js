@@ -249,6 +249,8 @@
       window.addEventListener('focus', () => phone.classList.remove('frame-focused'));
     }
     const screen = frame.parentElement;
+    // Show the loading shimmer until the first demo has loaded (no blank white phone). Added 2026-11-13.
+    screen.classList.add('loading');
     frame.addEventListener('load', () => screen.classList.remove('loading'));
     document.querySelectorAll('input[name="studio"][data-demo]').forEach((r) => r.addEventListener('change', () => {
       if (!r.checked || frame.getAttribute('src') === r.dataset.demo) return;

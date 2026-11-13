@@ -43,3 +43,14 @@ test('no accounts, forms, or inputs anywhere (keeps AUTH/PAY/COM rows N/A honest
   const cookies = await page.context().cookies();
   expect(cookies).toEqual([]);
 });
+
+test('the live-demo phone never shows a blank white screen: loading shimmer until the demo loads', async ({ page }) => {
+  // Hold the demo site's response so the loading state is observable, then release it.
+  let release; const gate = new Promise((r) => { release = r; });
+  await page.route('https://apexpeakofcare.app/**', async (route) => { await gate; await route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>demo</title><p>demo</p>' }); });
+  await page.goto('/');
+  await page.locator('#studio-frame').scrollIntoViewIfNeeded();
+  await expect(page.locator('.phone-screen')).toHaveClass(/loading/);
+  release();
+  await expect(page.locator('.phone-screen')).not.toHaveClass(/loading/, { timeout: 10000 });
+});
