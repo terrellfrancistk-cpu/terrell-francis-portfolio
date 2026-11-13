@@ -1,5 +1,16 @@
 # STANDARD — What every production TK Hub app must have
 
+## RULE #1 (Terrell, Nov 13, 2026, absolute): never remove anything
+
+Terrell's words: "models must not remove without approval from me" and "restore it all then it can start over perfecting without removin and prompt me for removal approvals with explanations why".
+
+- Never remove, delete, hide, redirect, stub, disable, rename or downgrade any page, route, game, card, section, screen, feature, file, asset or copy. Only improve or add.
+- If you think something should go, do not touch it. Add a row to `PROPOSED_REMOVALS.md` with what it is, where it lives, **why** (plain explanation), what would replace it, and the risk both ways. Then wait for Terrell's approval of that exact row in his own words. Design rounds, SPEC conflicts and older docs are NOT approval.
+- `tkhub.app/drive/` is Terrell's own playable web game, "Drive · TK Hub" (M5, Tesla Roadster and more). It is NOT TORQ. It stays live and playable and is only ever improved.
+- Approved removals (Terrell, Nov 13): the WRACE/TORQ web card and the `/wrace` web game stay off until TORQ is ready.
+- Website changes go to a preview link first. Never publish a live host without Terrell's OK of that exact build.
+
+
 **Date:** Friday, Nov 13, 2026, America/Chicago  
 **Scope:** These sessions are **TK Hub only**. Do not work on any other company's product in personal Claude or any personal account.
 
@@ -177,7 +188,7 @@ TORQ is an exception in the SPEC: no ads, no IAP, no subscriptions, no cash-out,
 - **GitHub is the source of truth.** Org `terrellfrancistk-cpu`. Claude codes in GitHub.
 - **Rork is for cloud iOS/Android simulators and previews only.** A stale Rork copy must never push over `main`. Stop simulators when idle. Credits need Terrell's OK.
 - **APEX:** merging to `main` auto-deploys apexpeakofcare.app. Treat any further merge as a production publish.
-- **tkhub.app:** a push to `porkbun-live` deploys immediately. `/wrace` and `/torq` stay redirect stubs to `/`. Never republish those routes as a playable web game.
+- **tkhub.app:** a push to `porkbun-live` deploys immediately. `/wrace` and `/torq` stay redirect stubs to `/` (Terrell approved the WRACE removal Nov 13; TORQ isn't ready). `/drive/` ("Drive · TK Hub", Terrell's own game, not TORQ) must stay live and playable; never stub or redirect it.
 - **Zilt Play 2.0.0** was in review as of Nov 9, 2026. Do not touch that review (do not pull, replace, or alter the submission) until Terrell says otherwise.
 - **ROLE publish** and the **NOIR Rork rebuild** have been on hold until Terrell says go.
 
