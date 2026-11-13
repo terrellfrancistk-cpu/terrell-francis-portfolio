@@ -53,7 +53,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | ADM-1 | N/A | No admin tooling |
 | STG-1 | Present | Local static server is staging; `tests/guard.mjs` refuses every production host (fails closed) |
 | STG-2 | Present | Git history is the backup; rollback = revert the merge on `main` (pages.yml republishes) |
-| CI-1 | Present (pending first CI run) | 92 tests (88 run per pass; 4 are width-specific skips); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
+| CI-1 | Present (pending first CI run) | 110 tests in 13 spec files (105 run per pass; 5 are width-specific skips); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
 | VER-1 | Present | Footer stays `v2.0.0`; no bump |
 | WEB-1 | Present | No rork hostnames (`smoke.spec.mjs`); bare domain is the site. Live HTTP 200 is on the handoff (sandbox proxy blocks the live host) |
 
@@ -65,7 +65,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | Working links | BUILT | Internal anchors and every local asset 200 (`links.spec.mjs`); external: 10 OK, 0 broken, 5 unverified from the sandbox (`tests/check-external-links.mjs`) → handoff |
 | Honest store badges | **BLOCKED** (Terrell's answer) | No store badges on the site. The hero card says "10 apps shipped, idea to store". Pack docs show several iOS builds rejected Nov 3–5, so whether "to store" is accurate today is Terrell's call (handoff Q1) |
 | Splash | BUILT | See ONB-1 |
-| Clean visual QA | BUILT | 16 visual baselines (phone + desktop, light + dark, privacy) in `tests/e2e/__screenshots__`; 0 console errors |
+| Clean visual QA | BUILT | 16 visual baselines (updated after each UX round) (phone + desktop, light + dark, privacy) in `tests/e2e/__screenshots__`; 0 console errors |
 
 **Score:** 19 applicable STANDARD rows + 5 SPEC rows = 24. Present/BUILT: 21. BLOCKED on a named human step: OBS-2 (merge OK) and SPEC "honest store badges" (Terrell's answer). CI-1 is Present once the PR run is green. **21/24 = 88% strict; 100% of what the cloud session can do without Terrell.**
 

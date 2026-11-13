@@ -12,5 +12,22 @@ Definition of 100%: every applicable AUDIT STANDARD item Present and passing tes
 |---|---|---|---|---|---|
 | 2026-11-13 | — | opening (stale) | Pack assembled; no re-score yet | — | Full audit + Play data drop + store-review fixes |
 | 2026-11-13 (block 1) | ~85% (stale, unmeasured) | **88% strict** (21/24); 100% of cloud-doable rows | Pack committed to `docs/claude-handoff/`. Step 0: Playwright + axe kit in `tests/` with production-host guard; draft `site-tests` and `uptime` workflows; `pages.yml` never publishes `docs/` or `tests/`. Holes: 44 px phone targets; `?splash=1` makes ONB-1 testable; Light/Dark/System theme; `/privacy/` (privacy and terms); `404.html`; robots.txt and sitemap.xml; perf budgets. REMOVAL_AUDIT filled (nothing SPEC requires was dropped; 4 design trims listed for decision). PROPOSED_REMOVALS: 4 rows, nothing removed. AUDIT re-scored row by row. | Before: 35 pass / 17 fail (12 missing baselines, 4 splash, 1 touch). After: 88 pass, 4 width-specific skips, 0 fail (92 total). Secret scan of full history: clean. External links: 10 OK / 0 broken / 5 unverified (sandbox network). | OBS-2 uptime needs merge OK; store-badge wording needs Terrell (Q1); first CI run on the draft PR; UX PERFECT rounds; live-site checks on the handoff |
+| 2026-11-13 (block 2) | 88% strict | **88% strict** (21/24, unchanged: the 3 open rows need Terrell); 100% of cloud-doable rows | UX PERFECT rounds R3–R5 shipped (R1–R2 were Nov 7): R3 email never dead-ends (copy fallback); R4 phone roles open to three lines (timeline −23%); R5 every skill group links to its proof. Round 6 review: **PERFECT** (the remaining big ideas need Terrell's decision; anything else adds clutter). New share image `assets/og-image-2026-11.png` matching today's title; old one kept and proposed. Fixed a timing-dependent deep-link test. | 105 pass, 5 width-specific skips, 0 fail (110 total, 13 files); 16 visual baselines; axe 0 in light and dark; external links 10 OK / 0 broken / 5 unverified | Terrell: Q1 store wording, Q2 decisions, H5 merge OK; House Officer: H1–H4, H6–H8 |
 
 Update this table after every work block.
+
+
+## UX PERFECT rounds (UX_PERFECT_ROUNDS_PROMPT.md)
+
+| Round | Date | Change (one bold move) | Why it works | Commit |
+|---|---|---|---|---|
+| R1 | 2026-11-07 | Measurable first paint (earlier session) | The name is the page's largest paint again | `7e656b3` |
+| R2 | 2026-11-07 | Paragraphs ≤ 3 lines; case studies as rows; skills as chips; one primary action (earlier session) | Scannable in seconds | `bb4a49a` |
+| R3 | 2026-11-13 | Email never dead-ends: after any email tap, a toast offers Copy address | `mailto:` silently fails on computers without a mail app, and email is the main conversion | `6a37a58` |
+| R4 | 2026-11-13 | On phones each role opens to its first three lines (Show N more) | The phone timeline was the longest stretch; headline facts stay visible; timeline −23% | `aee096d` |
+| R5 | 2026-11-13 | Every skill group links to its proof (case study or role) | Turns a wall of claims into evidence one tap away | `7ab5508` |
+| R6 | 2026-11-13 | **PERFECT** | The remaining high-impact moves (app one-liners in Products, bringing back the implementation phase strip) are REMOVAL_AUDIT decisions for Terrell. Anything else would add clutter or bring diminishing returns. Subtractive ideas (dead CSS/JS, splash caption, old share image) are in PROPOSED_REMOVALS.md, not shipped. | — |
+
+## Paid tools (PAID_TOOLS.md)
+
+No paid tool was needed or used for this site, and nothing was spent. The one asset that needed refreshing, the social share image, was rendered with Playwright from the site's own fonts and TF mark (`assets/og-image-2026-11.png`). No Higgsfield, Meshy or Holo generation was requested: a résumé site gains nothing from AI video or 3D, and adding them would be the clutter the UX rounds rule out. If Terrell wants a short reel for the hero or LinkedIn, it would be a Higgsfield request that needs his credit OK (see HANDOFF Q3).

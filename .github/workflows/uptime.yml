@@ -15,7 +15,7 @@ jobs:
       - name: Live pages answer 200
         run: |
           set -e
-          for path in / /assets/Terrell_Francis_Resume.pdf /privacy/ /assets/og-image.png; do
+          for path in / /assets/Terrell_Francis_Resume.pdf /privacy/ /assets/og-image-2026-11.png; do
             code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "https://terrellfrancis.app$path")
             echo "$path -> $code"
             [ "$code" = "200" ] || { echo "::error::$path returned $code"; exit 1; }
