@@ -30,14 +30,21 @@ test('LCP and CLS within Core Web Vitals "good" on a throttled phone-like CPU', 
   await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
   await client.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: 1.6 * 1024 * 1024 / 8, uploadThroughput: 750 * 1024 / 8 });
   await page.addInitScript(() => {
-    window.__cls = 0; window.__lcp = 0;
-    new PerformanceObserver((l) => l.getEntries().forEach((e) => { if (!e.hadRecentInput) window.__cls += e.value; })).observe({ type: 'layout-shift', buffered: true });
+    window.__cls = 0; window.__lcp = 0; window.__shifts = [];
+    const describe = (n) => !n ? '?' : (n.nodeName.toLowerCase() + (n.id ? '#' + n.id : '') + (typeof n.className === 'string' && n.className ? '.' + n.className.trim().split(/\s+/).join('.') : ''));
+    new PerformanceObserver((l) => l.getEntries().forEach((e) => {
+      if (e.hadRecentInput) return;
+      window.__cls += e.value;
+      // Record what moved, so a failure (here or in CI) names the element instead of just a number.
+      window.__shifts.push({ v: +e.value.toFixed(4), t: Math.round(e.startTime), sources: (e.sources || []).map((s) => `${describe(s.node)} y ${Math.round(s.previousRect.y)}->${Math.round(s.currentRect.y)} h ${Math.round(s.previousRect.height)}->${Math.round(s.currentRect.height)}`) });
+    })).observe({ type: 'layout-shift', buffered: true });
     new PerformanceObserver((l) => { const es = l.getEntries(); window.__lcp = es[es.length - 1].startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
   });
   await page.goto('/', { waitUntil: 'load' });
   await page.waitForTimeout(1500);
-  const { lcp, cls } = await page.evaluate(() => ({ lcp: window.__lcp, cls: window.__cls }));
+  const { lcp, cls, shifts } = await page.evaluate(() => ({ lcp: window.__lcp, cls: window.__cls, shifts: window.__shifts }));
   console.log('LCP ms', Math.round(lcp), 'CLS', cls.toFixed(4));
+  for (const s of shifts.filter((x) => x.v >= 0.005)) console.log('  shift', s.v, '@', s.t, 'ms:', s.sources.join(' | '));
   expect(lcp).toBeGreaterThan(0);
   expect(lcp).toBeLessThan(BUDGET.lcpMs);
   expect(cls).toBeLessThan(BUDGET.cls);
