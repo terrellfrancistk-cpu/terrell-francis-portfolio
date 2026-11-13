@@ -46,3 +46,17 @@ test('mailto and tel links are well formed', async ({ page }) => {
   for (const m of mail) expect(m).toMatch(/^mailto:[^@\s]+@[^@\s]+\.[a-z]{2,}(\?.*)?$/i);
   for (const t of tel) expect(t).toMatch(/^tel:\+\d{11}$/);
 });
+
+test('deep links: /#case-golive opens that case study on load', async ({ page }) => {
+  await page.goto('/#case-golive');
+  await expect(page.locator('#tab-golive')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#case-golive')).toBeVisible();
+  await expect(page.locator('#case-playbook')).toBeHidden();
+});
+
+test('deep links: every section id in the nav works from a cold load', async ({ page }) => {
+  for (const id of ['experience', 'work', 'products', 'contact', 'education', 'skills']) {
+    await page.goto(`/#${id}`);
+    await expect(page.locator(`#${id}`)).toBeInViewport({ ratio: 0.01 });
+  }
+});
