@@ -1,0 +1,48 @@
+# Draft workflow. Add in a PR. Do not merge, do not buy macOS/Android minutes,
+# and do not run Firebase Test Lab without Terrell's OK.
+# Default job is unit tests + assembleDebug only (no emulator).
+# Emulator / EAS profile is workflow_dispatch only.
+name: android-check
+on:
+  workflow_dispatch:
+    inputs:
+      emulator:
+        description: "Run an emulator smoke (needs OK if it will burn paid minutes)"
+        type: boolean
+        default: false
+  pull_request:
+    paths:
+      - "android*/**"
+      - "**/build.gradle*"
+      - ".github/workflows/android-check.yml"
+jobs:
+  unit-and-assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Unit tests and debug assemble
+        run: |
+          set -e
+          if [ -f android/gradlew ]; then cd android
+          elif [ -f android-zilt/gradlew ]; then cd android-zilt
+          elif [ -d android ] || [ -d app ]; then echo "Locate the Gradle wrapper before relying on this job"; find . -name gradlew | head
+          fi
+          if [ -f ./gradlew ]; then
+            ./gradlew test assembleDebug --no-daemon
+          else
+            echo "No gradlew in this repo layout. Adapt the path in this workflow (add-only)."
+            exit 0
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-reports
+          path: |
+            **/build/reports/**
+            **/build/outputs/apk/**/*.apk
+          retention-days: 7
