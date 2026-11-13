@@ -7,9 +7,11 @@ If a change looks like it needs a removal (dead code, unused route, dangerous en
 
 ## Waiting for Terrell — one line each (details in the tables below)
 
+**Standing decision (Terrell, Nov 13):** any proposal that hides existing content (e.g. a "Show more" collapse) is NO. Do not propose or implement it.
+
 | # | Item | WHY (one line) | Today |
 |---|---|---|---|
-| 1 | Phone job-bullet collapse ("Show more") | Makes the phone page 23% shorter, but it hides bullets, so it's off until you say yes. | Off; every bullet shows |
+| 1 | ~~Phone job-bullet collapse ("Show more")~~ | **NO — Terrell, Nov 13: any proposal that hides existing content is no; keep all existing content visible.** | Not implemented; every bullet shows; the dormant opt-in code never runs |
 | 2 | Link-preview image swap | The old preview image shows your old title; the new one shows your current title. | New image in the build; old file kept |
 | 3 | New marks for Role, RADR, Noir, TORQ icons | The only sharp versions online are newer marks, so swapping would change your logos. | Not swapped; current marks kept |
 | 4 | RADR one-liner says "police, radar" | Your brand rules say RADR isn't a police app; the line came back word for word from history. | Restored as written |
@@ -32,7 +34,7 @@ Terrell's hard rule (2026-11-13): never remove, delete, hide, redirect, stub, di
 
 | Date | What | Where | Why it was proposed | Current state | Risk if approved | Terrell's decision |
 |---|---|---|---|---|---|---|
-| 2026-11-13 | **R4: collapse job bullets on phones** (three shown, the rest behind "Show more") | `script.js` "R4", `styles.css` "R4" | Phone page was long (timeline −23% with it on) | **Off.** It hid content, so this session turned it off as soon as the rule arrived. Every bullet shows on every screen, as live. The code stays and only runs with `<html data-collapse-roles="on">`, which nothing sets; opt-in tests keep it working | Recruiters on phones see three bullets per role until they tap | Pending |
+| 2026-11-13 | **R4: collapse job bullets on phones** (three shown, the rest behind "Show more") | `script.js` "R4", `styles.css` "R4" | Phone page was long (timeline −23% with it on) | **Off.** It hid content, so this session turned it off as soon as the rule arrived. Every bullet shows on every screen, as live. The code stays and only runs with `<html data-collapse-roles="on">`, which nothing sets; opt-in tests keep it working | Recruiters on phones see three bullets per role until they tap | **NO — Terrell, 2026-11-13: proposals that hide existing content are no; keep all existing content visible.** Not implemented. |
 | 2026-11-13 | **Link-preview image swap**: `og:image` / `twitter:image` point to the new `assets/og-image-2026-11.png` instead of `og-image.png` | `index.html` head | Old preview says "Implementation & onboarding leader"; new one matches his current title and mark | On the work branch only; old file kept unchanged. Shown in `BUILD_FOR_APPROVAL.md` | LinkedIn/Slack previews change look after re-scrape | Pending (part of the build approval) |
 
 | 2026-11-13 | **Swap 4 app icons to each app's newer official mark** (Role, RADR, Noir, TORQ) | `assets/apps/role.png`, `radr.png`, `noir.png`, `wrace.png` | The only high-resolution files on the apps' official sites are **different artwork** (new marks), so the current 128 px icons look soft on phones. Swapping would replace his marks, so it isn't done | Kept as is. The other six apps and the TK Hub logo got sharp versions of the **same** artwork (`assets/apps/hd/`, `tkhub-logo@hd.webp`) via `srcset`; originals untouched | Previews would show new marks he may not want here | Pending (or send full-res files of the current marks: HANDOFF H11) |
