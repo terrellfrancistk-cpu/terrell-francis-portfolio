@@ -989,3 +989,5 @@ html, body { overflow-x: clip; }
    and show focus; the TK Hub button in the products note is a 44px target on touch screens. */
 .phone-frame:focus, .phase-list:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 @media (pointer: coarse), (max-width: 720px) { .products-note .btn { min-height: 44px; } }
+/* Keyboard focus inside the live demo (focus moves into the app's page once it loads): ring the phone frame itself. */
+.phone:focus-within, .phone.frame-focused { outline: 3px solid var(--accent); outline-offset: 4px; }

@@ -240,6 +240,14 @@
   const frame = document.getElementById('studio-frame');
   const openLink = document.getElementById('studio-open');
   if (frame) {
+    // Keyboard focus that moves into the embedded app page can't be styled with CSS from here (cross-origin),
+    // so the phone frame gets a class while the demo has focus. Restored studio, accessibility fix 2026-11-13.
+    const phone = frame.closest('.phone');
+    if (phone) {
+      const mark = () => phone.classList.toggle('frame-focused', document.activeElement === frame);
+      window.addEventListener('blur', () => { mark(); setTimeout(mark, 0); });
+      window.addEventListener('focus', () => phone.classList.remove('frame-focused'));
+    }
     const screen = frame.parentElement;
     frame.addEventListener('load', () => screen.classList.remove('loading'));
     document.querySelectorAll('input[name="studio"][data-demo]').forEach((r) => r.addEventListener('change', () => {

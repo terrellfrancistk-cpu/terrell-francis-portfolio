@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { open } from './helpers.mjs';
 
-const reveal = '.reveal{opacity:1!important;transform:none!important;transition:none!important}';
+const reveal = '.reveal,.phase-anim li{opacity:1!important;transform:none!important;transition:none!important}';
 
 test('System is the default and follows the device (light)', async ({ browser }) => {
   const ctx = await browser.newContext({ colorScheme: 'light' });
