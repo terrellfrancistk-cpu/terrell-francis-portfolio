@@ -217,6 +217,10 @@
     const fromHash = chapterTabs.find((t) => '#' + t.getAttribute('aria-controls') === location.hash);
     showChapter(fromHash || chapterTabs[0], false, false);
     chapterTabs.forEach((tab) => tab.addEventListener('click', () => showChapter(tab, false, true)));
+    // R5: in-page links to a case study (e.g. the Proof links under Skills) open that tab, even if the hash is unchanged.
+    const openFromHash = (hash) => { const t = chapterTabs.find((x) => '#' + x.getAttribute('aria-controls') === hash); if (t) showChapter(t, false, false); return t; };
+    window.addEventListener('hashchange', () => openFromHash(location.hash));
+    document.addEventListener('click', (e) => { const a = e.target.closest('a[href^="#case-"]'); if (a) openFromHash(a.getAttribute('href')); });
     document.querySelector('.chapter-nav').addEventListener('keydown', (e) => {
       const i = chapterTabs.indexOf(document.activeElement);
       if (i < 0) return;

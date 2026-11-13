@@ -56,6 +56,7 @@ test('deep links: /#case-golive opens that case study on load', async ({ page })
 
 test('deep links: every section id in the nav works from a cold load', async ({ page }) => {
   for (const id of ['experience', 'work', 'products', 'contact', 'education', 'skills']) {
+    await page.goto('about:blank');
     await page.goto(`/#${id}`);
     await expect(page.locator(`#${id}`)).toBeInViewport({ ratio: 0.01 });
   }

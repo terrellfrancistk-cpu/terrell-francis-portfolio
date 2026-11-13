@@ -955,3 +955,10 @@ html, body { overflow-x: clip; }
   .tl-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 }
 @media print { .tl-clamp > li { display: list-item !important; } .tl-more { display: none !important; } }
+
+/* ---------- R5: every skill group links to its proof (2026-11-13) ---------- */
+.toolkit .proof { margin: 0 0 6px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.toolkit .proof a { color: var(--accent-ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--hairline, #C8DAF0); }
+.toolkit .proof a:hover { color: var(--accent); border-bottom-color: currentColor; }
+@media (pointer: coarse), (max-width: 720px) { .toolkit .proof a { display: inline-block; padding: 12px 0; margin: -12px 0; border-bottom: 0; text-decoration: underline; text-decoration-color: var(--hairline, #C8DAF0); text-underline-offset: 4px; } }
+.tl-item { scroll-margin-top: 96px; }
