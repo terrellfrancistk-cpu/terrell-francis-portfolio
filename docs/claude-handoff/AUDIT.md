@@ -46,14 +46,14 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | PAR-2 | Present | Section and case-study deep links work from a cold load (`links.spec.mjs › deep links`) |
 | LEG-1 | Present | `/privacy/` (privacy and terms) states only what the code does; footer link; renders in both themes (`pages.spec.mjs`) |
 | LEG-2…LEG-9 | N/A | No store binary, AI, biometrics, age-gated content, or permissions |
-| ONB-1 | Present | TF mark → solid black TK Hub (~1.2 s) → page, once per session, skipped for reduced motion (`splash.spec.mjs`, forced with `?splash=1`). Caption question in PROPOSED_REMOVALS row 1 |
+| ONB-1 | Present | TF mark → solid black TK Hub (~1.2 s) → page, once per session, skipped for reduced motion (`splash.spec.mjs`, forced with `?splash=1`). Splash caption: kept (Terrell, Nov 13) |
 | ONB-2 | N/A | No permissions or analytics to opt into |
 | SET-1 | Present (applicable part) | Theme Light / Dark / System, System default, remembered, live-follows the device (`theme.spec.mjs`); legal link in footer. Account, notifications, delete and sign-out are N/A |
 | SUP-1 | Present | Contact mailto/tel links well-formed (`links.spec.mjs`); whether the inbox receives mail is on the handoff |
 | ADM-1 | N/A | No admin tooling |
 | STG-1 | Present | Local static server is staging; `tests/guard.mjs` refuses every production host (fails closed) |
 | STG-2 | Present | Git history is the backup; rollback = revert the merge on `main` (pages.yml republishes) |
-| CI-1 | Present (CI green on PR #7: 89 passed, 5 skips; visual is sandbox-only) | 128 tests in 14 spec files (117 run per pass; 11 are width-specific skips), plus the same suite against the minified production build (`npm run test:prod-build`, also a CI step); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
+| CI-1 | Present (CI green on PR #7 head `5c732d5` and PR #8 head `5d816d8`; visual is sandbox-only) | 164 tests in 18 spec files (152 run per pass; 12 are width-specific skips), plus the same suite against the minified production build (`npm run test:prod-build`, also a CI step); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
 | VER-1 | Present | Footer stays `v2.0.0`; no bump |
 | WEB-1 | Present | No rork hostnames (`smoke.spec.mjs`); bare domain is the site. Live HTTP 200 is on the handoff (sandbox proxy blocks the live host) |
 
@@ -70,6 +70,8 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 **Score:** 19 applicable STANDARD rows + 5 SPEC rows = 24. Present/BUILT: 21. BLOCKED on a named human step: OBS-2 (merge OK) and SPEC "honest store badges" (Terrell's answer). CI-1 is Present once the PR run is green. **21/24 = 88% strict; 100% of what the cloud session can do without Terrell.**
 
 **Update 2026-11-13 (block 6):** CI-1 confirmed green on PR #7 (every head since). Terrell decided every PROPOSED_REMOVALS and REMOVAL_AUDIT row: keep as is, nothing removed or restored; his email and phone stay exactly as they are (now guarded by `contact.spec.mjs`). **Score: 22/24 = 92% strict.** Open: OBS-2 (needs merge OK) and SPEC "honest store badges" (needs his answer on "10 apps shipped, idea to store").
+
+**Current state, 2026-11-13 (block 19):** **23/24 = 96% strict.** Only open row: OBS-2 (uptime check; it can only run after a merge to `main`, which needs Terrell's OK). Since block 7: Terrell's 1:05 PM CT decision applied (link-preview image kept as live; TORQ studio panel and About's second paragraph restored; app marks and RADR wording kept), so `PROPOSED_REMOVALS.md` has nothing pending. Builds waiting for approval: `db03980d4050be2b` (PR #7) and `949a061b13dd5dda` (PR #8), both with public previews (`BUILD_FOR_APPROVAL.md`) and green CI. The block 7 note at the bottom of this file is kept for the record.
 
 ---
 
