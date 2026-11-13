@@ -18,6 +18,61 @@ P1. Run a full visual and link audit (phone and desktop widths, console errors, 
 P1. Personal contact belongs only if it is already his choice for this site — confirm on the live page; do not invent or harvest new personal data into the zip or the repo docs.
 P2. Website quality rounds until further high-impact changes would add clutter (then stop). 100% means AUDIT items Present, visual regression on the site, and a verification report — still not a live push without OK.
 
+## Re-score — 2026-11-13 (Claude, branch `claude/sharp-franklin-6cwtfa`)
+
+Probed against the repo and a local static server (the staging host for a static site). The live domain is blocked by this sandbox's network proxy (HTTP 403), so live-only checks are on HANDOFF_TO_HOUSE_OFFICER.md. Test kit: `tests/` (Playwright 1.63 + axe 4.10), run with `cd tests && npm test`. Every "Present" below names its test.
+
+terrellfrancis.app is a static, single-page résumé site: no accounts, no forms, no database, no payments, no messaging, no native app. Rows for those surfaces are **N/A**, and `smoke.spec.mjs › no accounts, forms, or inputs` keeps that claim true.
+
+| ID | Mark | Evidence (test or file) |
+|---|---|---|
+| RAIL-0 | Present | PROPOSED_REMOVALS.md filled; nothing removed (every change is additive; diffs in git log) |
+| AUTH-1…AUTH-8 | N/A | No sign-in or accounts. `smoke.spec.mjs` asserts no form/input/iframe and no cookies |
+| SEC-1…SEC-4, SEC-6, SEC-7 | N/A | No database, admin routes, or user-generated content |
+| SEC-5 | Present | Full-history scan for API keys, tokens and private keys: none. No env files. |
+| SEC-8 | N/A | No health or sensitive data handled |
+| UX-1 | Present | `404.html` (`pages.spec.mjs › unknown paths get the site 404`); splash has a 2.6 s failsafe and tap/key skip (`splash.spec.mjs`) |
+| UX-2 | Present | Content is in the HTML at first paint; LCP ~1.5 s throttled (`perf.spec.mjs`); no spinners |
+| UX-3 | Present | No sample or placeholder data; every figure is attributed to its employer |
+| UX-4, UX-5 | N/A | Nothing loads after first paint; no lists to refresh |
+| OBS-1 | N/A | No crash SDK exists, and VISION says not to add one unasked |
+| OBS-2 | **BLOCKED** (merge) | `.github/workflows/uptime.yml` drafted (read-only GETs, manual). A dispatch-only workflow can only run from the default branch, so it needs Terrell's OK to merge; the schedule stays commented until he OKs it |
+| OBS-3 | Present | No analytics, logs or push; zero third-party requests (`pages.spec.mjs › loads nothing from third parties`) |
+| COM-1…COM-3, PAY-1…PAY-5 | N/A | No email sending, push, SMS or purchases |
+| A11Y-1 | Present (web) | axe WCAG 2.1 A/AA = 0 violations in light and dark, on home, privacy and 404 (`a11y`, `theme`, `pages` specs); keyboard tabs; 44 px phone targets; element-level contrast. VoiceOver/TalkBack on a real phone is on the handoff |
+| PERF-1 | Present | Budgets: < 700 KB first load (today 298 KB unminified), LCP < 2.5 s, CLS < 0.1 on a 4× CPU / slow network (today ~1.5 s / ~0). k6 N/A: no backend, and production load tests are banned |
+| PERF-2 | N/A | No polling or lists |
+| PAR-1 | N/A | No native apps. Phone and desktop are both covered by every spec |
+| PAR-2 | Present | Section and case-study deep links work from a cold load (`links.spec.mjs › deep links`) |
+| LEG-1 | Present | `/privacy/` (privacy and terms) states only what the code does; footer link; renders in both themes (`pages.spec.mjs`) |
+| LEG-2…LEG-9 | N/A | No store binary, AI, biometrics, age-gated content, or permissions |
+| ONB-1 | Present | TF mark → solid black TK Hub (~1.2 s) → page, once per session, skipped for reduced motion (`splash.spec.mjs`, forced with `?splash=1`). Caption question in PROPOSED_REMOVALS row 1 |
+| ONB-2 | N/A | No permissions or analytics to opt into |
+| SET-1 | Present (applicable part) | Theme Light / Dark / System, System default, remembered, live-follows the device (`theme.spec.mjs`); legal link in footer. Account, notifications, delete and sign-out are N/A |
+| SUP-1 | Present | Contact mailto/tel links well-formed (`links.spec.mjs`); whether the inbox receives mail is on the handoff |
+| ADM-1 | N/A | No admin tooling |
+| STG-1 | Present | Local static server is staging; `tests/guard.mjs` refuses every production host (fails closed) |
+| STG-2 | Present | Git history is the backup; rollback = revert the merge on `main` (pages.yml republishes) |
+| CI-1 | Present (pending first CI run) | 92 tests (88 run per pass; 4 are width-specific skips); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
+| VER-1 | Present | Footer stays `v2.0.0`; no bump |
+| WEB-1 | Present | No rork hostnames (`smoke.spec.mjs`); bare domain is the site. Live HTTP 200 is on the handoff (sandbox proxy blocks the live host) |
+
+### SPEC items
+
+| SPEC item | Mark | Evidence |
+|---|---|---|
+| Accurate public résumé | BUILT | Every role, date, company and metric on the page matches `assets/Terrell_Francis_Resume.pdf` (pdftotext). Minor: the PDF lists "Forms" under M365 and gives 2016–2020 for the B.S.; the page says 2020 |
+| Working links | BUILT | Internal anchors and every local asset 200 (`links.spec.mjs`); external: 10 OK, 0 broken, 5 unverified from the sandbox (`tests/check-external-links.mjs`) → handoff |
+| Honest store badges | **BLOCKED** (Terrell's answer) | No store badges on the site. The hero card says "10 apps shipped, idea to store". Pack docs show several iOS builds rejected Nov 3–5, so whether "to store" is accurate today is Terrell's call (handoff Q1) |
+| Splash | BUILT | See ONB-1 |
+| Clean visual QA | BUILT | 16 visual baselines (phone + desktop, light + dark, privacy) in `tests/e2e/__screenshots__`; 0 console errors |
+
+**Score:** 19 applicable STANDARD rows + 5 SPEC rows = 24. Present/BUILT: 21. BLOCKED on a named human step: OBS-2 (merge OK) and SPEC "honest store badges" (Terrell's answer). CI-1 is Present once the PR run is green. **21/24 = 88% strict; 100% of what the cloud session can do without Terrell.**
+
+---
+
+## Pack-time marks (2026-11-13, superseded by the re-score above; kept for the record)
+
 ## STANDARD checklist
 
 | ID | Requirement | Mark | Why (evidence) | Claude instruction |

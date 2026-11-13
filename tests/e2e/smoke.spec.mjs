@@ -31,3 +31,12 @@ test('the internal handoff folders are never linked from the page', async ({ pag
   const hrefs = await page.$$eval('a[href]', (as) => as.map((a) => a.getAttribute('href')));
   for (const h of hrefs) expect(h).not.toMatch(/^\/?(docs|tests)\//);
 });
+
+test('no accounts, forms, or inputs anywhere (keeps AUTH/PAY/COM rows N/A honest)', async ({ page }) => {
+  for (const path of ['/', '/privacy/']) {
+    await page.goto(path);
+    await expect(page.locator('form, input:not([type="radio"]), textarea, select, iframe')).toHaveCount(0);
+  }
+  const cookies = await page.context().cookies();
+  expect(cookies).toEqual([]);
+});

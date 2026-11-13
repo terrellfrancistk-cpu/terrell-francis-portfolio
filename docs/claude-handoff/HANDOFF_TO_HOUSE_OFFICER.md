@@ -2,6 +2,25 @@
 
 This is a website-only session. There is no app-store binary and no Rork build. A push to the live branch can be a production publish — do not push without Terrell's OK. Play Console rows below are N/A unless this site links a real listing.
 
+## terrellfrancis.app: open items from the Claude cloud session (2026-11-13)
+
+Work branch: `claude/sharp-franklin-6cwtfa` (pushing there does **not** deploy; `pages.yml` deploys only from `main`). Test kit: `tests/` (`cd tests && npm install && npm test`). Nothing below may publish, merge, or spend without Terrell's OK.
+
+| # | Item | Why cloud cannot | Where | Evidence already collected | Needs Terrell's OK? | Status |
+|---|---|---|---|---|---|---|
+| Q1 | **Question for Terrell:** the hero card says "10 apps shipped, idea to store". Is at least one app live in a store today? If not, approve a truthful wording such as "10 apps built, idea to release". | Store status needs his Console knowledge | Reply in chat or on the PR | STORE_REVIEW.md "Claude check"; pack doc `docs/apple-rejection-texts-2026-11-10.md` | **Yes** (his words) | Open |
+| Q2 | **Decide** each PROPOSED_REMOVALS row (splash caption, dead JS, dead CSS, contact-exposure question) and the "Pending" rows in REMOVAL_AUDIT (restore app one-liners? restore the implementation phase strip? the studio?) | Rule #1: only Terrell approves removals and restores of trimmed sections | `docs/claude-handoff/PROPOSED_REMOVALS.md`, `REMOVAL_AUDIT.md` | Each row has evidence and risk | **Yes** | Open |
+| H1 | Look-only live check: open https://terrellfrancis.app on a phone and a desktop. Confirm HTTP 200, the splash (TF mark → black TK Hub → page) in a fresh tab, and that the résumé downloads | This sandbox's network proxy returns 403 for the live domain | Phone + desktop browser | Local-server run: 88/88 pass, screenshots in `tests/e2e/__screenshots__` | No (look only) | Open |
+| H2 | Click the 5 external links the sandbox could not reach: LinkedIn profile, TK Hub LinkedIn page, the current-employer site in the timeline, tryrole.app, and the older personal site in the footer | Sandbox DNS/proxy blocks those hosts | Live page footer and timeline | `node tests/check-external-links.mjs`: 10 OK, 0 broken, 5 unverified | No (look only) | Open |
+| H3 | Send one test email to the address on the contact section and confirm it arrives (SUP-1) | Needs his inbox | His mail app | mailto/tel links are well-formed (test) | No, unless he prefers to do it himself | Open |
+| H4 | VoiceOver (iPhone) and TalkBack (Android) pass on the live page: nav menu, case-study tabs, theme switch, contact | Physical device | Terrell's phone | axe = 0 violations in light and dark | No | Open |
+| H5 | **Merge the draft PR** from `claude/sharp-franklin-6cwtfa` into `main`. This IS a production publish (pages.yml deploys `main` to gh-pages). After merge, look at the live site again (H1) | Production publish | GitHub PR page | Full test report in PROGRESS.md | **Yes** | Do not merge without OK |
+| H6 | After H5: run the `uptime` workflow once (Actions → uptime → Run workflow). Decide whether to turn on its schedule (every 6 h; it uses Actions minutes) | Dispatch-only workflows appear only on the default branch | GitHub Actions tab | `.github/workflows/uptime.yml` | Schedule: **Yes** | Blocked on H5 |
+| H7 | If `site-tests` shows `startup_failure` on the PR, Actions billing is blocking runs. **Do not** add a card or buy minutes; tell Terrell | Billing GUI | GitHub Settings → Billing | Same symptom noted on other repos in PAID_TOOLS.md | **Yes** for any spend | Watch |
+| H8 | Look-only: GitHub repo Settings → Pages shows source `gh-pages` / root, custom domain terrellfrancis.app, "Enforce HTTPS" on | Signed-in GUI | Repo Settings → Pages | `CNAME`, `pages.yml` | Changes: **Yes** | Open |
+
+Generic rows below come from the house template. For this website, rows about Play Console, App Store Connect, demo logins, store replies, Rork, and Unreal are **N/A** (no app binary, no listing).
+
 Each row: what to do, why cloud cannot, exact console or URL, evidence already collected, and whether it needs Terrell's OK. Give **vault entry names**, never passwords.
 
 | Item | Why cloud cannot | Where | Evidence | Needs Terrell's OK? | Status |
