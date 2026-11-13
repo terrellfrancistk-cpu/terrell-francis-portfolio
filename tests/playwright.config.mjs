@@ -5,6 +5,8 @@ const { base, isLocal } = resolveBaseURL();
 
 export default defineConfig({
   testDir: './e2e',
+  // Visual baselines are rendered in the Claude cloud sandbox; CI font rasterizing can differ, so CI skips them unless VISUAL=1.
+  testIgnore: process.env.CI && process.env.VISUAL !== '1' ? ['**/visual.spec.mjs'] : [],
   timeout: 30_000,
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled' } },
   fullyParallel: true,

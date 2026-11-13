@@ -1,0 +1,27 @@
+# Draft (Claude, 2026-11-13). OBS-2: a free uptime look at the live site. Read-only GET requests, no load.
+# Manual only for now. Turning on the schedule below needs Terrell's OK (it uses Actions minutes on the default branch).
+name: uptime
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "17 */6 * * *"
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Live pages answer 200
+        run: |
+          set -e
+          for path in / /assets/Terrell_Francis_Resume.pdf /privacy/ /assets/og-image.png; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "https://terrellfrancis.app$path")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || { echo "::error::$path returned $code"; exit 1; }
+          done
+      - name: Unknown paths get the site's 404 page
+        run: |
+          code=$(curl -sS -o /tmp/nf.html -w '%{http_code}' --max-time 20 "https://terrellfrancis.app/this-page-does-not-exist")
+          echo "404 check -> $code"
+          [ "$code" = "404" ] || { echo "::error::expected 404, got $code"; exit 1; }
