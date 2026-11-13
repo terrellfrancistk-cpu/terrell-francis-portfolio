@@ -30,7 +30,7 @@ No rows approved in this pack at pack time.
 
 ## Talencia public-safe update (2026-11-13, Grok Bot executor, branch `talencia-public-safe`)
 
-The Talencia role now leads with the nine public-safe bullets from House Talencia's contract review (copy from House Hire's `public_copy.md`). The six older bullets below are **kept** in this PR (Rule #1). These rows propose replacing them because they are not on the public-safe list. The swap is ready as a separate stacked draft PR (`talencia-public-safe-swap`) so Terrell can approve or decline it on its own.
+The Talencia role now leads with the nine public-safe bullets approved for public use (copy from House Hire's `public_copy.md`). The six older bullets below are **kept** in this PR (Rule #1). These rows propose replacing them because they are not on the public-safe list. The swap is ready as a separate stacked draft PR (`talencia-public-safe-swap`) so Terrell can approve or decline it on its own.
 
 | Date | What | Where | Why it should go | What would replace it | Risk if left | Risk if removed | Terrell's decision |
 |---|---|---|---|---|---|---|---|
