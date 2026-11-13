@@ -22,6 +22,7 @@ Work branch: `claude/sharp-franklin-6cwtfa` (pushing there does **not** deploy; 
 | H7 | If `site-tests` shows `startup_failure` on the PR, Actions billing is blocking runs. **Do not** add a card or buy minutes; tell Terrell | Billing GUI | GitHub Settings → Billing | Same symptom noted on other repos in PAID_TOOLS.md | **Yes** for any spend | Watch |
 | H8 | Look-only: GitHub repo Settings → Pages shows source `gh-pages` / root, custom domain terrellfrancis.app, "Enforce HTTPS" on | Signed-in GUI | Repo Settings → Pages | `CNAME`, `pages.yml` | Changes: **Yes** | Open |
 | H9 | Optional, low priority: `pages.yml` (the live deploy) still uses `actions/checkout@v4`, which GitHub warns runs on deprecated Node 20. `site-tests.yml` was moved to v5 on this branch and stays green. Bumping `pages.yml` too would only take effect at a production merge | Changes the production deploy workflow | `.github/workflows/pages.yml` | CI warning text on PR #7 runs | **Yes** | Not done |
+| H10 | Optional: the GitHub repo description still says "Implementation & Onboarding Leader · portfolio site" (his older title). Suggested: "Terrell Francis · Technology & Operations Leader · portfolio site (terrellfrancis.app)" | Repo settings (outward-facing metadata) | Repo page → About → edit | `mcp` PR read on 2026-11-13 shows the old text | **Yes** (his wording) | Not done |
 
 Generic rows below come from the house template. For this website, rows about Play Console, App Store Connect, demo logins, store replies, Rork, and Unreal are **N/A** (no app binary, no listing).
 
