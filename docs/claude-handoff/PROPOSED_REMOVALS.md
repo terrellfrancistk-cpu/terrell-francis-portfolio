@@ -27,3 +27,17 @@ Not proposed (kept on purpose): `assets/apps/wrace.png` (still the TORQ tile ima
 No rows approved in this pack at pack time.
 
 **2026-11-13: Terrell decided every row above: keep. Nothing in this file was removed.** New proposals, if any, go in new rows.
+
+## Talencia public-safe update (2026-11-13, Grok Bot executor, branch `talencia-public-safe`)
+
+The Talencia role now leads with the nine public-safe bullets from House Talencia's contract review (copy from House Hire's `public_copy.md`). The six older bullets below are **kept** in this PR (Rule #1). These rows propose replacing them because they are not on the public-safe list. The swap is ready as a separate stacked draft PR (`talencia-public-safe-swap`) so Terrell can approve or decline it on its own.
+
+| Date | What | Where | Why it should go | What would replace it | Risk if left | Risk if removed | Terrell's decision |
+|---|---|---|---|---|---|---|---|
+| 2026-11-13 | "Own the tech roadmap: one staffing platform for web, desktop, and mobile, replacing a legacy one." | `index.html` `#role-current` | "Desktop" and "replacing a legacy one" are unpublished product and plan details | Public-safe bullet 1 (iOS, Android, and web) | Discloses a nonpublic product plan | None; covered by bullet 1 | Pending |
+| 2026-11-13 | "Community and subscriptions built in. Website first, then platform and data migration." | `#role-current` | Unreleased features and a deployment/migration plan | Nothing (bullets 1–2 cover it) | Discloses unreleased features | None | Pending |
+| 2026-11-13 | "Leading a consolidation review of communications, recruiting, payroll, and client tools." | `#role-current` | Internal vendor/tooling review; partly covered by the public-safe vendor bullet | Public-safe bullet 4 (training and payroll vendor evaluation) | Hints at nonpublic vendor decisions | None | Pending |
+| 2026-11-13 | "For each tool: what it does, what it costs, where it overlaps. Then keep, integrate, or retire." | `#role-current` | Mentions cost/retire decisions on vendor tools (pricing is confidential) | Nothing | Hints at pricing and vendor decisions | None | Pending |
+| 2026-11-13 | "**Week one:** took over Microsoft 365 administration." | `#role-current` | Not on the public-safe list | Public-safe bullets 3 and 5 | Low | Lose a "week one" impact line | Pending |
+| 2026-11-13 | "Built recruiting-platform training: a course shell, captioned video lessons, and **10 quizzes**." | `#role-current` | Nonpublic training content; describes a vendor's recruiting platform | Public-safe bullet 3 (Microsoft 365 training program, short knowledge-check quizzes) | Describes nonpublic training content | Lose the "10 quizzes" detail | Pending |
+| 2026-11-13 | "Now" card blurb "One staffing platform across web, desktop, and mobile, …" | `index.html` `.now-talencia .now-desc` | "Desktop" is not public | "One staffing platform across iOS, Android, and web, and the systems and training a healthcare staffing company runs on." | Same as row 1 | None | Pending |
