@@ -56,7 +56,10 @@
       try {
         var seen = sessionStorage.getItem('tf-splash');
         var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!seen && !rm && !navigator.webdriver) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
+        // ?splash=1 replays the splash (QA and automated checks); reduced motion still wins.
+        var force = /[?&]splash=1(&|$)/.test(location.search);
+        if (force && !rm) { d.classList.add('splash-on'); }
+        else if (!seen && !rm && !navigator.webdriver) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
       } catch (e) {}
     })(document.documentElement);
   </script>

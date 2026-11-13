@@ -37,7 +37,7 @@ test('keyboard: case-study tabs move with arrow keys and keep one panel visible'
 test('touch targets: every visible control in the primary flow is at least 44px tall on phones', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'phone rule');
   await open(page);
-  const small = await page.$$eval('a.btn, button, .nav-toggle, .chapter-tab, .app-tile, .contact-links a, .footer-nav a', (els) => els
+  const small = await page.$$eval('a.btn, button, .nav-toggle, .chapter-tab, .app-tile, .contact-links a, .footer-nav a, .to-top, .hero-meta a, .contact-email, .contact-phone, a.brand, .footer-logo, .now-card', (els) => els
     .filter((e) => { const r = e.getBoundingClientRect(); const s = getComputedStyle(e); return r.width > 0 && s.visibility !== 'hidden' && s.display !== 'none'; })
     .map((e) => ({ t: (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 30), h: Math.round(e.getBoundingClientRect().height) }))
     .filter((x) => x.h < 44));

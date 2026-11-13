@@ -806,3 +806,20 @@ strong { color: var(--ink); font-weight: 650; }
 .lead.lead-1 { margin-bottom: 6px; }
 /* Decorative layers (pseudo-elements behind the hero and timeline) never widen the page on a 280px phone. */
 html, body { overflow-x: clip; }
+
+/* ---------- Touch targets (A11Y-1, 2026-11-13) ----------
+   On touch screens every text link in the contact block and footer is a 44px-tall target. Gaps shrink so the lists keep their rhythm. */
+@media (pointer: coarse), (max-width: 720px) {
+  .contact-links { gap: 0 22px; }
+  .contact-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contact-links span { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer-nav ul { gap: 0; }
+  .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .to-top { display: inline-flex; align-items: center; min-height: 44px; }
+  /* Bigger hit area, same look: padding grows the target, the negative margin keeps the layout where it was. */
+  .hero-meta a { display: inline-block; padding: 10px 0; margin: -10px 0; border-bottom: 0; text-decoration: underline; text-decoration-color: #C8DAF0; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .hero-meta a:hover { text-decoration-color: currentColor; }
+  .contact-email, .contact-phone { min-height: 44px; padding: 6px 0; }
+  .contact-email { margin-bottom: 2px; }
+  .contact-phone { margin-bottom: 20px; }
+}
