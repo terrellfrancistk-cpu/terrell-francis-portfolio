@@ -35,7 +35,10 @@ test('the internal handoff folders are never linked from the page', async ({ pag
 test('no accounts, forms, or inputs anywhere (keeps AUTH/PAY/COM rows N/A honest)', async ({ page }) => {
   for (const path of ['/', '/privacy/']) {
     await page.goto(path);
-    await expect(page.locator('form, input:not([type="radio"]), textarea, select, iframe')).toHaveCount(0);
+    await expect(page.locator('form, input:not([type="radio"]), textarea, select')).toHaveCount(0);
+    // The only iframe is the restored live-demo phone frame, and it only ever shows a TK Hub app site.
+    const frames = await page.$$eval('iframe', (fs) => fs.map((f) => ({ id: f.id, host: new URL(f.src).hostname, sandbox: f.getAttribute('sandbox') })));
+    for (const f of frames) { expect(f.id).toBe('studio-frame'); expect(f.sandbox).toBeTruthy(); }
   }
   const cookies = await page.context().cookies();
   expect(cookies).toEqual([]);

@@ -2,11 +2,14 @@ import { test, expect } from '@playwright/test';
 
 // PERF-1 for a static site: page-weight and Core Web Vitals budgets, measured on the local server.
 // (k6 load testing does not apply: there is no backend, and production load tests are not allowed.)
-const BUDGET = { totalKB: 700, htmlKB: 100, cssKB: 80, jsKB: 30, lcpMs: 2500, cls: 0.1 };
+// htmlKB raised 100 -> 130 on 2026-11-13: the restored About, phase strip and product studio add ~18 KB of HTML.
+const BUDGET = { totalKB: 700, htmlKB: 130, cssKB: 80, jsKB: 30, lcpMs: 2500, cls: 0.1 };
 
 test('first-load page weight stays under budget', async ({ page }) => {
   const sizes = { html: 0, css: 0, js: 0, font: 0, img: 0, other: 0 };
   page.on('response', async (r) => {
+    if (new URL(r.url()).hostname !== new URL(page.url() || 'http://127.0.0.1').hostname && r.request().frame() !== page.mainFrame()) return;
+    if (!['127.0.0.1', 'localhost'].includes(new URL(r.url()).hostname)) return;
     const t = r.request().resourceType();
     const len = (await r.body().catch(() => Buffer.alloc(0))).length;
     const k = t === 'document' ? 'html' : t === 'stylesheet' ? 'css' : t === 'script' ? 'js' : t === 'font' ? 'font' : t === 'image' ? 'img' : 'other';

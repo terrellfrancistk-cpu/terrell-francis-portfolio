@@ -972,3 +972,20 @@ html, body { overflow-x: clip; }
   .mail-toast { border: 1px solid CanvasText; }
   .btn, .app-tile, .now-card, .case, .edu-card { border: 1px solid ButtonText; }
 }
+
+/* ---------- Restored sections, layout fixes (2026-11-13) ----------
+   Launch strip: every phase lines up at the top (a taller phase used to push the others' text down).
+   Studio picker: on wide screens all ten apps are visible at once instead of in a sideways scroller. */
+.phase-list li { align-content: start; }
+@media (min-width: 961px) {
+  .studio-index { flex-wrap: wrap; overflow: visible; row-gap: 10px; }
+}
+[data-theme="dark"] .pill-live { background: rgba(30, 158, 106, .16); color: #7FDDB4; }
+[data-theme="dark"] .studio-stage, [data-theme="dark"] .products-note { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .principle { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .studio-pick:has(input:checked) img { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--c); }
+
+/* Restored sections, accessibility (2026-11-13): the demo frame and the phone phase scroller are keyboard-reachable
+   and show focus; the TK Hub button in the products note is a 44px target on touch screens. */
+.phone-frame:focus, .phase-list:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+@media (pointer: coarse), (max-width: 720px) { .products-note .btn { min-height: 44px; } }
