@@ -5,7 +5,8 @@
   "scripts": {
     "test": "playwright test --trace off",
     "test:update": "playwright test --trace off --update-snapshots",
-    "serve": "node serve.mjs"
+    "serve": "node serve.mjs",
+    "test:prod-build": "bash prod-build-check.sh"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",

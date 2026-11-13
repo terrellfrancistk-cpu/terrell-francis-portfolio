@@ -18,5 +18,6 @@ export default defineConfig({
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } } },
     { name: 'phone', use: { ...devices['Pixel 7'] } },
   ],
-  webServer: isLocal ? { command: 'node serve.mjs', url: 'http://127.0.0.1:4173/', reuseExistingServer: true, timeout: 15_000 } : undefined,
+  // E2E_BASE_URL pointing at another local port means that server is already running (e.g. the production-build check).
+  webServer: isLocal && !process.env.E2E_BASE_URL ? { command: 'node serve.mjs', url: 'http://127.0.0.1:4173/', reuseExistingServer: true, timeout: 15_000 } : undefined,
 });

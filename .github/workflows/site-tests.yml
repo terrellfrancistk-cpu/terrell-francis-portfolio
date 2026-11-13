@@ -35,6 +35,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Run the suite (local server; production hosts refused)
         run: npx playwright test --trace off --reporter=list,html
+      - name: Run the suite again against the minified build pages.yml would publish
+        run: bash prod-build-check.sh --reporter=list
       - uses: actions/upload-artifact@v4
         if: always()
         with:
