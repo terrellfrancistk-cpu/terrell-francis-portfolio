@@ -27,3 +27,19 @@ test('footer', async ({ page }) => {
   await settle(page);
   await expect(page.locator('.site-footer')).toHaveScreenshot('footer.png');
 });
+
+test('hero, dark theme', async ({ browser, isMobile, viewport, userAgent, deviceScaleFactor, hasTouch }) => {
+  const ctx = await browser.newContext({ colorScheme: 'dark', viewport, userAgent, deviceScaleFactor, isMobile, hasTouch });
+  const page = await ctx.newPage();
+  await open(page);
+  await settle(page);
+  await expect(page).toHaveScreenshot('hero-dark.png');
+  await ctx.close();
+});
+
+test('privacy & terms page', async ({ page }) => {
+  await page.goto('/privacy/');
+  await page.evaluate(() => document.fonts.ready);
+  await settle(page);
+  await expect(page).toHaveScreenshot('privacy.png', { fullPage: true });
+});

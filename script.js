@@ -12,6 +12,27 @@
     } else done();
   }
 
+  // Theme switch: System (default, follows the device), Light, Dark. The choice is remembered on this device only.
+  const themeButtons = [...document.querySelectorAll('[data-theme-set]')];
+  const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+  const applyTheme = (pref) => {
+    const html = document.documentElement;
+    const dark = pref === 'dark' || (pref === 'system' && darkMQ.matches);
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    html.setAttribute('data-theme-pref', pref);
+    themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === pref)));
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#0A1422' : '#0E2238');
+  };
+  applyTheme(document.documentElement.getAttribute('data-theme-pref') || 'system');
+  themeButtons.forEach((b) => b.addEventListener('click', () => {
+    const pref = b.dataset.themeSet;
+    try { if (pref === 'system') localStorage.removeItem('tf-theme'); else localStorage.setItem('tf-theme', pref); } catch (e) {}
+    applyTheme(pref);
+  }));
+  const onSystemChange = () => { if ((document.documentElement.getAttribute('data-theme-pref') || 'system') === 'system') applyTheme('system'); };
+  if (darkMQ.addEventListener) darkMQ.addEventListener('change', onSystemChange); else if (darkMQ.addListener) darkMQ.addListener(onSystemChange);
+
   const header = document.querySelector('.site-header');
   const toggle = document.querySelector('.nav-toggle');
   const links = document.getElementById('nav-links');

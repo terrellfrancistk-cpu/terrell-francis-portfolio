@@ -53,6 +53,17 @@
   <script>
     (function (d) {
       d.classList.add('js');
+      // Theme: Light / Dark / System (default). Resolved before first paint so there is no flash.
+      try {
+        var pref = localStorage.getItem('tf-theme');
+        if (pref !== 'light' && pref !== 'dark') pref = 'system';
+        var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        d.setAttribute('data-theme', dark ? 'dark' : 'light');
+        d.setAttribute('data-theme-pref', pref);
+      } catch (e) {
+        d.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        d.setAttribute('data-theme-pref', 'system');
+      }
       try {
         var seen = sessionStorage.getItem('tf-splash');
         var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -490,6 +501,17 @@
     </div>
     <div class="container footer-inner">
       <p>© 2026 Terrell Francis · TK Hub LLC · v2.0.0</p>
+      <div class="footer-legal">
+        <a href="privacy/">Privacy &amp; terms</a>
+        <div class="theme-switch" role="group" aria-labelledby="theme-label">
+          <span id="theme-label" class="theme-label">Theme</span>
+          <span class="theme-opts">
+            <button type="button" data-theme-set="system" aria-pressed="true">System</button>
+            <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+            <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+          </span>
+        </div>
+      </div>
       <a href="#top" class="to-top">Back to top <span aria-hidden="true">↑</span></a>
     </div>
   </footer>
