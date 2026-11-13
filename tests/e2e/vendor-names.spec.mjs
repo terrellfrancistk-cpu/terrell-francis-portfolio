@@ -27,6 +27,8 @@ test('no vendor or tool names in what a visitor reads (text, alt, titles, labels
 // Terrell, 2026-11-13: the Talencia role is Full-time (W-2), never Contract.
 test('current role is never labelled Contract; any employment type shown says Full-time (W-2)', async ({ page }) => {
   await page.goto('/');
+  // PR #8 (Terrell, Nov 13): the role is labelled Full-time (W-2).
+  await expect(page.locator('#role-current .tl-type')).toHaveText('Full-time (W-2)');
   for (const sel of ['#role-current', '.now-talencia']) {
     const text = await page.locator(sel).innerText();
     expect(text, sel).not.toMatch(/\bcontract(or)?\b/i);

@@ -2,6 +2,16 @@
 
 **Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
 
+## PR #8 build waiting for approval: **`949a061b13dd5dda`** (branch `talencia-public-safe`)
+
+| | |
+|---|---|
+| Fingerprint | **`949a061b13dd5dda`** (first commit `82591b8`) — PR [terrellfrancistk-cpu/terrell-francis-portfolio#8](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/8) |
+| What it is | PR #7's build `db03980d4050be2b` plus PR #8's copy: "Talencia by KAD" (also in About's restored second paragraph), public-safe role bullets added, role labelled Full-time (W-2), approved Asurion entry removed |
+| Public preview | **https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-pr8-1113b/** |
+| Superseded | `01f1e9bb491a9c68` (preview `terrellfrancis-pr8-1113`, before the 1:05 PM CT decision) |
+| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 949a061b13dd5dda` |
+
 ## Build waiting for approval: **`db03980d4050be2b`**
 
 | | |
