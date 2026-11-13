@@ -12,6 +12,12 @@
 | Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 93e440e45e7721b9`; anything else is not the approved build |
 | Superseded | `7c738a17bd7183e5` and `0bc8c580c9651294` (same finished page; this build finishes the late-font fix so it also holds on GitHub's Linux runner: CI late-font jump 0.0268 desktop / 0.0022 phone), `ecc9f1c15aae6963` (same finished page; this build adds metric-matched fallback fonts so text no longer jumps when the web font arrives late), `7759189c3d8b5e34` (same page; this build only removes a vendor name from page-source comments, workflow headers and the README, per Terrell's Nov 13 decision), `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
 
+## Public preview (open on any phone or computer)
+
+**https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-1113/**
+
+Free GitHub Pages in `terrellfrancistk-cpu/tkhub-preview` (folder `terrellfrancis-1113`, commit `2c3b412`), per Terrell's Nov 13 decision (no Vercel). It is build `93e440e45e7721b9` exactly as `pages.yml` would publish it, with two preview-only edits per that repo's convention: `noindex, nofollow` on every page, and the 404 page's root links made relative. Checked in a browser: home, privacy and 404 load, all 35 images load (HD on retina), no errors. The live demo inside the page loads each TK Hub app's own site. The live terrellfrancis.app is unchanged.
+
 ## See it: `docs/claude-handoff/build-preview/93e440e45e7721b9/`
 
 Built exactly as `pages.yml` would publish (minified), on this sandbox, from the committed tree.
