@@ -49,3 +49,26 @@ test('LCP and CLS within Core Web Vitals "good" on a throttled phone-like CPU', 
   expect(lcp).toBeLessThan(BUDGET.lcpMs);
   expect(cls).toBeLessThan(BUDGET.cls);
 });
+
+// The CI failure of Nov 13: on a system whose fallback sans is much wider than Inter (DejaVu Sans, as on GitHub's Linux
+// runner), text re-wrapped when the web font arrived (CLS 0.22). The metric-matched "Inter Fallback" / "Inter Display
+// Fallback" faces prevent that. This holds the web fonts back and makes DejaVu the system fallback to prove it.
+test('no layout jump when the web font arrives late on a system with a wide fallback font', async ({ page }) => {
+  await page.route('**/*.woff2', async (r) => { await new Promise((x) => setTimeout(x, 1500)); await r.continue(); });
+  await page.addInitScript(() => {
+    window.__cls = 0; window.__shifts = [];
+    new PerformanceObserver((l) => l.getEntries().forEach((e) => { if (!e.hadRecentInput) { window.__cls += e.value; window.__shifts.push(+e.value.toFixed(4)); } })).observe({ type: 'layout-shift', buffered: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      const s = document.createElement('style');
+      s.textContent = ':root{--font:"Inter","Inter Fallback","DejaVu Sans",sans-serif}'
+        + '.hero h1,.hero-promise,.section h2,.contact h2,.metric-num,.case-stat span,.doc h1{font-family:"Inter","Inter Display Fallback","DejaVu Sans",sans-serif}';
+      document.head.appendChild(s);
+    });
+  });
+  await page.goto('/', { waitUntil: 'load' });
+  await page.waitForTimeout(2800);
+  const { cls, fontsLoaded } = await page.evaluate(() => ({ cls: window.__cls, fontsLoaded: [...document.fonts].some((f) => f.family === 'Inter' && f.status === 'loaded') }));
+  console.log('late-font CLS', cls.toFixed(4));
+  expect(fontsLoaded).toBe(true);
+  expect(cls).toBeLessThan(0.05);
+});
