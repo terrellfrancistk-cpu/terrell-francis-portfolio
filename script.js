@@ -308,4 +308,29 @@
       if (addr) show(addr);
     }));
   }
+
+  // ---------- R4 (2026-11-13): roles open to their first three lines on phones ----------
+  // Every bullet stays in the page; on narrow screens the rest are one tap away. Desktop, print and no-JS show all.
+  document.querySelectorAll('.tl-body > ul').forEach((ul, i) => {
+    const extra = ul.children.length - 3;
+    if (extra < 1) return;
+    const title = ul.parentElement.querySelector('h3');
+    const role = title ? title.firstChild.textContent.trim() : 'this role';
+    if (!ul.id) ul.id = `tl-list-${i}`;
+    ul.classList.add('tl-clamp');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tl-more';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', ul.id);
+    const label = (open) => { btn.innerHTML = open ? 'Show less' : `Show ${extra} more<span class="sr-only"> for ${role}</span>`; };
+    label(false);
+    btn.addEventListener('click', () => {
+      const open = ul.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+      label(open);
+      if (open) { const next = ul.children[3]; if (next) { next.setAttribute('tabindex', '-1'); next.focus({ preventScroll: true }); } }
+    });
+    ul.after(btn);
+  });
 })();

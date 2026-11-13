@@ -941,3 +941,17 @@ html, body { overflow-x: clip; }
 [data-theme="dark"] .mail-toast { background: #1A3352; border: 1px solid #2C4A70; }
 @media (prefers-reduced-motion: reduce) { .mail-toast { transition: none; } }
 @media print { .mail-toast { display: none !important; } }
+
+/* ---------- R4: roles show three lines first on phones (2026-11-13) ---------- */
+.tl-more { display: none; }
+@media (max-width: 720px) {
+  .tl-clamp:not(.open) > li:nth-child(n+4) { display: none; }
+  .tl-more {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 4px; padding: 0 2px;
+    appearance: none; border: 0; background: none; font: inherit; font-size: 14.5px; font-weight: 650; color: var(--accent-ink); cursor: pointer;
+  }
+  .tl-more::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .2s ease; }
+  .tl-more[aria-expanded="true"]::after { transform: translateY(1px) rotate(-135deg); }
+  .tl-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+}
+@media print { .tl-clamp > li { display: list-item !important; } .tl-more { display: none !important; } }
