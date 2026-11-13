@@ -9,11 +9,13 @@ async function shot(base, ctxOpts, path, file, opts = {}) {
   await p.goto(base + path); await p.addStyleTag({ content: settle }); await p.evaluate(() => document.fonts.ready);
   if (opts.scrollAll) { await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); } window.scrollTo(0, 0); }); }
   await p.waitForTimeout(opts.wait ?? 600);
-  if (opts.selector === '#products') {
+  if (opts.selector === '#products' && await p.locator('#studio-frame').count()) {
     await p.locator('#studio-frame').scrollIntoViewIfNeeded();
     await p.waitForFunction(() => { const s = document.querySelector('.phone-screen'); return !s || !s.classList.contains('loading'); }, null, { timeout: 20000 }).catch(() => {});
     await p.waitForTimeout(1500);
   }
+  // Fixed overlays (progress bar, header, floating buttons) would be painted across element shots; hide them there only.
+  if (opts.selector) await p.addStyleTag({ content: '.scroll-progress,.back-to-top,.dock,.mail-toast{visibility:hidden!important}.site-header{position:static!important}' });
   if (opts.selector) await p.locator(opts.selector).screenshot({ path: `${out}/${file}`, type: 'jpeg', quality: 84 });
   else await p.screenshot({ path: `${out}/${file}`, fullPage: !!opts.full, type: 'jpeg', quality: opts.full ? 80 : 86 });
   await ctx.close();

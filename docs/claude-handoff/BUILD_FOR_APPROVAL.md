@@ -1,51 +1,64 @@
 # BUILD_FOR_APPROVAL — terrellfrancis.app
 
-**Rule (Terrell, 2026-11-13):** never publish, deploy or push any website live unless Terrell has seen and approved that exact build. This file shows him the exact build. Nothing here is live.
+**Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
 
-## The build
+## Build waiting for approval: **`224a05f0a8707b30`**
 
 | | |
 |---|---|
-| Build fingerprint | **`2ca0bbddacb801f0`** |
-| First commit with this build | `ece07a2` on `claude/sharp-franklin-6cwtfa` (PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7)) |
-| Live site today | `main` @ `05fdba4`, fingerprint `57aeb1c21d5fadae` |
-| What the fingerprint covers | Every file `pages.yml` would publish (the committed tree minus `docs/`, `tests/`, `HANDOFF_TO_HOUSE_OFFICER.md`), by git blob hash. Doc-only and test-only commits keep the same fingerprint. Any change to the site's own files changes it. |
-| Check a commit before merging | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 2ca0bbddacb801f0`. If it prints anything else, that build has not been approved. |
-| Files | `build-preview/2ca0bbddacb801f0/published-files.txt` (source, by blob hash); `minified-files.sha256` (the minified output as built on 2026-11-13; the deploy runs terser 5 / clean-css 5 again, so these bytes are informational) |
+| Fingerprint | **`224a05f0a8707b30`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
+| First commit with this build | `4619631` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
+| Live today | `main` @ `05fdba4`, fingerprint `57aeb1c21d5fadae` |
+| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 224a05f0a8707b30`; anything else is not the approved build |
+| Superseded | `2ca0bbddacb801f0` (earlier today; its folder is kept as a record). It lacked the restorations below and had the phone bullet collapse turned on. |
 
-## See it (screenshots of the minified build exactly as pages.yml would publish it)
+## See it: `docs/claude-handoff/build-preview/224a05f0a8707b30/`
 
-All in `docs/claude-handoff/build-preview/2ca0bbddacb801f0/`:
+Built exactly as `pages.yml` would publish (minified), on this sandbox, from the committed tree.
 
-| Screen | File |
+| Live vs new, same view | Files |
 |---|---|
-| First screen, desktop (1440 px, 2×) | `desktop-first-screen@2x.jpg` |
-| First screen, phone (iPhone 13, 3×) | `phone-first-screen@3x.jpg` |
-| Whole page, desktop, light / dark | `desktop-light-full.jpg`, `desktop-dark-full.jpg` |
-| Whole page, phone, light / dark | `phone-light-full.jpg`, `phone-dark-full.jpg` |
-| Splash: TF mark, then black TK Hub screen | `splash-1-tf-mark.jpg`, `splash-2-tk-hub.jpg` |
-| Privacy & terms (phone) | `privacy-phone-full.jpg` |
-| 404 page (desktop) | `404-desktop.jpg` |
+| First screen, desktop 2× | `compare-first-screen-LIVE.jpg` / `compare-first-screen-NEW.jpg` |
+| Products section | `compare-products-LIVE.jpg` / `compare-products-NEW.jpg` |
+| Phone app icons, 3× | `compare-phone-icons-LIVE.jpg` / `compare-phone-icons-NEW.jpg` |
+| Footer | `compare-footer-LIVE.jpg` / `compare-footer-NEW.jpg` |
 
-## What is different from the live site
+| New build only | Files |
+|---|---|
+| Whole page desktop, light / dark | `new-desktop-light-full.jpg`, `new-desktop-dark-full.jpg` |
+| Whole page phone, light / dark | `new-phone-light-full.jpg`, `new-phone-dark-full.jpg` |
+| First screen, desktop 2× / phone 3× | `new-desktop-first-screen@2x.jpg`, `new-phone-first-screen@3x.jpg` |
+| Splash: TF mark, then black TK Hub | `new-splash-1-tf-mark.jpg`, `new-splash-2-tk-hub.jpg` |
+| Privacy & terms (phone), 404 (desktop) | `new-privacy-phone-full.jpg`, `new-404-desktop.jpg` |
 
-Add or fix only; nothing removed. His email, phone and résumé PDF are byte-for-byte unchanged (guarded by `tests/e2e/contact.spec.mjs`). Hero copy unchanged.
+## What is different from the live site (add or improve only; nothing removed, hidden or downgraded)
 
-- Light / Dark / System theme switch in the footer (System is the default).
-- Footer link to a new **Privacy & terms** page; a real 404 page; robots.txt and sitemap.xml.
-- After tapping **Email me**, a small "Copy address" fallback for computers with no mail app.
-- On phones, each job shows three bullets with **Show more** (desktop and print show everything).
-- Each Skills group has one short **Proof** link to the case study or role behind it.
-- Bigger tap targets on phones; outlines on selected states in Windows high contrast.
-- New link-preview image (`og-image-2026-11.png`) with his current title; the old image file stays.
-- `pages.yml` stops publishing internal notes and tests.
+**Restored (past Claude removals, word for word from git):**
+- "How I run an implementation" five-phase strip after the hero.
+- About section with its three principle cards.
+- Product studio: each app's description and a live demo of the selected app in a phone frame (with a loading shimmer, never a blank screen), plus the "why it matters" note with Visit TK Hub.
+- "…with live demos below." in the TK Hub Now card.
+
+**Added / improved:**
+- Sharper icons on phones and retina screens: high-resolution versions of the same artwork for APEX, Curb, Zilt, Our People, Afterglow, Booked and the TK Hub logo (original files still used on standard screens).
+- Light / Dark / System theme (System default) in the footer.
+- Privacy & terms page (footer link), real 404 page, robots.txt, sitemap.xml.
+- "Copy address" fallback after tapping Email me.
+- "Proof" link under each Skills group.
+- Bigger tap targets on phones; keyboard focus rings; high-contrast mode outlines.
+- New link-preview image with his current title (the old image file stays; see PROPOSED_REMOVALS).
+
+**Unchanged:** his email, phone and résumé PDF (byte for byte, guarded by a test); every existing section, link, app tile and line of copy; the hero wording.
 
 ## Tests on this build
+- Sandbox: 134 passed, 0 failed (12 width-specific skips), on the source and on the minified build.
+- CI on PR #7: runs on every push.
+- axe WCAG 2.1 AA: 0 violations in light and dark; keyboard focus visible everywhere, including inside the live demo.
 
-Sandbox: 126 passed, 11 width-specific skips, 0 failed; the same suite passes on the minified build. CI on PR #7: green on every commit. axe WCAG 2.1 AA: 0 violations in light and dark.
+## Waiting on Terrell, separately from the build
+Rows in `PROPOSED_REMOVALS.md`: phone bullet collapse (off), 4 icon-mark swaps (not done), RADR wording (restored as written), link-preview image swap.
 
 ## Approval
-
-To approve, Terrell replies in his own words naming the fingerprint, for example: *"Approved build 2ca0bbddacb801f0 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). If any site file changes after that, the fingerprint changes and a new approval is needed.
+To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 224a05f0a8707b30 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
 
 Status: **waiting for Terrell to see and approve.**
