@@ -1,4 +1,4 @@
-# Draft (Claude, 2026-11-13). OBS-2: a free uptime look at the live site. Read-only GET requests, no load.
+# Draft (2026-11-13). OBS-2: a free uptime look at the live site. Read-only GET requests, no load.
 # Manual only for now. Turning on the schedule below needs Terrell's OK (it uses Actions minutes on the default branch).
 name: uptime
 on:
