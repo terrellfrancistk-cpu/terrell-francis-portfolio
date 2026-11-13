@@ -5,6 +5,19 @@
 
 If a change looks like it needs a removal (dead code, unused route, dangerous endpoint, duplicate screen, leftover builder asset), add a row and keep building around it. Prefer a flag, a tighter policy, or an additive fix.
 
+## Waiting for Terrell — one line each (details in the tables below)
+
+| # | Item | WHY (one line) | Today |
+|---|---|---|---|
+| 1 | Phone job-bullet collapse ("Show more") | Makes the phone page 23% shorter, but it hides bullets, so it's off until you say yes. | Off; every bullet shows |
+| 2 | Link-preview image swap | The old preview image shows your old title; the new one shows your current title. | New image in the build; old file kept |
+| 3 | New marks for Role, RADR, Noir, TORQ icons | The only sharp versions online are newer marks, so swapping would change your logos. | Not swapped; current marks kept |
+| 4 | RADR one-liner says "police, radar" | Your brand rules say RADR isn't a police app; the line came back word for word from history. | Restored as written |
+| 5 | TORQ panel in the restored product studio | The restore PR left it out because WRACE/TORQ was approved to stay off until TORQ is ready. | Held, not shown; TORQ tile and footer link stay |
+| 6 | About section's second paragraph (current role) | The restore PR held it for you; the same facts are already in the hero and timeline. | Held, not shown |
+
+Already decided by Terrell (Nov 13): splash caption, unused code, unused styles, old share image file, email and phone — all **keep**.
+
 | Date (America/Chicago) | What | Path / table / route | Why you think it should go | What would replace it | Risk if left | Risk if removed | Terrell's decision |
 |---|---|---|---|---|---|---|---|
 | 2026-11-13 | Small "TK HUB" caption text under the logo on the black splash screen | `index.html` `.splash-b span`; `styles.css` `.splash-b span` | STANDARD ONB-1 says the black TK Hub screen has "no bar, gradient, or caption". The logo image already says TK HUB. | Nothing (logo alone) | Minor deviation from the house splash rule | Very low: the logo already reads TK HUB | **Keep as is — Terrell, 2026-11-13:** "Keep everything else as is too (Rule #1: nothing removed)." Not removed. |
