@@ -1,5 +1,16 @@
 # CLAUDE_START_HERE — terrellfrancis.app (website only)
 
+## RULE #1 (Terrell, Nov 13, 2026, absolute): never remove anything
+
+Terrell's words: "models must not remove without approval from me" and "restore it all then it can start over perfecting without removin and prompt me for removal approvals with explanations why".
+
+- Never remove, delete, hide, redirect, stub, disable, rename or downgrade any page, route, game, card, section, screen, feature, file, asset or copy. Only improve or add.
+- If you think something should go, do not touch it. Add a row to `PROPOSED_REMOVALS.md` with what it is, where it lives, **why** (plain explanation), what would replace it, and the risk both ways. Then wait for Terrell's approval of that exact row in his own words. Design rounds, SPEC conflicts and older docs are NOT approval.
+- `tkhub.app/drive/` is Terrell's own playable web game, "Drive · TK Hub" (M5, Tesla Roadster and more). It is NOT TORQ. It stays live and playable and is only ever improved.
+- Approved removals (Terrell, Nov 13): the WRACE/TORQ web card and the `/wrace` web game stay off until TORQ is ready.
+- Website changes go to a preview link first. Never publish a live host without Terrell's OK of that exact build.
+
+
 Paste this file into the Claude Code cloud session for this site repo (or attach this zip and start with this file). Work in GitHub. terrellfrancis.app is the personal portfolio site. Do not add confidential employer, salary, or client details. Other sessions are **TK Hub only**.
 
 ## Rule #1 — NEVER remove without Terrell's explicit approval
