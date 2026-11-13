@@ -962,3 +962,13 @@ html, body { overflow-x: clip; }
 .toolkit .proof a:hover { color: var(--accent); border-bottom-color: currentColor; }
 @media (pointer: coarse), (max-width: 720px) { .toolkit .proof a { display: inline-block; padding: 12px 0; margin: -12px 0; border-bottom: 0; text-decoration: underline; text-decoration-color: var(--hairline, #C8DAF0); text-underline-offset: 4px; } }
 .tl-item { scroll-margin-top: 96px; }
+
+/* ---------- Forced colors / Windows high contrast (2026-11-13) ----------
+   Backgrounds are replaced by system colors, so selected states also get an outline. */
+@media (forced-colors: active) {
+  .theme-opts button[aria-pressed="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .chapter-tab[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .nav-links a.active:not(.btn) { text-decoration: underline; }
+  .mail-toast { border: 1px solid CanvasText; }
+  .btn, .app-tile, .now-card, .case, .edu-card { border: 1px solid ButtonText; }
+}

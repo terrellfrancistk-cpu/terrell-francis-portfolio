@@ -39,7 +39,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | OBS-2 | **BLOCKED** (merge) | `.github/workflows/uptime.yml` drafted (read-only GETs, manual). A dispatch-only workflow can only run from the default branch, so it needs Terrell's OK to merge; the schedule stays commented until he OKs it |
 | OBS-3 | Present | No analytics, logs or push; zero third-party requests (`pages.spec.mjs › loads nothing from third parties`) |
 | COM-1…COM-3, PAY-1…PAY-5 | N/A | No email sending, push, SMS or purchases |
-| A11Y-1 | Present (web) | axe WCAG 2.1 A/AA = 0 violations in light and dark, on home, privacy and 404 (`a11y`, `theme`, `pages` specs); keyboard tabs; 44 px phone targets; element-level contrast. VoiceOver/TalkBack on a real phone is on the handoff |
+| A11Y-1 | Present (web) | axe WCAG 2.1 A/AA = 0 violations in light and dark, on home, privacy and 404 (`a11y`, `theme`, `pages` specs); keyboard tabs; 44 px phone targets; element-level contrast; visible focus on every control; reflow at 320–1920 px; readable with JS off; selected states visible in forced colors (`robustness.spec.mjs`). VoiceOver/TalkBack on a real phone is on the handoff |
 | PERF-1 | Present | Budgets: < 700 KB first load (today 298 KB unminified), LCP < 2.5 s, CLS < 0.1 on a 4× CPU / slow network (today ~1.5 s / ~0). k6 N/A: no backend, and production load tests are banned |
 | PERF-2 | N/A | No polling or lists |
 | PAR-1 | N/A | No native apps. Phone and desktop are both covered by every spec |
@@ -53,7 +53,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | ADM-1 | N/A | No admin tooling |
 | STG-1 | Present | Local static server is staging; `tests/guard.mjs` refuses every production host (fails closed) |
 | STG-2 | Present | Git history is the backup; rollback = revert the merge on `main` (pages.yml republishes) |
-| CI-1 | Present (pending first CI run) | 110 tests in 13 spec files (105 run per pass; 5 are width-specific skips); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
+| CI-1 | Present (CI green on PR #7: 89 passed, 5 skips; visual is sandbox-only) | 128 tests in 14 spec files (117 run per pass; 11 are width-specific skips), plus the same suite against the minified production build (`npm run test:prod-build`, also a CI step); `.github/workflows/site-tests.yml` runs them on pull requests (production hosts refused) |
 | VER-1 | Present | Footer stays `v2.0.0`; no bump |
 | WEB-1 | Present | No rork hostnames (`smoke.spec.mjs`); bare domain is the site. Live HTTP 200 is on the handoff (sandbox proxy blocks the live host) |
 
