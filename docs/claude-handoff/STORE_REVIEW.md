@@ -15,6 +15,7 @@ Re-open official policy pages before relying on a date. Policies change.
 - The site has **no** App Store or Google Play badges or download buttons. App tiles link to each app's own website, not to a store.
 - Nothing to fix or reply to: there is no binary, no review, and no reviewer reply to draft for this product.
 - One honesty question for Terrell (HANDOFF Q1): the hero card says "10 apps shipped, idea to store". Pack docs show several iOS builds rejected (4.3) Nov 3–5 and Zilt Play in review. If no listing is live yet, a truthful alternative is "10 apps built, idea to release". No change made without his answer.
+- **2026-11-13: closed.** Terrell's standing rule: "For product decisions (pricing, copy, layout, proposed removals) keep everything as currently is and keep working, don't wait." The wording is his product copy and stays as is.
 - The pre-submission checklists below do not apply to a website.
 
 ## Vault names for demo / review accounts (no passwords)

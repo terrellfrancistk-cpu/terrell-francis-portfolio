@@ -327,7 +327,11 @@
     btn.className = 'tl-more';
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-controls', ul.id);
-    const label = (open) => { btn.innerHTML = open ? 'Show less' : `Show ${extra} more<span class="sr-only"> for ${role}</span>`; };
+    // Built from DOM nodes (not innerHTML) so a role title can never be parsed as markup.
+    const label = (open) => {
+      btn.replaceChildren(document.createTextNode(open ? 'Show less' : `Show ${extra} more`));
+      if (!open) { const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = ` for ${role}`; btn.appendChild(sr); }
+    };
     label(false);
     btn.addEventListener('click', () => {
       const open = ul.classList.toggle('open');

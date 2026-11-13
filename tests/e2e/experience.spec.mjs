@@ -43,3 +43,21 @@ test('print shows every bullet on any width', async ({ page }) => {
   const all = await page.locator('.tl-body > ul > li').count();
   await expect(page.locator('.tl-body > ul > li:visible')).toHaveCount(all);
 });
+
+test('phone: Show more labels name their role for screen readers, as text not markup', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone behaviour');
+  // Serve the page with markup characters in the first role title (escaped in HTML, so they are text).
+  await page.route('**/', async (route) => {
+    const res = await route.fetch();
+    const body = (await res.text()).replace('<h3>Director of Technology Development &amp; Operations', '<h3>Director &lt;b&gt;X&lt;/b&gt; Operations');
+    await route.fulfill({ response: res, body });
+  });
+  await open(page);
+  const btn = page.locator('.tl-more').first();
+  await expect(btn).toHaveAccessibleName(/^Show \d+ more for Director <b>X<\/b> Operations/);
+  await expect(btn.locator('b')).toHaveCount(0);
+  // The unmodified page reads normally too.
+  await page.unroute('**/');
+  await open(page);
+  await expect(page.locator('.tl-more').first()).toHaveAccessibleName(/^Show \d+ more for Director of Technology Development & Operations$/);
+});
