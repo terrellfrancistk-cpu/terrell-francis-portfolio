@@ -2,17 +2,17 @@
 
 **Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
 
-## Build waiting for approval: **`7c738a17bd7183e5`**
+## Build waiting for approval: **`93e440e45e7721b9`**
 
 | | |
 |---|---|
-| Fingerprint | **`7c738a17bd7183e5`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
-| First commit with this build | `59ff613` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
+| Fingerprint | **`93e440e45e7721b9`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
+| First commit with this build | `6aae927` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
 | Live today | `main` @ `05fdba4`, fingerprint `57aeb1c21d5fadae` |
-| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 7c738a17bd7183e5`; anything else is not the approved build |
-| Superseded | `ecc9f1c15aae6963` (same finished page; this build adds metric-matched fallback fonts so text no longer jumps when the web font arrives late), `7759189c3d8b5e34` (same page; this build only removes a vendor name from page-source comments, workflow headers and the README, per Terrell's Nov 13 decision), `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
+| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 93e440e45e7721b9`; anything else is not the approved build |
+| Superseded | `7c738a17bd7183e5` and `0bc8c580c9651294` (same finished page; this build finishes the late-font fix so it also holds on GitHub's Linux runner: CI late-font jump 0.0268 desktop / 0.0022 phone), `ecc9f1c15aae6963` (same finished page; this build adds metric-matched fallback fonts so text no longer jumps when the web font arrives late), `7759189c3d8b5e34` (same page; this build only removes a vendor name from page-source comments, workflow headers and the README, per Terrell's Nov 13 decision), `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
 
-## See it: `docs/claude-handoff/build-preview/7c738a17bd7183e5/`
+## See it: `docs/claude-handoff/build-preview/93e440e45e7721b9/`
 
 Built exactly as `pages.yml` would publish (minified), on this sandbox, from the committed tree.
 
@@ -45,7 +45,7 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 - Privacy & terms page (footer link), real 404 page, robots.txt, sitemap.xml.
 - "Copy address" fallback after tapping Email me.
 - "Proof" link under each Skills group.
-- No text jump while the page loads: metric-matched fallback fonts keep text in place until the web font arrives (fixes a 0.22 layout-shift on slower machines).
+- No text jump while the page loads: metric-matched fallback fonts keep text in place until the web font arrives (fixes a 0.22 layout-shift on slower machines; tuned per text block in the first screen).
 - Bigger tap targets on phones; keyboard focus rings; high-contrast mode outlines.
 - New link-preview image with his current title (the old image file stays; see PROPOSED_REMOVALS).
 
@@ -54,7 +54,8 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 **Unchanged:** his email, phone and résumé PDF (byte for byte, guarded by a test); every existing section, link, app tile and line of copy; the hero wording.
 
 ## Tests on this build
-- Sandbox: 142 passed, 0 failed (12 width-specific skips), on the source and on the minified build (`59ff613`).
+- Sandbox: 142 passed, 0 failed (12 width-specific skips), on the source and on the minified build (`6aae927`).
+- CI on `6aae927`: green, source and minified runs.
 - CI on PR #7: runs on every push.
 - axe WCAG 2.1 AA: 0 violations in light and dark; keyboard focus visible everywhere, including inside the live demo.
 
@@ -62,6 +63,6 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 Rows in `PROPOSED_REMOVALS.md`: phone bullet collapse (off), 4 icon-mark swaps (not done), RADR wording (restored as written), link-preview image swap, and two items held by the restore PR (TORQ studio panel, About's second paragraph), kept word for word in `HELD_FOR_TERRELL.md`.
 
 ## Approval
-To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 7c738a17bd7183e5 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
+To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 93e440e45e7721b9 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
 
 Status: **waiting for Terrell to see and approve.**
