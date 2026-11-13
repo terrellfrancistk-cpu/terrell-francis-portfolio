@@ -1,5 +1,7 @@
 # HELD_FOR_TERRELL — terrellfrancis.app
 
+**Update, Nov 13 1:05 PM CT:** Terrell said NO to leaving these out (add-only rule). Every item below is now **back on the page word for word** (branch `claude/sharp-franklin-6cwtfa`). This file stays as the record.
+
 Content restored from git history that the `restore/2026-11-13` PR (`ed6d8fe`, Terrell-approved restoration) deliberately did **not** put on the page. It is kept here word for word so nothing is lost, and so it never ships in the live page source until Terrell decides. Each item has a row in `PROPOSED_REMOVALS.md`.
 
 Nothing here was ever on the live site after Nov 6, so leaving it out does not change the live page.
