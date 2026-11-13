@@ -69,6 +69,8 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 
 **Score:** 19 applicable STANDARD rows + 5 SPEC rows = 24. Present/BUILT: 21. BLOCKED on a named human step: OBS-2 (merge OK) and SPEC "honest store badges" (Terrell's answer). CI-1 is Present once the PR run is green. **21/24 = 88% strict; 100% of what the cloud session can do without Terrell.**
 
+**Update 2026-11-13 (block 6):** CI-1 confirmed green on PR #7 (every head since). Terrell decided every PROPOSED_REMOVALS and REMOVAL_AUDIT row: keep as is, nothing removed or restored; his email and phone stay exactly as they are (now guarded by `contact.spec.mjs`). **Score: 22/24 = 92% strict.** Open: OBS-2 (needs merge OK) and SPEC "honest store badges" (needs his answer on "10 apps shipped, idea to store").
+
 ---
 
 ## Pack-time marks (2026-11-13, superseded by the re-score above; kept for the record)
