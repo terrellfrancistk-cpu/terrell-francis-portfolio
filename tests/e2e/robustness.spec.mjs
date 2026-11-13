@@ -53,11 +53,14 @@ test('keyboard: every focusable control shows a visible focus indicator', async 
       const el = document.activeElement;
       if (!el || el === document.body) return null;
       const s = getComputedStyle(el);
-      const ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) || (s.boxShadow && s.boxShadow !== 'none');
+      let ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) || (s.boxShadow && s.boxShadow !== 'none');
+      // An iframe's focus can sit inside the embedded page; its visible ring is on the phone frame around it.
+      if (!ring && el.tagName === 'IFRAME' && el.closest('.phone')) { const ph = el.closest('.phone'); const ps = getComputedStyle(ph); ring = ph.classList.contains('frame-focused') && ps.outlineStyle !== 'none' && parseFloat(ps.outlineWidth) > 0; }
       return { ring, label: (el.textContent || el.getAttribute('aria-label') || el.tagName).trim().slice(0, 40), visible: el.getClientRects().length > 0 };
     });
     if (info && info.visible && !info.ring) missing.push(info.label);
     await page.keyboard.press('Tab');
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => r())));
   }
   expect([...new Set(missing)]).toEqual([]);
 });

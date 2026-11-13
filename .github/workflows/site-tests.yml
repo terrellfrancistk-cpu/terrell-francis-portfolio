@@ -1,4 +1,4 @@
-# Draft (Claude, 2026-11-13). Runs the site test suite against a local static server.
+# Draft (2026-11-13). Runs the site test suite against a local static server.
 # Never deploys, never touches gh-pages, never loads a production host (tests/guard.mjs fails closed).
 # Triggers: pull requests and manual runs only. Merge only with Terrell's OK.
 name: site-tests

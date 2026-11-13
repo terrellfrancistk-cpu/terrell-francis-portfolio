@@ -5,6 +5,19 @@
 
 If a change looks like it needs a removal (dead code, unused route, dangerous endpoint, duplicate screen, leftover builder asset), add a row and keep building around it. Prefer a flag, a tighter policy, or an additive fix.
 
+## Waiting for Terrell — one line each (details in the tables below)
+
+| # | Item | WHY (one line) | Today |
+|---|---|---|---|
+| 1 | Phone job-bullet collapse ("Show more") | Makes the phone page 23% shorter, but it hides bullets, so it's off until you say yes. | Off; every bullet shows |
+| 2 | Link-preview image swap | The old preview image shows your old title; the new one shows your current title. | New image in the build; old file kept |
+| 3 | New marks for Role, RADR, Noir, TORQ icons | The only sharp versions online are newer marks, so swapping would change your logos. | Not swapped; current marks kept |
+| 4 | RADR one-liner says "police, radar" | Your brand rules say RADR isn't a police app; the line came back word for word from history. | Restored as written |
+| 5 | TORQ panel in the restored product studio | The restore PR left it out because WRACE/TORQ was approved to stay off until TORQ is ready. | Held, not shown; TORQ tile and footer link stay |
+| 6 | About section's second paragraph (current role) | The restore PR held it for you; the same facts are already in the hero and timeline. | Held, not shown |
+
+Already decided by Terrell (Nov 13): Asurion entry **remove** (PR #8 only, preview first); "Talencia by KAD" is the correct name; the role is labelled Full-time (W-2). Also: splash caption, unused code, unused styles, old share image file, email and phone — all **keep**.
+
 | Date (America/Chicago) | What | Path / table / route | Why you think it should go | What would replace it | Risk if left | Risk if removed | Terrell's decision |
 |---|---|---|---|---|---|---|---|
 | 2026-11-13 | Small "TK HUB" caption text under the logo on the black splash screen | `index.html` `.splash-b span`; `styles.css` `.splash-b span` | STANDARD ONB-1 says the black TK Hub screen has "no bar, gradient, or caption". The logo image already says TK HUB. | Nothing (logo alone) | Minor deviation from the house splash rule | Very low: the logo already reads TK HUB | **Keep as is — Terrell, 2026-11-13:** "Keep everything else as is too (Rule #1: nothing removed)." Not removed. |
@@ -21,6 +34,12 @@ Terrell's hard rule (2026-11-13): never remove, delete, hide, redirect, stub, di
 |---|---|---|---|---|---|---|
 | 2026-11-13 | **R4: collapse job bullets on phones** (three shown, the rest behind "Show more") | `script.js` "R4", `styles.css` "R4" | Phone page was long (timeline −23% with it on) | **Off.** It hid content, so this session turned it off as soon as the rule arrived. Every bullet shows on every screen, as live. The code stays and only runs with `<html data-collapse-roles="on">`, which nothing sets; opt-in tests keep it working | Recruiters on phones see three bullets per role until they tap | Pending |
 | 2026-11-13 | **Link-preview image swap**: `og:image` / `twitter:image` point to the new `assets/og-image-2026-11.png` instead of `og-image.png` | `index.html` head | Old preview says "Implementation & onboarding leader"; new one matches his current title and mark | On the work branch only; old file kept unchanged. Shown in `BUILD_FOR_APPROVAL.md` | LinkedIn/Slack previews change look after re-scrape | Pending (part of the build approval) |
+
+| 2026-11-13 | **Swap 4 app icons to each app's newer official mark** (Role, RADR, Noir, TORQ) | `assets/apps/role.png`, `radr.png`, `noir.png`, `wrace.png` | The only high-resolution files on the apps' official sites are **different artwork** (new marks), so the current 128 px icons look soft on phones. Swapping would replace his marks, so it isn't done | Kept as is. The other six apps and the TK Hub logo got sharp versions of the **same** artwork (`assets/apps/hd/`, `tkhub-logo@hd.webp`) via `srcset`; originals untouched | Previews would show new marks he may not want here | Pending (or send full-res files of the current marks: HANDOFF H11) |
+| 2026-11-13 | **RADR description wording** (restored verbatim): "a live map of police, radar, cameras, and hazards" | `index.html` product studio, RADR panel | VISION says RADR must not be dressed as a police or ticket app ("route, turn, speed, limit"). Restored word for word per the hard rule; not reworded | Restored as written | Contradicts VISION brand rule | Pending (his wording call) |
+
+| 2026-11-13 | **Held, not shown: TORQ panel + picker in the restored product studio** | `docs/claude-handoff/HELD_FOR_TERRELL.md` (pointer comments in `index.html`) | The Terrell-approved restore PR `restore/2026-11-13` (`ed6d8fe`) left them out: "WRACE/TORQ removal approved Nov 13". This session followed that PR. The live site's TORQ app tile and footer link are untouched | Not on the page (same as live, which has no studio); kept word for word in the held file | If shown: a TORQ card while the approved removal says TORQ stays off until ready | Pending: does the Nov 13 WRACE/TORQ approval cover this site's studio? |
+| 2026-11-13 | **Held, not shown: About section's second paragraph** (current role at his employer, TK Hub, McCombs AI/ML program) | `docs/claude-handoff/HELD_FOR_TERRELL.md` | The restore PR held it for Terrell; never work on Talencia. The same facts already appear in the hero, the timeline and Education | Not on the page; kept word for word in the held file (not in the published HTML) | None while held | Pending |
 
 Not proposed (kept on purpose): `assets/apps/wrace.png` (still the TORQ tile image; renaming is not needed), the tkhub.app/torq/ redirect link (STANDARD says /torq stays a redirect stub), `.nojekyll`, `CNAME`.
 
@@ -46,4 +65,4 @@ The Talencia role now leads with the nine public-safe bullets approved for publi
 
 | Date (America/Chicago) | What | Path / table / route | Why you think it should go | What would replace it | Risk if left | Risk if removed | Terrell's decision |
 |---|---|---|---|---|---|---|---|
-| 2026-11-13 | 2020 "Customer Service Delivery Tech Expert (Part-Time)", Asurion, Coppell TX | `index.html` `#role-asurion` | Part-time role during college; MB2 Dental was his first full-time job after college, so this entry no longer adds much on a Director-level timeline | Nothing; the experience timeline now ends at MB2 Dental, which remains his first full-time role after college. Hero "Previously" already listed only Wellfit and MB2. Résumé PDF left unchanged | A part-time college job sits below the first full-time role and dilutes the career start story | Lose one early in-person support line; MB2 stays as the starting full-time role | **Approved — Terrell, 2026-11-13, 7:53 AM CT:** "not sure this is needed any more since it was part time during college mb2 was first out of college ft job." Removed on branch `talencia-public-safe` only. Preview first; not merged or published. |
+| 2026-11-13 | 2020 "Customer Service Delivery Tech Expert (Part-Time)", Asurion, Coppell TX | `index.html` `#role-asurion` | Part-time role during college; MB2 Dental was his first full-time job after college, so this entry no longer adds much on a Director-level timeline | Nothing; the experience timeline now ends at MB2 Dental, which remains his first full-time role after college. Hero "Previously" already listed only Wellfit and MB2. Résumé PDF left unchanged | A part-time college job sits below the first full-time role and dilutes the career start story | Lose one early in-person support line; MB2 stays as the starting full-time role | **Approved by Terrell (2026-11-13, 11:05–11:06 AM CT): remove, preview first.** Done on PR #8 branch `talencia-public-safe` only; not live until he approves the PR #8 preview build. |

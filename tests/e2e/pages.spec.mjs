@@ -38,9 +38,18 @@ test('unknown paths get the site 404 page with a way home', async ({ page }) => 
   expect(r.violations.map((v) => v.id)).toEqual([]);
 });
 
-test('the page loads nothing from third parties (privacy claim)', async ({ page }) => {
+// Privacy claim: nothing loads from another site except the live-demo frame, which only loads TK Hub app sites.
+const TKHUB_APP_HOSTS = ['apexpeakofcare.app', 'tryrole.app', 'trybooked.app', 'getoncurb.app', 'tryzilt.app', 'tryourpeople.app', 'tkhub.app', 'tryafterglow.app', 'trynoir.app'];
+test('the page loads nothing from third parties except the TK Hub live-demo frame (privacy claim)', async ({ page }) => {
   const foreign = [];
-  page.on('request', (r) => { const u = new URL(r.url()); if (!['127.0.0.1', 'localhost'].includes(u.hostname) && !u.protocol.startsWith('data')) foreign.push(r.url()); });
+  // The demo frame's own sub-requests belong to that app's site; only top-level page requests are checked here.
+  page.on('request', (r) => {
+    const u = new URL(r.url());
+    if (['127.0.0.1', 'localhost'].includes(u.hostname) || u.protocol.startsWith('data')) return;
+    if (r.frame() !== page.mainFrame() && r.resourceType() !== 'document') return;
+    if (r.resourceType() === 'document' && TKHUB_APP_HOSTS.some((h) => u.hostname === h || u.hostname.endsWith('.' + h))) return;
+    foreign.push(r.url());
+  });
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.mouse.wheel(0, 20000);
   await page.waitForTimeout(500);

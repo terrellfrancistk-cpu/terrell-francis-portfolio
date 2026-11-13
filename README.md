@@ -21,4 +21,4 @@ cd tests && npm install && npm test
 - Smoke, links, résumé download, WCAG 2.1 AA (light and dark), keyboard, 44 px phone targets, splash order (`?splash=1` replays it), theme, privacy and 404 pages, deep links, perf budgets, and visual baselines (`npm run test:update` to accept intended changes).
 - `node tests/check-external-links.mjs` does one read-only GET per external link.
 - `docs/`, `tests/` and `HANDOFF_TO_HOUSE_OFFICER.md` are never published: `pages.yml` drops them from the gh-pages commit.
-- Handoff, audit and progress files: `docs/claude-handoff/`.
+- Handoff, audit and progress files live under `docs/` (internal; never published).

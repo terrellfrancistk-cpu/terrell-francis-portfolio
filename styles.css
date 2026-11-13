@@ -972,3 +972,88 @@ html, body { overflow-x: clip; }
   .mail-toast { border: 1px solid CanvasText; }
   .btn, .app-tile, .now-card, .case, .edu-card { border: 1px solid ButtonText; }
 }
+
+/* ---------- Restored sections, layout fixes (2026-11-13) ----------
+   Launch strip: every phase lines up at the top (a taller phase used to push the others' text down).
+   Studio picker: on wide screens all ten apps are visible at once instead of in a sideways scroller. */
+.phase-list li { align-content: start; }
+@media (min-width: 961px) {
+  .studio-index { flex-wrap: wrap; overflow: visible; row-gap: 10px; }
+}
+[data-theme="dark"] .pill-live { background: rgba(30, 158, 106, .16); color: #7FDDB4; }
+[data-theme="dark"] .studio-stage, [data-theme="dark"] .products-note { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .principle { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .studio-pick:has(input:checked) img { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--c); }
+
+/* Restored sections, accessibility (2026-11-13): the demo frame and the phone phase scroller are keyboard-reachable
+   and show focus; the TK Hub button in the products note is a 44px target on touch screens. */
+.phone-frame:focus, .phase-list:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+@media (pointer: coarse), (max-width: 720px) { .products-note .btn { min-height: 44px; } }
+/* Keyboard focus inside the live demo (focus moves into the app's page once it loads): ring the phone frame itself. */
+.phone:focus-within, .phone.frame-focused { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Restored studio: breathing room below today's app tiles (2026-11-13). */
+.products .app-grid ~ .studio { margin-top: 48px; }
+@media (max-width: 720px) { .products .app-grid ~ .studio { margin-top: 32px; } }
+
+/* ---------- No text jump when the web font arrives (2026-11-13) ----------
+   A local Arial-metric font (Arial / Liberation Sans / Arimo) scaled to Inter's width and line metrics, measured in
+   Chromium per weight band and size class (Inter vs Liberation Sans regular/bold), ascent 0.97, descent 0.24. Text takes the same
+   space before and after Inter loads, so the hero and Now cards don't re-wrap. Inter itself is unchanged. */
+/* Text sizes (calibrated at 16px; Inter uses optical sizing, so small text is drawn wider than display text). */
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 449; font-style: normal; size-adjust: 105.69%; ascent-override: 91.78%; descent-override: 22.71%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 450 524; font-style: normal; size-adjust: 106.75%; ascent-override: 90.87%; descent-override: 22.48%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 525 574; font-style: normal; size-adjust: 107.27%; ascent-override: 90.43%; descent-override: 22.37%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 575 624; font-style: normal; size-adjust: 100.77%; ascent-override: 96.26%; descent-override: 23.82%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 625 674; font-style: normal; size-adjust: 101.25%; ascent-override: 95.80%; descent-override: 23.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 675 724; font-style: normal; size-adjust: 101.76%; ascent-override: 95.32%; descent-override: 23.58%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 725 900; font-style: normal; size-adjust: 102.35%; ascent-override: 94.77%; descent-override: 23.45%; line-gap-override: 0%; }
+/* Display sizes (32px and up: big headings and numbers). */
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 449; font-style: normal; size-adjust: 97.75%; ascent-override: 99.23%; descent-override: 24.55%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 450 524; font-style: normal; size-adjust: 99.58%; ascent-override: 97.41%; descent-override: 24.10%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 525 574; font-style: normal; size-adjust: 100.46%; ascent-override: 96.56%; descent-override: 23.89%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 575 624; font-style: normal; size-adjust: 94.78%; ascent-override: 102.34%; descent-override: 25.32%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 625 674; font-style: normal; size-adjust: 95.62%; ascent-override: 101.44%; descent-override: 25.10%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 675 724; font-style: normal; size-adjust: 96.48%; ascent-override: 100.54%; descent-override: 24.88%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 725 900; font-style: normal; size-adjust: 97.51%; ascent-override: 99.48%; descent-override: 24.61%; line-gap-override: 0%; }
+/* Same, for machines without Arial / Liberation Sans / Arimo: GNU FreeSans (common on Linux), calibrated separately
+   (FreeSans is 3.5% narrower than Arial at regular weight, 1% at bold). Browsers use whichever family is installed. */
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 100 449; font-style: normal; size-adjust: 109.50%; ascent-override: 88.58%; descent-override: 21.92%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 450 524; font-style: normal; size-adjust: 110.60%; ascent-override: 87.70%; descent-override: 21.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 525 574; font-style: normal; size-adjust: 111.14%; ascent-override: 87.28%; descent-override: 21.59%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 575 624; font-style: normal; size-adjust: 101.82%; ascent-override: 95.27%; descent-override: 23.57%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 625 674; font-style: normal; size-adjust: 102.30%; ascent-override: 94.82%; descent-override: 23.46%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 675 724; font-style: normal; size-adjust: 102.82%; ascent-override: 94.34%; descent-override: 23.34%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 725 900; font-style: normal; size-adjust: 103.42%; ascent-override: 93.80%; descent-override: 23.21%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 100 449; font-style: normal; size-adjust: 101.27%; ascent-override: 95.78%; descent-override: 23.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 450 524; font-style: normal; size-adjust: 103.17%; ascent-override: 94.02%; descent-override: 23.26%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 525 574; font-style: normal; size-adjust: 104.08%; ascent-override: 93.20%; descent-override: 23.06%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 575 624; font-style: normal; size-adjust: 95.77%; ascent-override: 101.29%; descent-override: 25.06%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 625 674; font-style: normal; size-adjust: 96.62%; ascent-override: 100.40%; descent-override: 24.84%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 675 724; font-style: normal; size-adjust: 97.48%; ascent-override: 99.50%; descent-override: 24.62%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 725 900; font-style: normal; size-adjust: 98.52%; ascent-override: 98.45%; descent-override: 24.36%; line-gap-override: 0%; }
+:root { --font: "Inter", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+.hero h1, .hero-promise, .section h2, .contact h2, .metric-num, .case-stat span, .doc h1 {
+  font-family: "Inter", "Inter Display Fallback", "Inter Display Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Wrap-sensitive blocks in the first screen on desktop: each gets a fallback scaled to its own text at its own size,
+   because a 1-2% width error is enough to change how many lines a paragraph takes (seen on CI, 2026-11-13). */
+@font-face { font-family: "Inter Fallback Promise"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 100 900; font-style: normal; size-adjust: 97.32%; ascent-override: 99.67%; descent-override: 24.66%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Promise FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 100 900; font-style: normal; size-adjust: 98.00%; ascent-override: 98.98%; descent-override: 24.49%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Desc"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 900; font-style: normal; size-adjust: 106.72%; ascent-override: 90.89%; descent-override: 22.49%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Desc FS"; src: local("FreeSans"); font-weight: 100 900; font-style: normal; size-adjust: 110.83%; ascent-override: 87.52%; descent-override: 21.65%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Lead"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 900; font-style: normal; size-adjust: 106.92%; ascent-override: 90.72%; descent-override: 22.45%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Lead FS"; src: local("FreeSans"); font-weight: 100 900; font-style: normal; size-adjust: 110.57%; ascent-override: 87.73%; descent-override: 21.71%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Strong"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 100 900; font-style: normal; size-adjust: 99.83%; ascent-override: 97.17%; descent-override: 24.04%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Strong FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 100 900; font-style: normal; size-adjust: 100.36%; ascent-override: 96.65%; descent-override: 23.91%; line-gap-override: 0%; }
+@media (min-width: 961px) {
+  .hero-promise { font-family: "Inter", "Inter Fallback Promise", "Inter Fallback Promise FS", "Inter Display Fallback", "Inter Display Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .now-desc { font-family: "Inter", "Inter Fallback Desc", "Inter Fallback Desc FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .hero .lead { font-family: "Inter", "Inter Fallback Lead", "Inter Fallback Lead FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .now-card strong { font-family: "Inter", "Inter Fallback Strong", "Inter Fallback Strong FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+}
+
+/* Employment type under the current role's dates (Terrell, Nov 13: Full-time (W-2), never Contract). */
+.tl-when .tl-type { font-weight: 500; color: var(--muted); font-size: 14px; margin-top: 2px; }
+@media (max-width: 720px) { .tl-when .tl-type { margin: 0; } }
