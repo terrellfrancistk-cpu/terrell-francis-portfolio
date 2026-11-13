@@ -257,4 +257,55 @@
       });
     });
   }
+
+  // ---------- R3 (2026-11-13): email never dead-ends ----------
+  // A mailto: link does nothing on a computer with no mail app set up. After any email tap, offer the address to copy.
+  const mailLinks = document.querySelectorAll('a[href^="mailto:"]');
+  if (mailLinks.length) {
+    const toast = document.createElement('div');
+    toast.className = 'mail-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.hidden = true;
+    toast.innerHTML = '<span class="mail-toast-msg"></span><button type="button" class="mail-toast-copy">Copy address</button><button type="button" class="mail-toast-close" aria-label="Dismiss">×</button>';
+    document.body.appendChild(toast);
+    const msg = toast.querySelector('.mail-toast-msg');
+    const copyBtn = toast.querySelector('.mail-toast-copy');
+    let address = '';
+    let hideTimer = 0;
+    const hide = () => { toast.classList.remove('show'); clearTimeout(hideTimer); hideTimer = setTimeout(() => { toast.hidden = true; }, 250); };
+    const show = (addr) => {
+      address = addr;
+      msg.textContent = 'Opening your email app. No app?';
+      copyBtn.textContent = 'Copy address';
+      copyBtn.disabled = false;
+      clearTimeout(hideTimer);
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      hideTimer = setTimeout(hide, 10000);
+    };
+    const copyText = async (text) => {
+      try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy'); ta.remove(); return ok;
+      } catch (e) { return false; }
+    };
+    copyBtn.addEventListener('click', async () => {
+      const ok = await copyText(address);
+      msg.textContent = ok ? 'Copied: ' + address : 'Select and copy: ' + address;
+      copyBtn.textContent = ok ? 'Copied' : 'Copy address';
+      copyBtn.disabled = ok;
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, 6000);
+    });
+    toast.querySelector('.mail-toast-close').addEventListener('click', hide);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !toast.hidden) hide(); });
+    mailLinks.forEach((a) => a.addEventListener('click', () => {
+      const addr = decodeURIComponent(a.getAttribute('href').slice(7).split('?')[0]);
+      if (addr) show(addr);
+    }));
+  }
 })();
