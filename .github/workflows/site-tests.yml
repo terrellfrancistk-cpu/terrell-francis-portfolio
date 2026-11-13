@@ -27,8 +27,8 @@ jobs:
       run:
         working-directory: tests
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: "22"
       - run: npm ci || npm install --no-audit --no-fund
@@ -37,7 +37,7 @@ jobs:
         run: npx playwright test --trace off --reporter=list,html
       - name: Run the suite again against the minified build pages.yml would publish
         run: bash prod-build-check.sh --reporter=list
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: site-tests-report

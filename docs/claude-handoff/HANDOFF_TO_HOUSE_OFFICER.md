@@ -19,6 +19,7 @@ Work branch: `claude/sharp-franklin-6cwtfa` (pushing there does **not** deploy; 
 | H6 | After H5: run the `uptime` workflow once (Actions → uptime → Run workflow). Decide whether to turn on its schedule (every 6 h; it uses Actions minutes) | Dispatch-only workflows appear only on the default branch | GitHub Actions tab | `.github/workflows/uptime.yml` | Schedule: **Yes** | Blocked on H5 |
 | H7 | If `site-tests` shows `startup_failure` on the PR, Actions billing is blocking runs. **Do not** add a card or buy minutes; tell Terrell | Billing GUI | GitHub Settings → Billing | Same symptom noted on other repos in PAID_TOOLS.md | **Yes** for any spend | Watch |
 | H8 | Look-only: GitHub repo Settings → Pages shows source `gh-pages` / root, custom domain terrellfrancis.app, "Enforce HTTPS" on | Signed-in GUI | Repo Settings → Pages | `CNAME`, `pages.yml` | Changes: **Yes** | Open |
+| H9 | Optional, low priority: `pages.yml` (the live deploy) still uses `actions/checkout@v4`, which GitHub warns runs on deprecated Node 20. `site-tests.yml` was moved to v5 on this branch and stays green. Bumping `pages.yml` too would only take effect at a production merge | Changes the production deploy workflow | `.github/workflows/pages.yml` | CI warning text on PR #7 runs | **Yes** | Not done |
 
 Generic rows below come from the house template. For this website, rows about Play Console, App Store Connect, demo logins, store replies, Rork, and Unreal are **N/A** (no app binary, no listing).
 
