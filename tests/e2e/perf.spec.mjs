@@ -65,7 +65,12 @@ test('no layout jump when the web font arrives late on a system with a wide fall
     document.addEventListener('DOMContentLoaded', () => {
       const s = document.createElement('style');
       s.textContent = ':root{--font:"Inter","Inter Fallback","Inter Fallback FS","DejaVu Sans",sans-serif}'
-        + '.hero h1,.hero-promise,.section h2,.contact h2,.metric-num,.case-stat span,.doc h1{font-family:"Inter","Inter Display Fallback","Inter Display Fallback FS","DejaVu Sans",sans-serif}';
+        + '.hero h1,.hero-promise,.section h2,.contact h2,.metric-num,.case-stat span,.doc h1{font-family:"Inter","Inter Display Fallback","Inter Display Fallback FS","DejaVu Sans",sans-serif}'
+        + '@media (min-width:961px){'
+        + '.hero-promise{font-family:"Inter","Inter Fallback Promise","Inter Fallback Promise FS","DejaVu Sans",sans-serif}'
+        + '.now-desc{font-family:"Inter","Inter Fallback Desc","Inter Fallback Desc FS","DejaVu Sans",sans-serif}'
+        + '.hero .lead{font-family:"Inter","Inter Fallback Lead","Inter Fallback Lead FS","DejaVu Sans",sans-serif}'
+        + '.now-card strong{font-family:"Inter","Inter Fallback Strong","Inter Fallback Strong FS","DejaVu Sans",sans-serif}}';
       document.head.appendChild(s);
     });
   });
