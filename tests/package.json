@@ -1,0 +1,14 @@
+{
+  "name": "terrellfrancis-app-tests",
+  "private": true,
+  "description": "Playwright, axe and link checks for terrellfrancis.app. Runs against a local static server by default; production hosts are refused.",
+  "scripts": {
+    "test": "playwright test --trace off",
+    "test:update": "playwright test --trace off --update-snapshots",
+    "serve": "node serve.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.63.0"
+  }
+}
