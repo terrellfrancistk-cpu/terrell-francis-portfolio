@@ -60,15 +60,22 @@ test('no layout jump when the web font arrives late on a system with a wide fall
     new PerformanceObserver((l) => l.getEntries().forEach((e) => { if (!e.hadRecentInput) { window.__cls += e.value; window.__shifts.push(+e.value.toFixed(4)); } })).observe({ type: 'layout-shift', buffered: true });
     document.addEventListener('DOMContentLoaded', () => {
       const s = document.createElement('style');
-      s.textContent = ':root{--font:"Inter","Inter Fallback","DejaVu Sans",sans-serif}'
-        + '.hero h1,.hero-promise,.section h2,.contact h2,.metric-num,.case-stat span,.doc h1{font-family:"Inter","Inter Display Fallback","DejaVu Sans",sans-serif}';
+      s.textContent = ':root{--font:"Inter","Inter Fallback","Inter Fallback FS","DejaVu Sans",sans-serif}'
+        + '.hero h1,.hero-promise,.section h2,.contact h2,.metric-num,.case-stat span,.doc h1{font-family:"Inter","Inter Display Fallback","Inter Display Fallback FS","DejaVu Sans",sans-serif}';
       document.head.appendChild(s);
     });
   });
   await page.goto('/', { waitUntil: 'load' });
   await page.waitForTimeout(2800);
   const { cls, fontsLoaded } = await page.evaluate(() => ({ cls: window.__cls, fontsLoaded: [...document.fonts].some((f) => f.family === 'Inter' && f.status === 'loaded') }));
-  console.log('late-font CLS', cls.toFixed(4));
+  const avail = await page.evaluate(async () => {
+    const out = [];
+    for (const n of ['Arial', 'Liberation Sans', 'Arimo', 'FreeSans', 'DejaVu Sans']) {
+      try { await new FontFace('probe', `local("${n}")`).load(); out.push(n + ':yes'); } catch { out.push(n + ':no'); }
+    }
+    return out.join(' ');
+  });
+  console.log('late-font CLS', cls.toFixed(4), '| local fonts:', avail);
   expect(fontsLoaded).toBe(true);
   expect(cls).toBeLessThan(0.05);
 });
