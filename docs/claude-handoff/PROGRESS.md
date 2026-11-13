@@ -31,3 +31,24 @@ Update this table after every work block.
 ## Paid tools (PAID_TOOLS.md)
 
 No paid tool was needed or used for this site, and nothing was spent. The one asset that needed refreshing, the social share image, was rendered with Playwright from the site's own fonts and TF mark (`assets/og-image-2026-11.png`). No Higgsfield, Meshy or Holo generation was requested: a résumé site gains nothing from AI video or 3D, and adding them would be the clutter the UX rounds rule out. If Terrell wants a short reel for the hero or LinkedIn, it would be a Higgsfield request that needs his credit OK (see HANDOFF Q3).
+
+
+## Verification report — 2026-11-13 (end of session work blocks 1–2)
+
+**Score: 88% strict (21 of 24 applicable rows Present/BUILT). Every row the cloud session can close is closed.** The three open rows each wait on a named human step:
+
+| Open row | Blocked on | Where |
+|---|---|---|
+| OBS-2 uptime | Terrell's OK to merge (a dispatch-only workflow runs only from `main`), then one manual run | HANDOFF H5, H6 |
+| SPEC "honest store badges" | Terrell's answer on the "10 apps shipped, idea to store" wording | HANDOFF Q1 |
+| CI-1 (marked Present, first remote run pending) | First `site-tests` run on the draft PR; if Actions billing blocks it, do not pay | PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7), HANDOFF H7 |
+
+**Tests run (sandbox, local static server = staging):** `cd tests && npm test` → 105 passed, 5 width-specific skips, 0 failed (110 tests, 13 spec files, desktop 1280×800 and Pixel 7 projects). Covers: zero console/page errors and failed requests; every anchor and local asset; résumé PDF serves and downloads; axe WCAG 2.1 A/AA = 0 violations (home light and dark, privacy both themes, 404, email toast); keyboard case-study tabs; 44 px phone targets; no horizontal scroll; splash order and once-per-session; theme default, persistence and live device follow; no forms, inputs, iframes or cookies; zero third-party requests; deep links; perf (298 KB first load, LCP ~1.5 s throttled, CLS ~0); 16 visual baselines.
+
+**Other checks:** full-history secret scan clean. External links: 10 OK, 0 broken, 5 unverified because the sandbox cannot reach those hosts (HANDOFF H2). Résumé PDF and page agree on every role, date and metric.
+
+**Live vs staging:** none of this is live. The live domain returns 403 through this sandbox's proxy, so the live look is HANDOFF H1. Nothing was merged, deployed, submitted or spent. Pushes went only to `claude/sharp-franklin-6cwtfa`, which `pages.yml` does not deploy.
+
+**Removals:** none made. 6 rows wait in PROPOSED_REMOVALS.md; 4 "restore?" decisions wait in REMOVAL_AUDIT.md.
+
+**Evidence paths:** `tests/e2e/*.spec.mjs`, `tests/e2e/__screenshots__/`, `tests/check-external-links.mjs`, `docs/claude-handoff/AUDIT.md` (re-score), git log on the branch.
