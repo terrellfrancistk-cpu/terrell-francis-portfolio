@@ -62,7 +62,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | SPEC item | Mark | Evidence |
 |---|---|---|
 | Accurate public résumé | BUILT | Every role, date, company and metric on the page matches `assets/Terrell_Francis_Resume.pdf` (pdftotext). Minor: the PDF lists "Forms" under M365 and gives 2016–2020 for the B.S.; the page says 2020 |
-| Working links | BUILT | Internal anchors and every local asset 200 (`links.spec.mjs`); external: 10 OK, 0 broken, 5 unverified from the sandbox (`tests/check-external-links.mjs`) → handoff |
+| Working links | BUILT | Internal anchors and every local asset 200 (`links.spec.mjs`); external: 10 OK, 0 broken, 4 unverified from the sandbox, 1 (current employer's site) never contacted by rule (`tests/check-external-links.mjs`) → handoff |
 | Honest store badges | **BLOCKED** (Terrell's answer) | No store badges on the site. The hero card says "10 apps shipped, idea to store". Pack docs show several iOS builds rejected Nov 3–5, so whether "to store" is accurate today is Terrell's call (handoff Q1) |
 | Splash | BUILT | See ONB-1 |
 | Clean visual QA | BUILT | 16 visual baselines (updated after each UX round) (phone + desktop, light + dark, privacy) in `tests/e2e/__screenshots__`; 0 console errors |

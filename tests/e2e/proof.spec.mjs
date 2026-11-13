@@ -27,8 +27,8 @@ test('a proof link to a case study opens that tab and scrolls to it', async ({ p
   await expect(page.locator('#tab-handoff')).toHaveAttribute('aria-selected', 'true');
 });
 
-test('the role proof link lands on the Talencia role', async ({ page }) => {
+test('the role proof link lands on the current role', async ({ page }) => {
   await open(page);
-  await page.locator('.toolkit .proof a[href="#role-talencia"]').click();
-  await expect(page.locator('#role-talencia')).toBeInViewport({ ratio: 0.1 });
+  await page.locator('.toolkit .proof a[href="#role-current"]').click();
+  await expect(page.locator('#role-current')).toBeInViewport({ ratio: 0.1 });
 });

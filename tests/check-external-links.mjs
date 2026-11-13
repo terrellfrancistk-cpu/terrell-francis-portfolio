@@ -4,10 +4,14 @@
 import { readFile } from 'node:fs/promises';
 const file = process.argv[2] || new URL('../index.html', import.meta.url);
 const html = await readFile(file, 'utf8');
+// Hosts this tooling never contacts: TK Hub sessions do not work on other companies' products (pack rule).
+// Their links on the page are Terrell's own content and stay; a person checks them by hand (HANDOFF H2).
+const NEVER_CONTACT = ['gotalencia.com'];
 const urls = [...new Set([...html.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((m) => m[1]))]
   .filter((u) => !u.startsWith('https://terrellfrancis.app/'));
+for (const u of urls.filter((x) => NEVER_CONTACT.some((h) => new URL(x).hostname.endsWith(h)))) console.log(`SKIPPED    -    ${u} (never contacted by automation)`);
 let broken = 0;
-for (const u of urls) {
+for (const u of urls.filter((x) => !NEVER_CONTACT.some((h) => new URL(x).hostname.endsWith(h)))) {
   let status = 0, note = '';
   try {
     const r = await fetch(u, { redirect: 'follow', signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'Mozilla/5.0 (link-check)' } });
