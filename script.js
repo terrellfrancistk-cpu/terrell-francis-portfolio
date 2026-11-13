@@ -313,9 +313,11 @@
     }));
   }
 
-  // ---------- R4 (2026-11-13): roles open to their first three lines on phones ----------
-  // Every bullet stays in the page; on narrow screens the rest are one tap away. Desktop, print and no-JS show all.
-  document.querySelectorAll('.tl-body > ul').forEach((ul, i) => {
+  // ---------- R4 (2026-11-13): OFF. Proposal only, waiting for Terrell ----------
+  // Terrell's rule: never hide anything without his approval. This collapse (three bullets on phones, rest behind
+  // "Show more") hid content, so it does not run. Every bullet shows on every screen, as on the live site.
+  // It only runs if <html data-collapse-roles="on"> is set, which nothing does. See PROPOSED_REMOVALS.md.
+  if (document.documentElement.dataset.collapseRoles === 'on') document.querySelectorAll('.tl-body > ul').forEach((ul, i) => {
     const extra = ul.children.length - 3;
     if (extra < 1) return;
     const title = ul.parentElement.querySelector('h3');
