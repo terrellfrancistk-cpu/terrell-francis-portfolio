@@ -46,3 +46,15 @@ test('the page loads nothing from third parties (privacy claim)', async ({ page 
   await page.waitForTimeout(500);
   expect(foreign).toEqual([]);
 });
+
+test('robots.txt and sitemap.xml are served and list only public pages', async ({ request }) => {
+  const robots = await request.get('/robots.txt');
+  expect(robots.status()).toBe(200);
+  expect(await robots.text()).toContain('Sitemap: https://terrellfrancis.app/sitemap.xml');
+  const sm = await request.get('/sitemap.xml');
+  expect(sm.status()).toBe(200);
+  const xml = await sm.text();
+  expect(xml).toContain('<loc>https://terrellfrancis.app/</loc>');
+  expect(xml).toContain('<loc>https://terrellfrancis.app/privacy/</loc>');
+  expect(xml).not.toMatch(/docs|tests|handoff/i);
+});
