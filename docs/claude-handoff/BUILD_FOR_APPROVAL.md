@@ -2,17 +2,17 @@
 
 **Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
 
-## Build waiting for approval: **`224a05f0a8707b30`**
+## Build waiting for approval: **`7759189c3d8b5e34`**
 
 | | |
 |---|---|
-| Fingerprint | **`224a05f0a8707b30`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
-| First commit with this build | `4619631` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
+| Fingerprint | **`7759189c3d8b5e34`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
+| First commit with this build | `d444550` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
 | Live today | `main` @ `05fdba4`, fingerprint `57aeb1c21d5fadae` |
-| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 224a05f0a8707b30`; anything else is not the approved build |
-| Superseded | `2ca0bbddacb801f0` (earlier today; its folder is kept as a record). It lacked the restorations below and had the phone bullet collapse turned on. |
+| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 7759189c3d8b5e34`; anything else is not the approved build |
+| Superseded | `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
 
-## See it: `docs/claude-handoff/build-preview/224a05f0a8707b30/`
+## See it: `docs/claude-handoff/build-preview/7759189c3d8b5e34/`
 
 Built exactly as `pages.yml` would publish (minified), on this sandbox, from the committed tree.
 
@@ -35,8 +35,8 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 
 **Restored (past Claude removals, word for word from git):**
 - "How I run an implementation" five-phase strip after the hero.
-- About section with its three principle cards.
-- Product studio: each app's description and a live demo of the selected app in a phone frame (with a loading shimmer, never a blank screen), plus the "why it matters" note with Visit TK Hub.
+- About section (after Experience, where the restore PR puts it) with its three principle cards. Its second paragraph (current employer) is held for Terrell, as the restore PR decided.
+- Product studio: each app's description and a live demo of the selected app in a phone frame (with a loading shimmer, never a blank screen), plus the "why it matters" note with Visit TK Hub. The TORQ panel is held, as the restore PR decided (WRACE/TORQ removal approved Nov 13); the live TORQ app tile and footer link stay.
 - "…with live demos below." in the TK Hub Now card.
 
 **Added / improved:**
@@ -51,14 +51,14 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 **Unchanged:** his email, phone and résumé PDF (byte for byte, guarded by a test); every existing section, link, app tile and line of copy; the hero wording.
 
 ## Tests on this build
-- Sandbox: 134 passed, 0 failed (12 width-specific skips), on the source and on the minified build.
+- Sandbox: 134 passed, 0 failed (12 width-specific skips), on the source and on the minified build (`d444550`).
 - CI on PR #7: runs on every push.
 - axe WCAG 2.1 AA: 0 violations in light and dark; keyboard focus visible everywhere, including inside the live demo.
 
 ## Waiting on Terrell, separately from the build
-Rows in `PROPOSED_REMOVALS.md`: phone bullet collapse (off), 4 icon-mark swaps (not done), RADR wording (restored as written), link-preview image swap.
+Rows in `PROPOSED_REMOVALS.md`: phone bullet collapse (off), 4 icon-mark swaps (not done), RADR wording (restored as written), link-preview image swap, and two items held by the restore PR (TORQ studio panel, About's second paragraph), kept word for word in `HELD_FOR_TERRELL.md`.
 
 ## Approval
-To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 224a05f0a8707b30 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
+To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 7759189c3d8b5e34 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
 
 Status: **waiting for Terrell to see and approve.**
