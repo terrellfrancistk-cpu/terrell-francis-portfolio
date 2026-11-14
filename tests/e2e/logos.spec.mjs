@@ -49,3 +49,14 @@ test('root favicon.ico exists for clients that ask for it by name', async ({ req
   const r = await request.get('/favicon.ico');
   expect(r.status()).toBe(200);
 });
+
+// Terrell, Nov 14: the TK Hub logo master (vector rebuild, same look) replaces the 300 px-derived raster everywhere.
+test('TK Hub logo (splash "by TK Hub" and footer) is the vector master, sharp at any size', async ({ request }) => {
+  const html = await (await request.get('/')).text();
+  const srcs = [...html.matchAll(/<img[^>]+src="([^"]*tkhub-logo[^"]*)"/g)].map((m) => m[1]);
+  expect(srcs.length).toBeGreaterThanOrEqual(2);
+  for (const s of srcs) expect(s).toMatch(/assets\/brand\/tkhub-logo-badge\.svg$/);
+  const svg = await (await request.get('/assets/brand/tkhub-logo-badge.svg')).text();
+  expect(svg).toContain('#00CBF6');
+  expect(svg).not.toContain('<image'); // pure vector, no embedded raster
+});

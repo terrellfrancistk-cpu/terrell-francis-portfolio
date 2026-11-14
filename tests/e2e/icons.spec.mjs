@@ -34,11 +34,12 @@ test('icons are sharp on a 3x screen (except the four pending Terrell)', async (
   await ctx.close();
 });
 
-test('every original icon file is still referenced (nothing replaced)', async ({ page }) => {
+test('every original icon file is still referenced (nothing replaced)', async ({ page, request }) => {
   await page.goto('/');
   const srcs = await page.$$eval('img', (imgs) => imgs.map((i) => i.getAttribute('src')));
   for (const a of ['apex', 'role', 'booked', 'curb', 'zilt', 'our-people', 'radr', 'wrace', 'afterglow', 'noir']) {
     expect(srcs).toContain(`assets/apps/${a}.png`);
   }
-  expect(srcs).toContain('assets/tkhub-logo.png');
+  // TK Hub logo: Terrell (Nov 14) ordered the swap to his vector master (logos.spec). The old raster files stay in the repo.
+  for (const f of ['/assets/tkhub-logo.png', '/assets/tkhub-logo@hd.webp']) expect((await request.get(f)).status(), f).toBe(200);
 });

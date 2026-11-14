@@ -10,7 +10,7 @@ test('one splash screen: TF mark, "by TK Hub", TK Hub logo', async ({ page }) =>
   const splash = page.locator('#splash');
   await expect(splash.locator('.splash-one .splash-mark')).toBeAttached();
   await expect(splash.locator('.splash-by')).toHaveText('by TK Hub');
-  await expect(splash.locator('img.splash-tk')).toHaveAttribute('srcset', /tkhub-logo@hd\.webp 209w/);
+  await expect(splash.locator('img.splash-tk')).toHaveAttribute('src', 'assets/brand/tkhub-logo-badge.svg'); // vector master
   // Single screen: no second (black) screen and no timeline animation on the splash.
   expect(await splash.locator('.splash-b').count()).toBe(0);
   expect(await splash.evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
