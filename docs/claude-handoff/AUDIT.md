@@ -47,7 +47,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | PAR-2 | Present | Section and case-study deep links work from a cold load (`links.spec.mjs › deep links`) |
 | LEG-1 | Present | `/privacy/` (privacy and terms) states only what the code does; footer link; renders in both themes (`pages.spec.mjs`) |
 | LEG-2…LEG-9 | N/A | No store binary, AI, biometrics, age-gated content, or permissions |
-| ONB-1 | Present | TF mark → solid black TK Hub (~1.2 s) → page, once per session, skipped for reduced motion (`splash.spec.mjs`, forced with `?splash=1`). Splash caption: kept (Terrell, Nov 13) |
+| ONB-1 | Present | Terrell, Nov 13 10:01 PM CT: ONE splash screen (TF mark large and centred, "by TK Hub" and the TK Hub logo beneath), shown only while the page loads: no minimum time, leaves when DOM + fonts are ready; skipped on reload, back/forward, repeat visits in a session, reduced motion, and without JS (`splash.spec.mjs`, forced with `?splash=1`) |
 | ONB-2 | N/A | No permissions or analytics to opt into |
 | SET-1 | Present (applicable part) | Theme Light / Dark / System, System default, remembered, live-follows the device (`theme.spec.mjs`); legal link in footer. Account, notifications, delete and sign-out are N/A |
 | SUP-1 | Present | Contact mailto/tel links well-formed (`links.spec.mjs`); whether the inbox receives mail is on the handoff |

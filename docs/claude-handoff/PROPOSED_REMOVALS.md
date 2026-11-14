@@ -9,7 +9,7 @@ If a change looks like it needs a removal (dead code, unused route, dangerous en
 
 **Standing decision (Terrell, Nov 13):** any proposal that hides existing content (e.g. a "Show more" collapse) is NO. Do not propose or implement it.
 
-**Nothing is waiting on Terrell right now.** Rows 2–6 decided Nov 13 1:05 PM CT: keep / restore.
+**Nothing is waiting on Terrell right now.** Update Nov 14: Terrell's Nov 13 10:01 PM CT order changed two decided items, applied as he ordered (nothing deleted): the link preview now shows the real TF mark (`og-image-logo.png`; the old `og-image.png` is kept), and the two splash screens are merged into one (old splash CSS kept, unused). Rows 2–6 decided Nov 13 1:05 PM CT: keep / restore.
 
 | # | Item | WHY (one line) | Today |
 |---|---|---|---|
