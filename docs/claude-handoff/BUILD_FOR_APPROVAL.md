@@ -14,6 +14,8 @@
 
 ## Public preview (open on any phone or computer)
 
+Preview folders are built with `bash tests/make-preview.sh <commit> <dir>` (same output as pages.yml plus the preview repo's noindex / relative-404 conventions).
+
 **https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-1114f/**
 
 Free GitHub Pages in `terrellfrancistk-cpu/tkhub-preview` (folder `terrellfrancis-1114f`, commit see `PREVIEW-BUILD.txt`), per Terrell's Nov 13 decision (no Vercel). It is build `64da6017edc73e0b` exactly as `pages.yml` would publish it, with two preview-only edits per that repo's convention: `noindex, nofollow` on every page, and the 404 page's root links made relative. Checked in a browser: home, privacy and 404 load, all 35 images load (HD on retina), no errors. The live demo inside the page loads each TK Hub app's own site. The live terrellfrancis.app is unchanged.
