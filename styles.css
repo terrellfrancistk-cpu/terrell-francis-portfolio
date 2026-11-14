@@ -1053,3 +1053,13 @@ html, body { overflow-x: clip; }
   .hero .lead { font-family: "Inter", "Inter Fallback Lead", "Inter Fallback Lead FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
   .now-card strong { font-family: "Inter", "Inter Fallback Strong", "Inter Fallback Strong FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 }
+
+/* ---------- Print: every case study on paper (2026-11-14) ----------
+   On screen one case shows at a time (tabs). On paper all four print, with no fade-in (print caught its first,
+   invisible frame), the tab strip wraps instead of clipping, and cards are not split across pages. Screen unchanged. */
+@media print {
+  .js .chapter-panels .case:not(.is-on) { display: block; }
+  .js .chapter-panels .case, .js .chapter-panels .case.is-on { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .js .chapter-nav { position: static; flex-wrap: wrap; overflow: visible !important; }
+  .case, .principle, .now-card, .product, .edu-card, .metric, .chapter-tab, .site-footer { break-inside: avoid; }
+}
