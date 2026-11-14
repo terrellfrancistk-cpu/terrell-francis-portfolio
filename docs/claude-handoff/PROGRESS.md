@@ -1,8 +1,8 @@
 # PROGRESS — terrellfrancis.app
 
-Opening figure (stale dated scorecard, **replace after the first re-score against AUDIT.md + SPEC.md**):
+**Current score (2026-11-14): 100% strict, 24/24 applicable AUDIT + SPEC rows, on the live site** (build `64da6017edc73e0b`, published Nov 14 with Terrell's approval). See the final verification report below.
 
-**About 85% suggested Nov 11 (live, title present, splash not verified). Re-score against AUDIT.md first. That figure is a suggestion, not a measured score.**
+Opening figure, kept for the record: "About 85% suggested Nov 11 (live, title present, splash not verified)." It was a suggestion, not a measured score; replaced by the re-scores in the log.
 
 Definition of 100%: every applicable AUDIT STANDARD item Present and passing tests; every SPEC item BUILT (or BLOCKED with a named human click) and tested; parity where this product has those surfaces; final verification report written. For Unreal games, proof includes a played local build. 100% on the branch/staging (or a local package) is not a production publish or store submit.
 
@@ -40,6 +40,7 @@ Definition of 100%: every applicable AUDIT STANDARD item Present and passing tes
 | 2026-11-14 (block 27) | 96% strict | **96% strict** (23/24) | Status reported to Terrell (build 95%, live site 70%). Tooling: `tests/make-preview.sh <commit> <dir>` builds a tkhub-preview folder in one step (pages.yml minify + exclusions, noindex on every page, relative 404 links, PREVIEW-BUILD.txt with the fingerprint; refuses to overwrite a folder). Verified: its output for `a115381` is byte-identical to the hand-built `terrellfrancis-1114f`. Removes the manual steps that caused the earlier 404 link-count slip. Test kit only, so the build stays `64da6017edc73e0b`. | Byte-for-byte diff vs 1114f | Terrell: approve `64da6017edc73e0b` (#7) |
 | 2026-11-14 (block 28) | 96% strict | **96% strict** (23/24) | Terrell (Nov 14): new previews go to a separate free GitHub Pages repo per app, not the shared `tkhub-preview` (near its size limit); old previews stay. No such repo exists for this site (checked the account's repos) and this session cannot create repositories, so handoff H14 asks for one (`terrellfrancis-preview`, Pages from `main`). No new build since `64da6017edc73e0b`, whose preview already exists (`tkhub-preview/terrellfrancis-1114f`), so nothing is blocked today. | Repo list | H14 (new preview repo); Terrell: approve `64da6017edc73e0b` |
 | 2026-11-14 (block 29) | 96% strict | **100% strict** (24/24) | **Published.** Terrell (Nov 14, 1:32 AM CT): "publish build 1114f" (= `64da6017edc73e0b`); keep email/phone; role Full-time; only that exact build; no spend. Checked head `e6aa83c` = `64da6017edc73e0b` and `main` unchanged, then merged PR #7 (merge commit `73b64dd`, same tree). pages.yml run 27: success. Verified the published gh-pages tree: 51/51 files match the approval record, HTML = merged source, no docs/tests published; email/phone/résumé identical to before; no "Contract" on the role. The visible "Full-time (W-2)" label exists only in PR #8 (Talencia, parked), so it is not in this build. Uptime workflow (now on main) run once from GitHub's network: `/` 200, résumé 200, `/privacy/` 200 (a page only this build has, so the new build is what is served), preview image 200, unknown path 404. OBS-2 → Present: **audit 24/24 = 100% strict**. `terrellfrancis-preview` repo: OK'd by Terrell but this session may not create repositories (H14). Work branch fast-forwarded to `main`. | gh-pages vs approval hashes; pages.yml run | H14 repo; H2 link clicks |
+| 2026-11-14 (block 30) | 100% strict | **100% strict** (24/24) | Wrote the final verification report (work-order step 11) and replaced the stale Nov 11 opening figure (kept for the record). Fresh suite run on the published tree: 192 passed, 0 failed. Talencia work stays parked and untouched (Terrell, Nov 14). Docs only. | Suite; gh-pages hashes; uptime run | H2, real-phone screen reader, H14 |
 
 Update this table after every work block.
 
@@ -59,6 +60,30 @@ Update this table after every work block.
 
 No paid tool was needed or used for this site, and nothing was spent. The one asset that needed refreshing, the social share image, was rendered with Playwright from the site's own fonts and TF mark (`assets/og-image-2026-11.png`). No Higgsfield, Meshy or Holo generation was requested: a résumé site gains nothing from AI video or 3D, and adding them would be the clutter the UX rounds rule out. If Terrell wants a short reel for the hero or LinkedIn, it would be a Higgsfield request that needs his credit OK (see HANDOFF Q3).
 
+
+## Final verification report — 2026-11-14 (terrellfrancis.app at 100%)
+
+**What is live:** build `64da6017edc73e0b` (preview `tkhub-preview/terrellfrancis-1114f`), approved by Terrell on Nov 14 at 1:32 AM CT, merged as `73b64dd`, published by pages.yml run 27.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Published files = approved build | 51/51 identical | gh-pages tree vs `build-preview/64da6017edc73e0b/minified-files.sha256`; HTML = merged source; no docs/tests published |
+| Live domain answers | `/` 200, résumé 200, `/privacy/` 200, preview image 200, unknown path 404 | uptime workflow run 43574055208 (GitHub's network; the sandbox cannot reach the domain) |
+| Test suite | 192 passed, 0 failed, 12 width-specific skips | fresh run on the published tree (Nov 14); same suite passes on the minified build (`npm run test:prod-build`) and in CI |
+| AUDIT + SPEC | 24/24 Present / BUILT | `AUDIT.md` re-score; OBS-2 closed by the uptime run |
+| Rule #1 | Nothing removed | Every change additive or Terrell-ordered; old files kept (old splash CSS, `og-image.png`, `tkhub-logo.png`, `favicon.svg`, R4 code); `PROPOSED_REMOVALS.md` has nothing pending |
+| Terrell's standing conditions | Met | Email, phone and résumé PDF identical to before; current role never labelled Contract; no vendor names; no spend |
+| Terrell's Nov 13 logo/splash order | Done | One splash, only while loading (no minimum time; skipped on reload/repeat); real TF logo on favicons, apple-touch, manifest, link preview; TK Hub logo from his vector master |
+
+**Left for a person (not counted against the score, since they are clicks or devices, not code):**
+- H2: click the 4 external links the sandbox cannot reach (LinkedIn x2, tryrole.app, the older personal site).
+- A real-phone VoiceOver / TalkBack pass (automated axe checks are clean).
+- H14: create the free `terrellfrancis-preview` repo for future previews (OK'd by Terrell; this session may not create repositories).
+- Optional, needs Terrell's OK: turn on the uptime check's 6-hourly schedule.
+
+**Parked, not touched:** PR #8 and the Talencia role update (no Talencia work in this session). The visible "Full-time (W-2)" label exists only there.
+
+**From here:** add/fix only, small and batched; any new build gets a preview (in `terrellfrancis-preview` once it exists) and goes live only with Terrell's OK on that exact build.
 
 ## Verification report — 2026-11-13 (end of session work blocks 1–2)
 
