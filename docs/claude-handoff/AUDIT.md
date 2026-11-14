@@ -30,6 +30,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | AUTH-1…AUTH-8 | N/A | No sign-in or accounts. `smoke.spec.mjs` asserts no form/input/iframe and no cookies |
 | SEC-1…SEC-4, SEC-6, SEC-7 | N/A | No database, admin routes, or user-generated content |
 | SEC-5 | Present | Full-history scan for API keys, tokens and private keys: none. No env files. |
+| SEC-CSP (extra) | Present | Content-Security-Policy meta on every page (scripts: this site + hashed inline theme script only; no plugins; base/form locked); `csp.spec.mjs` fails on any violation or an unhashed inline script |
 | SEC-8 | N/A | No health or sensitive data handled |
 | UX-1 | Present | `404.html` (`pages.spec.mjs › unknown paths get the site 404`); splash has a 2.6 s failsafe and tap/key skip (`splash.spec.mjs`) |
 | UX-2 | Present | Content is in the HTML at first paint; LCP ~1.5 s throttled (`perf.spec.mjs`); no spinners |
