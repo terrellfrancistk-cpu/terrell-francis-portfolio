@@ -1,0 +1,28 @@
+{
+  "name": "Terrell Francis",
+  "short_name": "T. Francis",
+  "description": "Terrell Francis: technology, operations and implementation leader; founder of TK Hub.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#0E2238",
+  "theme_color": "#0E2238",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

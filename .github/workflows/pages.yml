@@ -33,5 +33,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add script.js styles.css
+          # Internal handoff docs and the test kit live in the repo but are never published to the live site.
+          git rm -r -q --cached --ignore-unmatch docs tests HANDOFF_TO_HOUSE_OFFICER.md
           git diff --cached --quiet || git commit -m "Minify CSS and JS for GitHub Pages"
           git push --force origin HEAD:refs/heads/gh-pages

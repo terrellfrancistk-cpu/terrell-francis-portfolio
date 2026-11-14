@@ -1,5 +1,5 @@
 (() => {
-  // Splash: remove from the DOM once it has faded, or on tap/key; never block the page past ~2.5s.
+  // Splash: remove from the DOM as soon as the page is ready, or on tap/key; never block the page past ~2.5s.
   const splash = document.getElementById('splash');
   if (splash) {
     const html = document.documentElement;
@@ -8,9 +8,35 @@
       splash.addEventListener('animationend', (e) => { if (e.animationName === 'splashOut') done(); });
       splash.addEventListener('click', done);
       document.addEventListener('keydown', done, { once: true });
+      // Only while loading (Terrell, Nov 13 10:01 PM CT): leave as soon as the page is ready (DOM parsed, fonts in).
+      // No minimum time. A quick fade, then gone. The timer below is only a safety net if the fonts never settle.
+      const leave = () => { if (!splash.isConnected || splash.classList.contains('is-leaving')) return; splash.classList.add('is-leaving'); setTimeout(done, 160); };
+      const domReady = new Promise((r) => (document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r, { once: true }) : r()));
+      Promise.all([domReady, document.fonts ? document.fonts.ready : Promise.resolve()]).then(leave, leave);
       setTimeout(done, 2600);
     } else done();
   }
+
+  // Theme switch: System (default, follows the device), Light, Dark. The choice is remembered on this device only.
+  const themeButtons = [...document.querySelectorAll('[data-theme-set]')];
+  const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+  const applyTheme = (pref) => {
+    const html = document.documentElement;
+    const dark = pref === 'dark' || (pref === 'system' && darkMQ.matches);
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    html.setAttribute('data-theme-pref', pref);
+    themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === pref)));
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#0A1422' : '#0E2238');
+  };
+  applyTheme(document.documentElement.getAttribute('data-theme-pref') || 'system');
+  themeButtons.forEach((b) => b.addEventListener('click', () => {
+    const pref = b.dataset.themeSet;
+    try { if (pref === 'system') localStorage.removeItem('tf-theme'); else localStorage.setItem('tf-theme', pref); } catch (e) {}
+    applyTheme(pref);
+  }));
+  const onSystemChange = () => { if ((document.documentElement.getAttribute('data-theme-pref') || 'system') === 'system') applyTheme('system'); };
+  if (darkMQ.addEventListener) darkMQ.addEventListener('change', onSystemChange); else if (darkMQ.addListener) darkMQ.addListener(onSystemChange);
 
   const header = document.querySelector('.site-header');
   const toggle = document.querySelector('.nav-toggle');
@@ -196,6 +222,10 @@
     const fromHash = chapterTabs.find((t) => '#' + t.getAttribute('aria-controls') === location.hash);
     showChapter(fromHash || chapterTabs[0], false, false);
     chapterTabs.forEach((tab) => tab.addEventListener('click', () => showChapter(tab, false, true)));
+    // R5: in-page links to a case study (e.g. the Proof links under Skills) open that tab, even if the hash is unchanged.
+    const openFromHash = (hash) => { const t = chapterTabs.find((x) => '#' + x.getAttribute('aria-controls') === hash); if (t) showChapter(t, false, false); return t; };
+    window.addEventListener('hashchange', () => openFromHash(location.hash));
+    document.addEventListener('click', (e) => { const a = e.target.closest('a[href^="#case-"]'); if (a) openFromHash(a.getAttribute('href')); });
     document.querySelector('.chapter-nav').addEventListener('keydown', (e) => {
       const i = chapterTabs.indexOf(document.activeElement);
       if (i < 0) return;
@@ -215,7 +245,17 @@
   const frame = document.getElementById('studio-frame');
   const openLink = document.getElementById('studio-open');
   if (frame) {
+    // Keyboard focus that moves into the embedded app page can't be styled with CSS from here (cross-origin),
+    // so the phone frame gets a class while the demo has focus. Restored studio, accessibility fix 2026-11-13.
+    const phone = frame.closest('.phone');
+    if (phone) {
+      const mark = () => phone.classList.toggle('frame-focused', document.activeElement === frame);
+      window.addEventListener('blur', () => { mark(); setTimeout(mark, 0); });
+      window.addEventListener('focus', () => phone.classList.remove('frame-focused'));
+    }
     const screen = frame.parentElement;
+    // Show the loading shimmer until the first demo has loaded (no blank white phone). Added 2026-11-13.
+    screen.classList.add('loading');
     frame.addEventListener('load', () => screen.classList.remove('loading'));
     document.querySelectorAll('input[name="studio"][data-demo]').forEach((r) => r.addEventListener('change', () => {
       if (!r.checked || frame.getAttribute('src') === r.dataset.demo) return;
@@ -236,4 +276,86 @@
       });
     });
   }
+
+  // ---------- R3 (2026-11-13): email never dead-ends ----------
+  // A mailto: link does nothing on a computer with no mail app set up. After any email tap, offer the address to copy.
+  const mailLinks = document.querySelectorAll('a[href^="mailto:"]');
+  if (mailLinks.length) {
+    const toast = document.createElement('div');
+    toast.className = 'mail-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.hidden = true;
+    toast.innerHTML = '<span class="mail-toast-msg"></span><button type="button" class="mail-toast-copy">Copy address</button><button type="button" class="mail-toast-close" aria-label="Dismiss">×</button>';
+    document.body.appendChild(toast);
+    const msg = toast.querySelector('.mail-toast-msg');
+    const copyBtn = toast.querySelector('.mail-toast-copy');
+    let address = '';
+    let hideTimer = 0;
+    const hide = () => { toast.classList.remove('show'); clearTimeout(hideTimer); hideTimer = setTimeout(() => { toast.hidden = true; }, 250); };
+    const show = (addr) => {
+      address = addr;
+      msg.textContent = 'Opening your email app. No app?';
+      copyBtn.textContent = 'Copy address';
+      copyBtn.disabled = false;
+      clearTimeout(hideTimer);
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      hideTimer = setTimeout(hide, 10000);
+    };
+    const copyText = async (text) => {
+      try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy'); ta.remove(); return ok;
+      } catch (e) { return false; }
+    };
+    copyBtn.addEventListener('click', async () => {
+      const ok = await copyText(address);
+      msg.textContent = ok ? 'Copied: ' + address : 'Select and copy: ' + address;
+      copyBtn.textContent = ok ? 'Copied' : 'Copy address';
+      copyBtn.disabled = ok;
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, 6000);
+    });
+    toast.querySelector('.mail-toast-close').addEventListener('click', hide);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !toast.hidden) hide(); });
+    mailLinks.forEach((a) => a.addEventListener('click', () => {
+      const addr = decodeURIComponent(a.getAttribute('href').slice(7).split('?')[0]);
+      if (addr) show(addr);
+    }));
+  }
+
+  // ---------- R4 (2026-11-13): OFF. Proposal only, waiting for Terrell ----------
+  // Terrell's rule: never hide anything without his approval. This collapse (three bullets on phones, rest behind
+  // "Show more") hid content, so it does not run. Every bullet shows on every screen, as on the live site.
+  // It only runs if <html data-collapse-roles="on"> is set, which nothing does. See PROPOSED_REMOVALS.md.
+  if (document.documentElement.dataset.collapseRoles === 'on') document.querySelectorAll('.tl-body > ul').forEach((ul, i) => {
+    const extra = ul.children.length - 3;
+    if (extra < 1) return;
+    const title = ul.parentElement.querySelector('h3');
+    const role = title ? title.firstChild.textContent.trim() : 'this role';
+    if (!ul.id) ul.id = `tl-list-${i}`;
+    ul.classList.add('tl-clamp');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tl-more';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', ul.id);
+    // Built from DOM nodes (not innerHTML) so a role title can never be parsed as markup.
+    const label = (open) => {
+      btn.replaceChildren(document.createTextNode(open ? 'Show less' : `Show ${extra} more`));
+      if (!open) { const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = ` for ${role}`; btn.appendChild(sr); }
+    };
+    label(false);
+    btn.addEventListener('click', () => {
+      const open = ul.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+      label(open);
+      if (open) { const next = ul.children[3]; if (next) { next.setAttribute('tabindex', '-1'); next.focus({ preventScroll: true }); } }
+    });
+    ul.after(btn);
+  });
 })();

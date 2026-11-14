@@ -806,3 +806,278 @@ strong { color: var(--ink); font-weight: 650; }
 .lead.lead-1 { margin-bottom: 6px; }
 /* Decorative layers (pseudo-elements behind the hero and timeline) never widen the page on a 280px phone. */
 html, body { overflow-x: clip; }
+
+/* ---------- Touch targets (A11Y-1, 2026-11-13) ----------
+   On touch screens every text link in the contact block and footer is a 44px-tall target. Gaps shrink so the lists keep their rhythm. */
+@media (pointer: coarse), (max-width: 720px) {
+  .contact-links { gap: 0 22px; }
+  .contact-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contact-links span { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer-nav ul { gap: 0; }
+  .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .to-top { display: inline-flex; align-items: center; min-height: 44px; }
+  /* Bigger hit area, same look: padding grows the target, the negative margin keeps the layout where it was. */
+  .hero-meta a { display: inline-block; padding: 10px 0; margin: -10px 0; border-bottom: 0; text-decoration: underline; text-decoration-color: #C8DAF0; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .hero-meta a:hover { text-decoration-color: currentColor; }
+  .contact-email, .contact-phone { min-height: 44px; padding: 6px 0; }
+  .contact-email { margin-bottom: 2px; }
+  .contact-phone { margin-bottom: 20px; }
+}
+
+/* =====================================================================
+   Theme: Light / Dark / System (2026-11-13). System is the default and follows the device.
+   The inline script in <head> resolves the choice to data-theme="light|dark" before first paint.
+   ===================================================================== */
+:root { color-scheme: light; --surface: #fff; --surface-glass: rgba(255, 255, 255, .82); --band: var(--ink); --hairline: #C8DAF0; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #EEF3FA;
+  --ink-2: #C9D6E8;
+  --text: #C4D0E0;
+  --muted: #95A6BC;
+  --line: #22344D;
+  --bg: #0A1422;
+  --bg-soft: #0F1C2E;
+  --accent: #7DB2F2;
+  --accent-ink: #9CC4F6;
+  --accent-soft: #14294A;
+  --surface: #0F1C2E;
+  --surface-glass: rgba(10, 20, 34, .82);
+  --band: #0E2238;
+  --hairline: #2C4A70;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4), 0 1px 3px rgba(0, 0, 0, .3);
+  --shadow: 0 10px 30px -12px rgba(0, 0, 0, .6), 0 2px 6px rgba(0, 0, 0, .3);
+  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, .7);
+}
+[data-theme="dark"] body { background: var(--bg); }
+/* Surfaces that were hard-coded white */
+[data-theme="dark"] .btn-ghost, [data-theme="dark"] .nav-toggle, [data-theme="dark"] .status, [data-theme="dark"] .case,
+[data-theme="dark"] .chapter-tab[aria-selected="true"], [data-theme="dark"] .edu-card, [data-theme="dark"] .app-tile,
+[data-theme="dark"] .tool-chips li, [data-theme="dark"] .owned-chips li, [data-theme="dark"] .skill-card,
+[data-theme="dark"] .product, [data-theme="dark"] .launch, [data-theme="dark"] .principle:hover { background: var(--surface); }
+[data-theme="dark"] .btn-ghost:hover, [data-theme="dark"] .now-card:hover, [data-theme="dark"] .case:hover,
+[data-theme="dark"] .product:hover { border-color: #33507A; }
+[data-theme="dark"] .now-card { background: rgba(15, 28, 46, .78); }
+[data-theme="dark"] .now-apps img { border-color: var(--bg); }
+[data-theme="dark"] .tl-item::before { background: var(--bg); box-shadow: 0 0 0 5px var(--bg); }
+[data-theme="dark"] .tl-now::before { background: var(--gold); box-shadow: 0 0 0 5px var(--bg), 0 0 0 7px rgba(233, 169, 59, .25); }
+[data-theme="dark"] .phase-dot, [data-theme="dark"] .phase-index { background: var(--bg); }
+/* Header, menu, dock: dark glass */
+[data-theme="dark"] .site-header, [data-theme="dark"] .site-header.scrolled { background: var(--surface-glass); }
+[data-theme="dark"] .site-header.scrolled { box-shadow: 0 6px 20px -16px rgba(0, 0, 0, .8); }
+@media (max-width: 960px) { [data-theme="dark"] .nav-links { background: var(--bg-soft); } }
+@media (max-width: 720px) { [data-theme="dark"] .dock { background: rgba(15, 28, 46, .9); border-color: var(--line); } }
+/* Hero wash */
+[data-theme="dark"] .hero-bg {
+  background:
+    radial-gradient(900px 480px at 88% -8%, rgba(125, 178, 242, .14), transparent 60%),
+    radial-gradient(640px 380px at 0% 80%, rgba(233, 169, 59, .07), transparent 62%),
+    linear-gradient(180deg, #0C182A 0%, var(--bg) 72%);
+}
+[data-theme="dark"] .hero-bg::after { background-image: linear-gradient(rgba(238, 243, 250, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(238, 243, 250, .045) 1px, transparent 1px); }
+/* --ink is a text color in dark mode, so the bands and solid buttons that used it as a background get their own navy */
+[data-theme="dark"] .impact, [data-theme="dark"] .contact { background: var(--band); }
+[data-theme="dark"] .site-footer { background: #060E19; }
+[data-theme="dark"] .btn-primary { background: #EEF3FA; color: #0A1422; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .7); }
+[data-theme="dark"] .btn-primary:hover { background: #fff; color: #0A1422; }
+[data-theme="dark"] .btn-light, [data-theme="dark"] .btn-light:hover { background: #EEF3FA; color: #0A1422; }
+[data-theme="dark"] .skip-link, [data-theme="dark"] .skip-link:focus { background: #EEF3FA; color: #0A1422; }
+[data-theme="dark"] .back-to-top { background: #1A3352; }
+[data-theme="dark"] .back-to-top:hover { background: #24436A; }
+/* Hairlines and tinted chips */
+[data-theme="dark"] .hero-meta a, [data-theme="dark"] .products-foot a, [data-theme="dark"] .product-link { border-bottom-color: var(--hairline); text-decoration-color: var(--hairline); }
+[data-theme="dark"] .chips li:hover { border-color: var(--hairline); }
+[data-theme="dark"] .pill-live, [data-theme="dark"] .par-r, [data-theme="dark"] .badge-done { background: rgba(30, 158, 106, .16); color: #7FDDB4; }
+[data-theme="dark"] .par-p { background: rgba(233, 140, 59, .16); color: #F5B98A; }
+[data-theme="dark"] .badge-progress { background: rgba(233, 169, 59, .16); color: #F2C879; }
+[data-theme="dark"] .splash-on .splash { background: var(--bg); }
+[data-theme="dark"] .brand-mark path[fill="#1E6BFF"], [data-theme="dark"] .splash-mark path[fill="#1E6BFF"] { fill: #5B9BFF; }
+
+/* Theme switch (footer). Three honest states; the current one is pressed. */
+.theme-switch { display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 0; border: 0; }
+.theme-label { font-size: 13px; color: rgba(255, 255, 255, .6); }
+.theme-opts { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
+.theme-opts button { appearance: none; border: 0; background: transparent; color: rgba(255, 255, 255, .72); font: inherit; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; min-height: 32px; }
+.theme-opts button:hover { color: #fff; }
+.theme-opts button[aria-pressed="true"] { background: rgba(255, 255, 255, .14); color: #fff; }
+.theme-opts button:focus-visible { outline: 2px solid #9CC4F6; outline-offset: 2px; }
+@media (pointer: coarse), (max-width: 720px) { .theme-opts button { min-height: 44px; padding: 0 16px; } }
+.footer-legal { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; }
+.footer-legal a { color: rgba(255, 255, 255, .75); text-decoration: none; }
+.footer-legal a:hover { color: #fff; text-decoration: underline; }
+@media (pointer: coarse), (max-width: 720px) { .footer-legal a { display: inline-flex; align-items: center; min-height: 44px; } }
+@media print { .theme-switch { display: none !important; } }
+
+/* ---------- Document pages: privacy & terms, 404 (2026-11-13) ---------- */
+.doc-body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+.doc-body main { flex: 1; }
+.doc-brand-name { font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.doc { max-width: 760px; padding-top: 64px; padding-bottom: 88px; }
+.doc h1 { font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 750; letter-spacing: -0.035em; line-height: 1.08; margin: 10px 0 18px; }
+.doc h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; margin: 40px 0 12px; }
+.doc-lead { font-size: 1.15rem; color: var(--muted); margin-bottom: 28px; }
+.doc-list { display: grid; gap: 10px; margin: 0 0 16px; }
+.doc-list li { position: relative; padding-left: 20px; }
+.doc-list li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.doc code { font-size: .9em; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+.doc-updated { margin-top: 40px; font-size: 14px; color: var(--muted); }
+
+/* ---------- R3: email fallback toast (2026-11-13) ---------- */
+.mail-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 120; transform: translate(-50%, 16px); opacity: 0;
+  display: flex; align-items: center; gap: 10px; max-width: calc(100vw - 24px); padding: 10px 10px 10px 18px;
+  background: var(--ink); color: #fff; border-radius: 16px; box-shadow: var(--shadow-lg); font-size: 15px; line-height: 1.35;
+  transition: opacity .2s ease, transform .25s var(--ease, ease);
+}
+.mail-toast[hidden] { display: none; }
+.mail-toast.show { opacity: 1; transform: translate(-50%, 0); }
+.mail-toast-msg { overflow-wrap: anywhere; }
+.mail-toast-copy { appearance: none; border: 0; border-radius: 999px; padding: 0 16px; min-height: 40px; font: inherit; font-weight: 650; font-size: 14px; background: #fff; color: #0E2238; cursor: pointer; white-space: nowrap; }
+.mail-toast-copy:disabled { background: rgba(255, 255, 255, .16); color: #fff; cursor: default; }
+.mail-toast-close { appearance: none; border: 0; background: transparent; color: rgba(255, 255, 255, .75); font-size: 22px; line-height: 1; width: 40px; height: 40px; border-radius: 999px; cursor: pointer; }
+.mail-toast-close:hover { color: #fff; background: rgba(255, 255, 255, .08); }
+.mail-toast button:focus-visible { outline: 2px solid #9CC4F6; outline-offset: 2px; }
+@media (max-width: 720px) { .mail-toast { bottom: 88px; width: calc(100vw - 24px); } .mail-toast-copy, .mail-toast-close { min-height: 44px; height: 44px; } }
+[data-theme="dark"] .mail-toast { background: #1A3352; border: 1px solid #2C4A70; }
+@media (prefers-reduced-motion: reduce) { .mail-toast { transition: none; } }
+@media print { .mail-toast { display: none !important; } }
+
+/* ---------- R4: roles show three lines first on phones (2026-11-13) ---------- */
+.tl-more { display: none; }
+@media (max-width: 720px) {
+  .tl-clamp:not(.open) > li:nth-child(n+4) { display: none; }
+  .tl-more {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 4px; padding: 0 2px;
+    appearance: none; border: 0; background: none; font: inherit; font-size: 14.5px; font-weight: 650; color: var(--accent-ink); cursor: pointer;
+  }
+  .tl-more::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .2s ease; }
+  .tl-more[aria-expanded="true"]::after { transform: translateY(1px) rotate(-135deg); }
+  .tl-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+}
+@media print { .tl-clamp > li { display: list-item !important; } .tl-more { display: none !important; } }
+
+/* ---------- R5: every skill group links to its proof (2026-11-13) ---------- */
+.toolkit .proof { margin: 0 0 6px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.toolkit .proof a { color: var(--accent-ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--hairline, #C8DAF0); }
+.toolkit .proof a:hover { color: var(--accent); border-bottom-color: currentColor; }
+@media (pointer: coarse), (max-width: 720px) { .toolkit .proof a { display: inline-block; padding: 12px 0; margin: -12px 0; border-bottom: 0; text-decoration: underline; text-decoration-color: var(--hairline, #C8DAF0); text-underline-offset: 4px; } }
+.tl-item { scroll-margin-top: 96px; }
+
+/* ---------- Forced colors / Windows high contrast (2026-11-13) ----------
+   Backgrounds are replaced by system colors, so selected states also get an outline. */
+@media (forced-colors: active) {
+  .theme-opts button[aria-pressed="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .chapter-tab[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .nav-links a.active:not(.btn) { text-decoration: underline; }
+  .mail-toast { border: 1px solid CanvasText; }
+  .btn, .app-tile, .now-card, .case, .edu-card { border: 1px solid ButtonText; }
+}
+
+/* ---------- Restored sections, layout fixes (2026-11-13) ----------
+   Launch strip: every phase lines up at the top (a taller phase used to push the others' text down).
+   Studio picker: on wide screens all ten apps are visible at once instead of in a sideways scroller. */
+.phase-list li { align-content: start; }
+@media (min-width: 961px) {
+  .studio-index { flex-wrap: wrap; overflow: visible; row-gap: 10px; }
+}
+[data-theme="dark"] .pill-live { background: rgba(30, 158, 106, .16); color: #7FDDB4; }
+[data-theme="dark"] .studio-stage, [data-theme="dark"] .products-note { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .principle { background: var(--surface); border-color: var(--line); }
+[data-theme="dark"] .studio-pick:has(input:checked) img { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--c); }
+
+/* Restored sections, accessibility (2026-11-13): the demo frame and the phone phase scroller are keyboard-reachable
+   and show focus; the TK Hub button in the products note is a 44px target on touch screens. */
+.phone-frame:focus, .phase-list:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+@media (pointer: coarse), (max-width: 720px) { .products-note .btn { min-height: 44px; } }
+/* Keyboard focus inside the live demo (focus moves into the app's page once it loads): ring the phone frame itself. */
+.phone:focus-within, .phone.frame-focused { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Restored studio: breathing room below today's app tiles (2026-11-13). */
+.products .app-grid ~ .studio { margin-top: 48px; }
+@media (max-width: 720px) { .products .app-grid ~ .studio { margin-top: 32px; } }
+
+/* ---------- No text jump when the web font arrives (2026-11-13) ----------
+   A local Arial-metric font (Arial / Liberation Sans / Arimo) scaled to Inter's width and line metrics, measured in
+   Chromium per weight band and size class (Inter vs Liberation Sans regular/bold), ascent 0.97, descent 0.24. Text takes the same
+   space before and after Inter loads, so the hero and Now cards don't re-wrap. Inter itself is unchanged. */
+/* Text sizes (calibrated at 16px; Inter uses optical sizing, so small text is drawn wider than display text). */
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 449; font-style: normal; size-adjust: 105.69%; ascent-override: 91.78%; descent-override: 22.71%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 450 524; font-style: normal; size-adjust: 106.75%; ascent-override: 90.87%; descent-override: 22.48%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 525 574; font-style: normal; size-adjust: 107.27%; ascent-override: 90.43%; descent-override: 22.37%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 575 624; font-style: normal; size-adjust: 100.77%; ascent-override: 96.26%; descent-override: 23.82%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 625 674; font-style: normal; size-adjust: 101.25%; ascent-override: 95.80%; descent-override: 23.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 675 724; font-style: normal; size-adjust: 101.76%; ascent-override: 95.32%; descent-override: 23.58%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 725 900; font-style: normal; size-adjust: 102.35%; ascent-override: 94.77%; descent-override: 23.45%; line-gap-override: 0%; }
+/* Display sizes (32px and up: big headings and numbers). */
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 449; font-style: normal; size-adjust: 97.75%; ascent-override: 99.23%; descent-override: 24.55%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 450 524; font-style: normal; size-adjust: 99.58%; ascent-override: 97.41%; descent-override: 24.10%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 525 574; font-style: normal; size-adjust: 100.46%; ascent-override: 96.56%; descent-override: 23.89%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 575 624; font-style: normal; size-adjust: 94.78%; ascent-override: 102.34%; descent-override: 25.32%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 625 674; font-style: normal; size-adjust: 95.62%; ascent-override: 101.44%; descent-override: 25.10%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 675 724; font-style: normal; size-adjust: 96.48%; ascent-override: 100.54%; descent-override: 24.88%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 725 900; font-style: normal; size-adjust: 97.51%; ascent-override: 99.48%; descent-override: 24.61%; line-gap-override: 0%; }
+/* Same, for machines without Arial / Liberation Sans / Arimo: GNU FreeSans (common on Linux), calibrated separately
+   (FreeSans is 3.5% narrower than Arial at regular weight, 1% at bold). Browsers use whichever family is installed. */
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 100 449; font-style: normal; size-adjust: 109.50%; ascent-override: 88.58%; descent-override: 21.92%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 450 524; font-style: normal; size-adjust: 110.60%; ascent-override: 87.70%; descent-override: 21.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans"); font-weight: 525 574; font-style: normal; size-adjust: 111.14%; ascent-override: 87.28%; descent-override: 21.59%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 575 624; font-style: normal; size-adjust: 101.82%; ascent-override: 95.27%; descent-override: 23.57%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 625 674; font-style: normal; size-adjust: 102.30%; ascent-override: 94.82%; descent-override: 23.46%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 675 724; font-style: normal; size-adjust: 102.82%; ascent-override: 94.34%; descent-override: 23.34%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 725 900; font-style: normal; size-adjust: 103.42%; ascent-override: 93.80%; descent-override: 23.21%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 100 449; font-style: normal; size-adjust: 101.27%; ascent-override: 95.78%; descent-override: 23.70%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 450 524; font-style: normal; size-adjust: 103.17%; ascent-override: 94.02%; descent-override: 23.26%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans"); font-weight: 525 574; font-style: normal; size-adjust: 104.08%; ascent-override: 93.20%; descent-override: 23.06%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 575 624; font-style: normal; size-adjust: 95.77%; ascent-override: 101.29%; descent-override: 25.06%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 625 674; font-style: normal; size-adjust: 96.62%; ascent-override: 100.40%; descent-override: 24.84%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 675 724; font-style: normal; size-adjust: 97.48%; ascent-override: 99.50%; descent-override: 24.62%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Display Fallback FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 725 900; font-style: normal; size-adjust: 98.52%; ascent-override: 98.45%; descent-override: 24.36%; line-gap-override: 0%; }
+:root { --font: "Inter", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+.hero h1, .hero-promise, .section h2, .contact h2, .metric-num, .case-stat span, .doc h1 {
+  font-family: "Inter", "Inter Display Fallback", "Inter Display Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Wrap-sensitive blocks in the first screen on desktop: each gets a fallback scaled to its own text at its own size,
+   because a 1-2% width error is enough to change how many lines a paragraph takes (seen on CI, 2026-11-13). */
+@font-face { font-family: "Inter Fallback Promise"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 100 900; font-style: normal; size-adjust: 97.32%; ascent-override: 99.67%; descent-override: 24.66%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Promise FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 100 900; font-style: normal; size-adjust: 98.00%; ascent-override: 98.98%; descent-override: 24.49%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Desc"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 900; font-style: normal; size-adjust: 106.72%; ascent-override: 90.89%; descent-override: 22.49%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Desc FS"; src: local("FreeSans"); font-weight: 100 900; font-style: normal; size-adjust: 110.83%; ascent-override: 87.52%; descent-override: 21.65%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Lead"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"); font-weight: 100 900; font-style: normal; size-adjust: 106.92%; ascent-override: 90.72%; descent-override: 22.45%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Lead FS"; src: local("FreeSans"); font-weight: 100 900; font-style: normal; size-adjust: 110.57%; ascent-override: 87.73%; descent-override: 21.71%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Strong"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"), local("Arimo Bold"); font-weight: 100 900; font-style: normal; size-adjust: 99.83%; ascent-override: 97.17%; descent-override: 24.04%; line-gap-override: 0%; }
+@font-face { font-family: "Inter Fallback Strong FS"; src: local("FreeSans Bold"), local("FreeSansBold"); font-weight: 100 900; font-style: normal; size-adjust: 100.36%; ascent-override: 96.65%; descent-override: 23.91%; line-gap-override: 0%; }
+@media (min-width: 961px) {
+  .hero-promise { font-family: "Inter", "Inter Fallback Promise", "Inter Fallback Promise FS", "Inter Display Fallback", "Inter Display Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .now-desc { font-family: "Inter", "Inter Fallback Desc", "Inter Fallback Desc FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .hero .lead { font-family: "Inter", "Inter Fallback Lead", "Inter Fallback Lead FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .now-card strong { font-family: "Inter", "Inter Fallback Strong", "Inter Fallback Strong FS", "Inter Fallback", "Inter Fallback FS", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+}
+
+/* ---------- Print: every case study on paper (2026-11-14) ----------
+   On screen one case shows at a time (tabs). On paper all four print, with no fade-in (print caught its first,
+   invisible frame), the tab strip wraps instead of clipping, and cards are not split across pages. Screen unchanged. */
+@media print {
+  .js .chapter-panels .case:not(.is-on) { display: block; }
+  .js .chapter-panels .case, .js .chapter-panels .case.is-on { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .js .chapter-nav { position: static; flex-wrap: wrap; overflow: visible !important; }
+  .case, .principle, .now-card, .product, .edu-card, .metric, .chapter-tab, .site-footer { break-inside: avoid; }
+}
+
+/* ---------- One splash, only while loading (Terrell, Nov 13 10:01 PM CT) ----------
+   One screen: TF mark large and centred, "by TK Hub" and the TK Hub logo beneath. No timeline: it is opaque from first
+   paint and leaves (quick fade) the moment the page is ready, so it never adds a wait. The hero's entrance animations hold
+   while it is up and play as it lifts, instead of waiting a fixed 2 s. The older two-screen rules above stay unused. */
+.splash-on .splash { animation: none; transition: opacity .15s ease; }
+.splash.is-leaving { opacity: 0; pointer-events: none; }
+.splash-one { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; grid-auto-rows: max-content; gap: 10px; color: var(--ink); }
+.splash-one .splash-mark { width: clamp(120px, 20vw, 184px); height: auto; }
+.splash-by { margin: 18px 0 0; font-size: 12.5px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.splash-tk { width: 44px; height: 44px; border-radius: 11px; }
+.splash-on.js .hero .reveal.in:not(.split) { opacity: 0; transform: translateY(18px); }
+.splash-on.js .split.in .w > * { transform: translateY(110%); }
+.splash-on.js .brand-sign .sig { animation-play-state: paused; }
+.splash-on.js .phase-list.go::after { transform: scaleX(0); }
+.splash-on.js .phase-anim.go li { opacity: .4; }
+/* Dark theme: theme and splash classes sit on the same <html>, so the older "[data-theme] .splash-on" rule never matched. */
+[data-theme="dark"].splash-on .splash { background: var(--bg); }

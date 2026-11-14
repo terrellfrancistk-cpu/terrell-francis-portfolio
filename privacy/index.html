@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YEkNTKGKGf2Wc53iqt3SrWi1ZonVaLAzB3QE6yedVvw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Privacy & terms · Terrell Francis</title>
+  <meta name="description" content="Privacy and terms for terrellfrancis.app: no cookies, no analytics, no tracking.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0E2238">
+  <link rel="canonical" href="https://terrellfrancis.app/privacy/">
+  <meta property="og:url" content="https://terrellfrancis.app/privacy/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Terrell Francis">
+  <meta property="og:title" content="Privacy &amp; terms · Terrell Francis">
+  <meta property="og:description" content="Privacy and terms for terrellfrancis.app: no cookies, no analytics, no tracking.">
+  <meta property="og:image" content="https://terrellfrancis.app/assets/og-image-logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Terrell Francis, technology, operations and implementation leader">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://terrellfrancis.app/assets/og-image-logo.png">
+  <link rel="icon" href="../assets/icons/tf-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon-180.png" sizes="180x180">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="stylesheet" href="../styles.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        var pref = localStorage.getItem('tf-theme');
+        if (pref !== 'light' && pref !== 'dark') pref = 'system';
+        var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        d.setAttribute('data-theme', dark ? 'dark' : 'light');
+        d.setAttribute('data-theme-pref', pref);
+      } catch (e) {
+        d.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }
+    })(document.documentElement);
+  </script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+      <a class="brand" href="../" aria-label="Terrell Francis, home">
+        <svg class="brand-mark" viewBox="-8 -2 156 112" aria-hidden="true">
+          <g transform="translate(16,6) skewX(-14)">
+            <path fill="currentColor" d="M2 22C-4 30 0 12 12 14L96 14 108 6 96 24 14 24C8 24 4 26 2 22Z"/>
+            <path fill="currentColor" d="M14 18L32 18L24 72L10 86Z"/>
+            <path fill="#1E6BFF" d="M38 20L56 20L48 74L34 88Z"/>
+            <path fill="#1E6BFF" d="M38 16L94 16L104 8 94 26 38 26Z"/>
+            <path fill="#1E6BFF" d="M38 42L76 42L84 36 76 50 38 50Z"/>
+          </g>
+        </svg>
+        <span class="doc-brand-name">Terrell Francis</span>
+      </a>
+      <a class="btn btn-sm btn-ghost" href="../assets/Terrell_Francis_Resume.pdf" download>Resume <span aria-hidden="true">↓</span></a>
+    </nav>
+  </header>
+  <main id="main" class="doc container">
+    <p class="eyebrow">Privacy &amp; terms</p>
+    <h1>This site collects nothing about you.</h1>
+    <p class="doc-lead">terrellfrancis.app is a static résumé site. There is no sign-in, no form, no analytics, no ads, no tracking pixels, and this site sets no cookies.</p>
+
+    <h2>What your browser stores</h2>
+    <ul class="doc-list">
+      <li><strong>Splash seen</strong> (<code>tf-splash</code>, session storage): stops the opening animation from replaying in the same tab. Cleared when the tab closes.</li>
+      <li><strong>Theme</strong> (<code>tf-theme</code>, local storage): only if you pick Light or Dark in the footer. Picking System clears it.</li>
+    </ul>
+    <p>Both stay on your device. Neither is sent anywhere.</p>
+
+    <h2>Hosting</h2>
+    <p>The site is served by GitHub Pages. Like any web host, GitHub may log technical request data (such as IP address and browser type) to run and secure the service. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+    <p>Fonts and images are served from this site. The one exception is the live demo in the <a href="../#products">Products</a> section: when you scroll to it, a phone frame loads the selected TK Hub app's own website (for example apexpeakofcare.app), and picking another app loads that app's site. Those sites are run by TK Hub LLC and have their own privacy policies. Nothing else loads from another site.</p>
+
+    <h2>Links to other sites</h2>
+    <p>Links to LinkedIn, TK Hub LLC apps, and other sites open in a new tab. Those sites have their own privacy policies.</p>
+
+    <h2>Contacting me</h2>
+    <p>If you email or call using the details on the <a href="../#contact">contact section</a>, I use what you send only to reply. Ask me to delete a message and I will.</p>
+
+    <h2>Terms of use</h2>
+    <ul class="doc-list">
+      <li>Content, design, and the résumé © 2026 Terrell Francis. You may share links and quote with credit.</li>
+      <li>App names and logos belong to TK Hub LLC. Their links go to each app's own site and terms.</li>
+      <li>Figures describe past work, are rounded, and keep client names confidential.</li>
+      <li>The site is provided as is, without warranties.</li>
+    </ul>
+    <p class="doc-updated">Last updated November 13, 2026.</p>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Terrell Francis · TK Hub LLC · v2.0.0</p>
+      <a class="to-top" href="../">Back to terrellfrancis.app <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+</body>
+</html>

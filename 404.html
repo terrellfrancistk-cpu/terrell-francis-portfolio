@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YEkNTKGKGf2Wc53iqt3SrWi1ZonVaLAzB3QE6yedVvw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Page not found · Terrell Francis</title>
+  <meta name="description" content="This page does not exist on terrellfrancis.app.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0E2238">
+  <link rel="icon" href="/assets/icons/tf-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon-180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        var pref = localStorage.getItem('tf-theme');
+        if (pref !== 'light' && pref !== 'dark') pref = 'system';
+        var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        d.setAttribute('data-theme', dark ? 'dark' : 'light');
+        d.setAttribute('data-theme-pref', pref);
+      } catch (e) {
+        d.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }
+    })(document.documentElement);
+  </script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+      <a class="brand" href="/" aria-label="Terrell Francis, home">
+        <svg class="brand-mark" viewBox="-8 -2 156 112" aria-hidden="true">
+          <g transform="translate(16,6) skewX(-14)">
+            <path fill="currentColor" d="M2 22C-4 30 0 12 12 14L96 14 108 6 96 24 14 24C8 24 4 26 2 22Z"/>
+            <path fill="currentColor" d="M14 18L32 18L24 72L10 86Z"/>
+            <path fill="#1E6BFF" d="M38 20L56 20L48 74L34 88Z"/>
+            <path fill="#1E6BFF" d="M38 16L94 16L104 8 94 26 38 26Z"/>
+            <path fill="#1E6BFF" d="M38 42L76 42L84 36 76 50 38 50Z"/>
+          </g>
+        </svg>
+        <span class="doc-brand-name">Terrell Francis</span>
+      </a>
+      <a class="btn btn-sm btn-ghost" href="/assets/Terrell_Francis_Resume.pdf" download>Resume <span aria-hidden="true">↓</span></a>
+    </nav>
+  </header>
+  <main id="main" class="doc container">
+    <p class="eyebrow">404</p>
+    <h1>That page isn't here.</h1>
+    <p class="doc-lead">The link may be old or mistyped. Everything on this site lives on one page.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/">Go to terrellfrancis.app</a>
+      <a class="btn btn-ghost" href="/#experience">See experience</a>
+    </div>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Terrell Francis · TK Hub LLC · v2.0.0</p>
+      <a class="to-top" href="/">Back to terrellfrancis.app <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+</body>
+</html>

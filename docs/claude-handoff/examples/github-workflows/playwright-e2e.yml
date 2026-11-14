@@ -1,0 +1,56 @@
+# Draft workflow. Add in a PR. Do not merge or enable billing without Terrell's OK.
+# Refuses production hosts. Uses the staging environment secrets only.
+name: playwright-e2e
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "e2e/**"
+      - "web/**"
+      - "package.json"
+      - ".github/workflows/playwright-e2e.yml"
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Playwright
+        run: npx --yes playwright@latest install --with-deps chromium
+      - name: Refuse production URLs
+        env:
+          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
+        run: |
+          set -e
+          if [ -z "$E2E_BASE_URL" ]; then echo "E2E_BASE_URL missing"; exit 1; fi
+          echo "$E2E_BASE_URL" | grep -Eqi 'rork\.(app|live|work)|tryzilt\.app|getoncurb\.app|trybooked\.app|tryafterglow\.app|trynoir\.app|tryrole\.app|tryourpeople\.app|apexpeakofcare\.app|tkhub\.app|radr\.tkhub\.app' && {
+            echo "Refusing production or owned live host: $E2E_BASE_URL"
+            exit 1
+          }
+          echo "Staging host accepted."
+      - name: Run e2e
+        env:
+          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
+          E2E_USER: ${{ secrets.E2E_USER }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
+        run: |
+          if [ -f e2e/package.json ] || [ -f playwright.config.ts ] || [ -f e2e/playwright.config.ts ]; then
+            npx playwright test --reporter=html
+          else
+            mkdir -p artifacts
+            npx playwright screenshot --viewport-size=390,844 "$E2E_BASE_URL" artifacts/home-phone.png
+            npx playwright screenshot --viewport-size=1280,720 "$E2E_BASE_URL" artifacts/home-desktop.png
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-artifacts
+          path: |
+            artifacts/
+            playwright-report/
+            test-results/
+          retention-days: 7
