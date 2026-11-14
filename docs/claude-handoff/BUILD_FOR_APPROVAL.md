@@ -2,23 +2,23 @@
 
 **Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
 
-## Build waiting for approval: **`7927e4b2d0379fde`**
+## Build waiting for approval: **`df5b504cb085b929`**
 
 | | |
 |---|---|
-| Fingerprint | **`7927e4b2d0379fde`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
-| First commit with this build | `9bd7dfb` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
+| Fingerprint | **`df5b504cb085b929`** (every file `pages.yml` would publish, by git blob hash; doc-only and test-only commits keep it) |
+| First commit with this build | `9b53dbc` on `claude/sharp-franklin-6cwtfa` — PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) |
 | Live today | `main` @ `05fdba4`, fingerprint `57aeb1c21d5fadae` |
-| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 7927e4b2d0379fde`; anything else is not the approved build |
-| Superseded | `db03980d4050be2b` (preview `terrellfrancis-1113b`; this build only adds a Content-Security-Policy to every page: no visible change), `6bc9f6005afb81ff` (minutes earlier; same page, this build only corrects two page-source comments that still said the TORQ panel and About paragraph were held), `93e440e45e7721b9` (preview `terrellfrancis-1113`; this build applies Terrell's Nov 13 1:05 PM CT decision: link-preview image back to the live one, TORQ studio panel and About's second paragraph restored word for word, app marks and RADR wording kept), `7c738a17bd7183e5` and `0bc8c580c9651294` (same finished page; this build finishes the late-font fix so it also holds on GitHub's Linux runner: CI late-font jump 0.0268 desktop / 0.0022 phone), `ecc9f1c15aae6963` (same finished page; this build adds metric-matched fallback fonts so text no longer jumps when the web font arrives late), `7759189c3d8b5e34` (same page; this build only removes a vendor name from page-source comments, workflow headers and the README, per Terrell's Nov 13 decision), `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
+| Check before any merge | `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: df5b504cb085b929`; anything else is not the approved build |
+| Superseded | `7927e4b2d0379fde` (preview `terrellfrancis-1114`; this build only fixes printing: every case study now prints, screen unchanged), `db03980d4050be2b` (preview `terrellfrancis-1113b`; this build only adds a Content-Security-Policy to every page: no visible change), `6bc9f6005afb81ff` (minutes earlier; same page, this build only corrects two page-source comments that still said the TORQ panel and About paragraph were held), `93e440e45e7721b9` (preview `terrellfrancis-1113`; this build applies Terrell's Nov 13 1:05 PM CT decision: link-preview image back to the live one, TORQ studio panel and About's second paragraph restored word for word, app marks and RADR wording kept), `7c738a17bd7183e5` and `0bc8c580c9651294` (same finished page; this build finishes the late-font fix so it also holds on GitHub's Linux runner: CI late-font jump 0.0268 desktop / 0.0022 phone), `ecc9f1c15aae6963` (same finished page; this build adds metric-matched fallback fonts so text no longer jumps when the web font arrives late), `7759189c3d8b5e34` (same page; this build only removes a vendor name from page-source comments, workflow headers and the README, per Terrell's Nov 13 decision), `224a05f0a8707b30` and `2ca0bbddacb801f0` (earlier today; folders kept as a record). This build adds the Terrell-approved restore PR [terrellfrancistk-cpu/terrell-francis-portfolio#10](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/10) (`restore/2026-11-13`), merged in full. |
 
 ## Public preview (open on any phone or computer)
 
-**https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-1114/**
+**https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-1114b/**
 
-Free GitHub Pages in `terrellfrancistk-cpu/tkhub-preview` (folder `terrellfrancis-1114`, commit see `PREVIEW-BUILD.txt`), per Terrell's Nov 13 decision (no Vercel). It is build `7927e4b2d0379fde` exactly as `pages.yml` would publish it, with two preview-only edits per that repo's convention: `noindex, nofollow` on every page, and the 404 page's root links made relative. Checked in a browser: home, privacy and 404 load, all 35 images load (HD on retina), no errors. The live demo inside the page loads each TK Hub app's own site. The live terrellfrancis.app is unchanged.
+Free GitHub Pages in `terrellfrancistk-cpu/tkhub-preview` (folder `terrellfrancis-1114b`, commit see `PREVIEW-BUILD.txt`), per Terrell's Nov 13 decision (no Vercel). It is build `df5b504cb085b929` exactly as `pages.yml` would publish it, with two preview-only edits per that repo's convention: `noindex, nofollow` on every page, and the 404 page's root links made relative. Checked in a browser: home, privacy and 404 load, all 35 images load (HD on retina), no errors. The live demo inside the page loads each TK Hub app's own site. The live terrellfrancis.app is unchanged.
 
-## See it: `docs/claude-handoff/build-preview/7927e4b2d0379fde/`
+## See it: `docs/claude-handoff/build-preview/df5b504cb085b929/`
 
 Built exactly as `pages.yml` would publish (minified), on this sandbox, from the committed tree.
 
@@ -69,6 +69,6 @@ Built exactly as `pages.yml` would publish (minified), on this sandbox, from the
 Rows in `PROPOSED_REMOVALS.md`: phone bullet collapse (off), 4 icon-mark swaps (not done), RADR wording (restored as written), link-preview image swap, and two items held by the restore PR (TORQ studio panel, About's second paragraph), kept word for word in `HELD_FOR_TERRELL.md`.
 
 ## Approval
-To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build 7927e4b2d0379fde for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
+To approve, Terrell replies in his own words naming the fingerprint, e.g. *"Approved build df5b504cb085b929 for terrellfrancis.app."* Only then may PR #7 be merged (merging `main` publishes the site). Any change to the site's files after that changes the fingerprint and needs a new approval.
 
 Status: **waiting for Terrell to see and approve.**
