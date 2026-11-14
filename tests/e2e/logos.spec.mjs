@@ -60,3 +60,10 @@ test('TK Hub logo (splash "by TK Hub" and footer) is the vector master, sharp at
   expect(svg).toContain('#00CBF6');
   expect(svg).not.toContain('<image'); // pure vector, no embedded raster
 });
+
+test('privacy page link preview shows the real logo image too', async ({ page }) => {
+  await page.goto('/privacy/');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://terrellfrancis.app/assets/og-image-logo.png');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Privacy & terms · Terrell Francis');
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+});
