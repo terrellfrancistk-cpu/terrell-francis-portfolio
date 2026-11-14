@@ -1,5 +1,5 @@
 (() => {
-  // Splash: remove from the DOM once it has faded, or on tap/key; never block the page past ~2.5s.
+  // Splash: remove from the DOM as soon as the page is ready, or on tap/key; never block the page past ~2.5s.
   const splash = document.getElementById('splash');
   if (splash) {
     const html = document.documentElement;
@@ -8,6 +8,11 @@
       splash.addEventListener('animationend', (e) => { if (e.animationName === 'splashOut') done(); });
       splash.addEventListener('click', done);
       document.addEventListener('keydown', done, { once: true });
+      // Only while loading (Terrell, Nov 13 10:01 PM CT): leave as soon as the page is ready (DOM parsed, fonts in).
+      // No minimum time. A quick fade, then gone. The timer below is only a safety net if the fonts never settle.
+      const leave = () => { if (!splash.isConnected || splash.classList.contains('is-leaving')) return; splash.classList.add('is-leaving'); setTimeout(done, 160); };
+      const domReady = new Promise((r) => (document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', r, { once: true }) : r()));
+      Promise.all([domReady, document.fonts ? document.fonts.ready : Promise.resolve()]).then(leave, leave);
       setTimeout(done, 2600);
     } else done();
   }

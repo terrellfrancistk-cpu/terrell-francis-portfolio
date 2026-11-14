@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-snJ6edTMykguAVePVkm3cpzXNjfm6cbPSK+lktqquGE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-OCE8FgoefwTXrIeyfY0zLlUWXirX+Y9uTP1GHsFRBBc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <title>Terrell Francis · Director of Technology Development &amp; Operations · Implementation Leader · Founder, TK Hub</title>
   <meta name="description" content="Terrell Francis is Director of Technology Development &amp; Operations at Talencia and founder of TK Hub LLC. 85+ concurrent SaaS implementations, a playbook that cut implementation cycle time ~85%, an ~800-device go-live, and 10 shipped apps.">
   <meta name="author" content="Terrell Francis">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Terrell Francis">
   <meta property="og:title" content="Terrell Francis · Technology, Operations & Implementation Leader">
   <meta property="og:description" content="Director of Technology Development & Operations, Talencia · Founder, TK Hub LLC · 85+ concurrent SaaS implementations · ~85% shorter cycle time · ~800-device go-live.">
-  <meta property="og:image" content="https://terrellfrancis.app/assets/og-image.png">
+  <meta property="og:image" content="https://terrellfrancis.app/assets/og-image-logo.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Terrell Francis, technology, operations and implementation leader">
@@ -25,10 +25,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Terrell Francis · Technology, Operations & Implementation Leader">
   <meta name="twitter:description" content="85+ concurrent SaaS implementations · ~85% shorter implementation cycle time · ~800-device go-live.">
-  <meta name="twitter:image" content="https://terrellfrancis.app/assets/og-image.png">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="twitter:image" content="https://terrellfrancis.app/assets/og-image-logo.png">
+  <link rel="icon" href="assets/icons/tf-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon-180.png" sizes="180x180">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
@@ -70,16 +71,21 @@
         var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
         // ?splash=1 replays the splash (QA and automated checks); reduced motion still wins.
         var force = /[?&]splash=1(&|$)/.test(location.search);
+        // Only on a fresh visit (not a reload or back/forward, which load from cache) and once per session.
+        var nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {};
+        var fresh = nav.type !== 'reload' && nav.type !== 'back_forward';
         if (force && !rm) { d.classList.add('splash-on'); }
-        else if (!seen && !rm && !navigator.webdriver) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
+        else if (!seen && fresh && !rm && !navigator.webdriver) { d.classList.add('splash-on'); sessionStorage.setItem('tf-splash', '1'); }
       } catch (e) {}
     })(document.documentElement);
   </script>
 </head>
 <body>
-  <!-- Splash: TF mark → TK Hub → page. Runs once per session; skipped for reduced motion or without JS. -->
+  <!-- Splash (Terrell, Nov 13 10:01 PM CT): ONE screen, TF mark large and centred, "by TK Hub" and the TK Hub logo beneath.
+       Shown only while the page is still loading: no minimum time, gone as soon as the page is ready. Skipped on reloads,
+       after the first visit in a session, for reduced motion, and without JS. -->
   <div class="splash" id="splash" aria-hidden="true">
-    <div class="splash-a">
+    <div class="splash-one">
       <svg class="splash-mark" viewBox="-8 -2 156 112" aria-hidden="true">
         <g transform="translate(16,6) skewX(-14)">
           <path fill="currentColor" d="M2 22C-4 30 0 12 12 14L96 14 108 6 96 24 14 24C8 24 4 26 2 22Z"/>
@@ -89,10 +95,8 @@
           <path fill="#1E6BFF" d="M38 42L76 42L84 36 76 50 38 50Z"/>
         </g>
       </svg>
-    </div>
-    <div class="splash-b">
-      <img src="assets/tkhub-logo.png" srcset="assets/tkhub-logo.png 112w, assets/tkhub-logo@hd.webp 209w" sizes="96px" width="96" height="96" alt="" decoding="async">
-      <span>TK Hub</span>
+      <p class="splash-by">by TK Hub</p>
+      <img class="splash-tk" src="assets/tkhub-logo.png" srcset="assets/tkhub-logo.png 112w, assets/tkhub-logo@hd.webp 209w" sizes="44px" width="44" height="44" alt="" decoding="async">
     </div>
   </div>
   <span id="top" class="top-anchor" tabindex="-1"></span>

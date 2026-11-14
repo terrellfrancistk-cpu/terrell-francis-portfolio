@@ -5,11 +5,15 @@ import { open } from './helpers.mjs';
 // marks, RADR wording, the TORQ studio panel and About's second paragraph (add-only rule).
 // These checks fail if a later change quietly undoes that decision.
 
-test('link-preview image stays the live one', async ({ page }) => {
+// Terrell, Nov 13 10:01 PM CT (later order): the link preview must show the real logo. og-image-logo.png is the live
+// image with the real TF mark in place of the plain "TF" text badge; nothing else changed. The old file is kept.
+test('link-preview image is the live one with the real TF mark', async ({ page, request }) => {
   await open(page);
   for (const sel of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
-    await expect(page.locator(sel)).toHaveAttribute('content', 'https://terrellfrancis.app/assets/og-image.png');
+    await expect(page.locator(sel)).toHaveAttribute('content', 'https://terrellfrancis.app/assets/og-image-logo.png');
   }
+  expect((await request.get('/assets/og-image-logo.png')).status()).toBe(200);
+  expect((await request.get('/assets/og-image.png')).status()).toBe(200);
   await expect(page.locator('meta[property="og:image:alt"]'))
     .toHaveAttribute('content', 'Terrell Francis, technology, operations and implementation leader');
 });

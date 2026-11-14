@@ -1063,3 +1063,21 @@ html, body { overflow-x: clip; }
   .js .chapter-nav { position: static; flex-wrap: wrap; overflow: visible !important; }
   .case, .principle, .now-card, .product, .edu-card, .metric, .chapter-tab, .site-footer { break-inside: avoid; }
 }
+
+/* ---------- One splash, only while loading (Terrell, Nov 13 10:01 PM CT) ----------
+   One screen: TF mark large and centred, "by TK Hub" and the TK Hub logo beneath. No timeline: it is opaque from first
+   paint and leaves (quick fade) the moment the page is ready, so it never adds a wait. The hero's entrance animations hold
+   while it is up and play as it lifts, instead of waiting a fixed 2 s. The older two-screen rules above stay unused. */
+.splash-on .splash { animation: none; transition: opacity .15s ease; }
+.splash.is-leaving { opacity: 0; pointer-events: none; }
+.splash-one { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; grid-auto-rows: max-content; gap: 10px; color: var(--ink); }
+.splash-one .splash-mark { width: clamp(120px, 20vw, 184px); height: auto; }
+.splash-by { margin: 18px 0 0; font-size: 12.5px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.splash-tk { width: 44px; height: 44px; border-radius: 11px; }
+.splash-on.js .hero .reveal.in:not(.split) { opacity: 0; transform: translateY(18px); }
+.splash-on.js .split.in .w > * { transform: translateY(110%); }
+.splash-on.js .brand-sign .sig { animation-play-state: paused; }
+.splash-on.js .phase-list.go::after { transform: scaleX(0); }
+.splash-on.js .phase-anim.go li { opacity: .4; }
+/* Dark theme: theme and splash classes sit on the same <html>, so the older "[data-theme] .splash-on" rule never matched. */
+[data-theme="dark"].splash-on .splash { background: var(--bg); }
