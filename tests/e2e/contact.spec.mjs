@@ -17,9 +17,13 @@ const KEEP = {
 
 test('email: hero, contact and dock links all present and unchanged; shown address unchanged', async ({ page }) => {
   await open(page);
-  const hrefs = await page.$$eval('a[href^="mailto:"]', (as) => as.map((a) => a.getAttribute('href')));
-  expect(hrefs.length).toBeGreaterThanOrEqual(3);
+  // Terrell's own contact links (hero, contact, dock) must stay exactly as they are.
+  const hrefs = await page.$$eval('.hero a[href^="mailto:"], .contact a[href^="mailto:"], .dock a[href^="mailto:"]', (as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs.length).toBe(3);
   for (const h of hrefs) expect(sha(decodeURIComponent(h.slice(7).split('?')[0]))).toBe(KEEP.email);
+  // The only other address allowed on the page is TK Hub's product support inbox (support.spec.mjs).
+  const others = await page.$$eval('a[href^="mailto:"]', (as) => as.filter((a) => !a.closest('.hero, .contact, .dock')).map((a) => a.getAttribute('href')));
+  for (const h of others) expect(h).toBe('mailto:support@tkhub.app');
   for (const where of ['.hero', '.contact', '.dock']) await expect(page.locator(`${where} a[href^="mailto:"]`)).toHaveCount(1);
   const shown = (await page.locator('.contact-email').textContent()).replace(/\s|​/g, '');
   expect(sha(shown)).toBe(KEEP.email);
