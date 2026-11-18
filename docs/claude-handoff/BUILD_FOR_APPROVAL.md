@@ -1,5 +1,9 @@
 # BUILD_FOR_APPROVAL — terrellfrancis.app
 
+## PUBLISHED Nov 18 (evening): build `57f1b2f6d5e6d931` is live
+
+Nov 18 brief from Terrell (via Chief): TK Hub / product contact is `support@tkhub.app`; merges with green CI are OK on the normal publish path. PR [terrellfrancistk-cpu/terrell-francis-portfolio#12](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/12) merged at head `e77975c` (fingerprint `57f1b2f6d5e6d931`, CI green, `main` `9e2737c` was its ancestor) as merge commit `bb82ee4`. Preview shown first: `tkhub-preview/terrellfrancis-1118b`. Published `gh-pages` tree checked: CSS/JS/manifest identical to the preview, HTML = merged source, no docs/tests published, no build-tool names in any published file. Supersedes `92b7a82a0002d52f` (below).
+
 ## PUBLISHED Nov 18: build `92b7a82a0002d52f` is live (Terrell approved Nov 18, 11:51 AM CT: "publish and merge.")
 
 PR [terrellfrancistk-cpu/terrell-francis-portfolio#11](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/11) merged at head `5c4b444` (checked: fingerprint `92b7a82a0002d52f`, CI green, `main` `73b64dd` was its ancestor) as merge commit `9e2737c`; pages.yml run 28 succeeded. Published `gh-pages` tree checked file by file: 51/51 files match `build-preview/92b7a82a0002d52f/minified-files.sha256`; no docs/tests published. Held back: PR #8 (Talencia role update) stays a draft, untouched; nothing in PROPOSED_REMOVALS acted on.
