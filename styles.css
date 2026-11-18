@@ -1090,3 +1090,10 @@ html, body { overflow-x: clip; }
 @media (min-width: 961px) {
   .studio-index { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); justify-items: center; gap: 14px 6px; }
 }
+
+/* ---------- TK Hub product support contact (2026-11-18) ----------
+   Product and app questions go to support@tkhub.app (footer, privacy page, structured data). */
+.footer-support { margin: 14px 0 0; font-size: 13.5px; color: rgba(255, 255, 255, .62); }
+.footer-support a { color: rgba(255, 255, 255, .86); text-decoration: underline; text-underline-offset: 3px; }
+.footer-support a:hover { color: #fff; }
+@media (max-width: 720px) { .footer-support a { display: inline-flex; align-items: center; min-height: 44px; } }
