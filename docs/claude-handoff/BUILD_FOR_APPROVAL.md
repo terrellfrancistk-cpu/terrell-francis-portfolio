@@ -1,6 +1,19 @@
 # BUILD_FOR_APPROVAL — terrellfrancis.app
 
-**Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is still `main` @ `05fdba4`.
+## Waiting for approval (Nov 18): build `92b7a82a0002d52f`
+
+Design grade pass on top of the live build: two alignment fixes, CSS only (phone process strip keeps the page gutter; desktop app picker is two even rows of five). Only `styles.css` differs from the live build `64da6017edc73e0b`. Commit `aa4c795` on `claude/sharp-franklin-6cwtfa`.
+
+Public preview: **https://terrellfrancistk-cpu.github.io/tkhub-preview/terrellfrancis-1118/** · screenshots: `docs/claude-handoff/build-preview/92b7a82a0002d52f/` · grade sheet: `docs/claude-handoff/DESIGN_GRADE.md`.
+
+Check before any merge: `bash tests/build-fingerprint.sh <commit>` must print `fingerprint: 92b7a82a0002d52f`. Not live until Terrell approves this exact build.
+
+## PUBLISHED: build `64da6017edc73e0b` is live (Terrell approved Nov 14, 1:32 AM CT)
+
+Terrell: "terrellfrancis.app: publish build 1114f". PR [terrellfrancistk-cpu/terrell-francis-portfolio#7](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/7) merged at head `e6aa83c` (checked: fingerprint `64da6017edc73e0b`, `main` `05fdba4` was its ancestor) as merge commit `73b64dd`; `pages.yml` run 27 succeeded. The published `gh-pages` tree was checked file by file: all 51 published files match this build's approval record (`build-preview/64da6017edc73e0b/minified-files.sha256`), the three HTML pages match the merged source, and no docs/tests were published. Email, phone and résumé PDF are identical to the previous live site. Nothing after this build was published.
+
+
+**Terrell's rule:** never publish, deploy or push any website live unless he has personally seen and approved that exact build. Nothing here is live. The live site is now `main` @ `73b64dd` (build `64da6017edc73e0b`).
 
 ## Build waiting for approval: **`64da6017edc73e0b`**
 

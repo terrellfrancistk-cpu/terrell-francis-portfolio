@@ -37,7 +37,7 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 | UX-3 | Present | No sample or placeholder data; every figure is attributed to its employer |
 | UX-4, UX-5 | N/A | Nothing loads after first paint; no lists to refresh |
 | OBS-1 | N/A | No crash SDK exists, and VISION says not to add one unasked |
-| OBS-2 | **BLOCKED** (merge) | `.github/workflows/uptime.yml` drafted (read-only GETs, manual). A dispatch-only workflow can only run from the default branch, so it needs Terrell's OK to merge; the schedule stays commented until he OKs it |
+| OBS-2 | Present | `.github/workflows/uptime.yml` (read-only GETs) is on `main` since the Nov 14 publish. First run (run 43574055208, from GitHub's network): `/` 200, résumé PDF 200, `/privacy/` 200, link-preview image 200, unknown path 404. Manual for now; turning on its 6-hourly schedule waits for Terrell's OK |
 | OBS-3 | Present | No analytics, logs or push; zero third-party requests (`pages.spec.mjs › loads nothing from third parties`) |
 | COM-1…COM-3, PAY-1…PAY-5 | N/A | No email sending, push, SMS or purchases |
 | A11Y-1 | Present (web) | axe WCAG 2.1 A/AA = 0 violations in light and dark, on home, privacy and 404 (`a11y`, `theme`, `pages` specs); keyboard tabs; 44 px phone targets; element-level contrast; visible focus on every control; reflow at 320–1920 px; readable with JS off; selected states visible in forced colors (`robustness.spec.mjs`). VoiceOver/TalkBack on a real phone is on the handoff |
@@ -73,6 +73,8 @@ terrellfrancis.app is a static, single-page résumé site: no accounts, no forms
 **Update 2026-11-13 (block 6):** CI-1 confirmed green on PR #7 (every head since). Terrell decided every PROPOSED_REMOVALS and REMOVAL_AUDIT row: keep as is, nothing removed or restored; his email and phone stay exactly as they are (now guarded by `contact.spec.mjs`). **Score: 22/24 = 92% strict.** Open: OBS-2 (needs merge OK) and SPEC "honest store badges" (needs his answer on "10 apps shipped, idea to store").
 
 **Current state, 2026-11-13 (block 19):** **23/24 = 96% strict.** Only open row: OBS-2 (uptime check; it can only run after a merge to `main`, which needs Terrell's OK). Since block 7: Terrell's 1:05 PM CT decision applied (link-preview image kept as live; TORQ studio panel and About's second paragraph restored; app marks and RADR wording kept), so `PROPOSED_REMOVALS.md` has nothing pending. Builds waiting for approval: `db03980d4050be2b` (PR #7) and `949a061b13dd5dda` (PR #8), both with public previews (`BUILD_FOR_APPROVAL.md`) and green CI. The block 7 note at the bottom of this file is kept for the record.
+
+**Published, 2026-11-14 (block 29):** build `64da6017edc73e0b` is live (Terrell approved Nov 14, 1:32 AM CT). OBS-2 now Present (uptime check ran green against the live domain). **Score: 24/24 = 100% strict** on the applicable STANDARD + SPEC rows. Still for a person: H2 (click 4 links the sandbox cannot reach), a real-phone VoiceOver/TalkBack pass, H14 (create the free `terrellfrancis-preview` repo).
 
 ---
 

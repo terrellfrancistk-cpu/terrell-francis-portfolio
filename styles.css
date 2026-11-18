@@ -1081,3 +1081,12 @@ html, body { overflow-x: clip; }
 .splash-on.js .phase-anim.go li { opacity: .4; }
 /* Dark theme: theme and splash classes sit on the same <html>, so the older "[data-theme] .splash-on" rule never matched. */
 [data-theme="dark"].splash-on .splash { background: var(--bg); }
+
+/* ---------- Design grade pass (2026-11-18): white space, hierarchy, alignment ----------
+   Phone: the "How I run an implementation" scroller snapped its first card flush to the screen edge; it now keeps the
+   page's 20px gutter like everything else. Desktop: the app picker wrapped 8 + 2; it is now two even rows of five that
+   span the panel's width. Nothing removed; same ten apps, same order. */
+.phase-list { scroll-padding-inline: 20px; }
+@media (min-width: 961px) {
+  .studio-index { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); justify-items: center; gap: 14px 6px; }
+}
