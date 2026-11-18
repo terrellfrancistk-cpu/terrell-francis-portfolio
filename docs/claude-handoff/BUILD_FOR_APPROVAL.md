@@ -1,5 +1,11 @@
 # BUILD_FOR_APPROVAL — terrellfrancis.app
 
+## PUBLISHED Nov 18: build `92b7a82a0002d52f` is live (Terrell approved Nov 18, 11:51 AM CT: "publish and merge.")
+
+PR [terrellfrancistk-cpu/terrell-francis-portfolio#11](https://github.com/terrellfrancistk-cpu/terrell-francis-portfolio/pull/11) merged at head `5c4b444` (checked: fingerprint `92b7a82a0002d52f`, CI green, `main` `73b64dd` was its ancestor) as merge commit `9e2737c`; pages.yml run 28 succeeded. Published `gh-pages` tree checked file by file: 51/51 files match `build-preview/92b7a82a0002d52f/minified-files.sha256`; no docs/tests published. Held back: PR #8 (Talencia role update) stays a draft, untouched; nothing in PROPOSED_REMOVALS acted on.
+
+The section below is the pre-approval note, kept for the record.
+
 ## Waiting for approval (Nov 18): build `92b7a82a0002d52f`
 
 Design grade pass on top of the live build: two alignment fixes, CSS only (phone process strip keeps the page gutter; desktop app picker is two even rows of five). Only `styles.css` differs from the live build `64da6017edc73e0b`. Commit `aa4c795` on `claude/sharp-franklin-6cwtfa`.
