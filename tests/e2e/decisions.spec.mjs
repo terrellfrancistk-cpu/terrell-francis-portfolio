@@ -43,3 +43,16 @@ test("About's second paragraph is on the page", async ({ page }) => {
   await open(page);
   await expect(page.locator('#about')).toContainText("Now I'm Director of Technology Development & Operations at Talencia");
 });
+
+// Terrell (Nov 21): keep https://tkhub.app/drive/ fully intact and easy to reach.
+test('TORQ panel links straight to the playable Drive demo at tkhub.app/drive/', async ({ page }) => {
+  await open(page);
+  await page.locator('label.studio-pick:has(#app-wrace)').click();
+  const drive = page.locator('.studio-panel.panel-wrace a[href="https://tkhub.app/drive/"]');
+  await expect(drive).toHaveCount(1);
+  await expect(drive).toBeVisible();
+  await expect(drive).toHaveAttribute('target', '_blank');
+  await expect(drive).toHaveAttribute('rel', /noopener/);
+  // The existing TORQ link is unchanged.
+  await expect(page.locator('.studio-panel.panel-wrace a[href="https://tkhub.app/"]')).toHaveText(/TORQ at tkhub\.app/);
+});
