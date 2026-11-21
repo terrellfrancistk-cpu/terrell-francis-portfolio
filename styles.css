@@ -1097,3 +1097,9 @@ html, body { overflow-x: clip; }
 .footer-support a { color: rgba(255, 255, 255, .86); text-decoration: underline; text-underline-offset: 3px; }
 .footer-support a:hover { color: #fff; }
 @media (max-width: 720px) { .footer-support a { display: inline-flex; align-items: center; min-height: 44px; } }
+
+/* ---------- Drive link (2026-11-21) ----------
+   Terrell: keep https://tkhub.app/drive/ fully intact and easy to reach. The TORQ panel adds a direct link to it. */
+.product-link-2 { display: inline-block; margin-top: 10px; }
+.studio-panel .product-link + .product-link-2 { margin-left: 18px; }
+@media (max-width: 720px) { .studio-panel .product-link + .product-link-2 { margin-left: 0; display: table; } }
